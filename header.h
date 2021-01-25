@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <vector>
+#include <array>
 #include <bitset>
 
 
@@ -57,6 +58,14 @@ enum E_COLOR
     WHITE, BLACK, BOTH
 };
 
+
+enum E_CASTLE_RIGHTS
+{
+    wK_castle = 1,
+    wQ_castle = 2,
+    bK_castle = 4,
+    bQ_castle = 8
+};
 /* Function Declarations */
 
 /* Structures and Classes */
@@ -77,30 +86,52 @@ typedef struct S_BOARD
     * 
     *   Additionally, member functions to assist with D.S. manipulation are WIP
     */
+
+  
     
     int                     plys;
+
+    E_COLOR                 sideToMove;
+
     std::vector<History>    moveHistory;
 
     int                     fiftyMoveRuleCount;
-    int                     enPassantSquare;
+
+    E_SQUARE                enPassantSquare;
+
+    U64                     posHashKey;
+    
+    std::array<int, 13>     countPiece;                     // Count Pieces of each type and color.
+
+    char                    castleRights;                   // Bitwise OR of E_CASTLE_RIGHTS
+                     
 
     /*
         Piece Lists, Bitboards etc
     */
 
     std::bitset<64>         pawnBitBoard[3];                // For WHITE, BLACK and BOTH
+
     std::bitset<256>        posBitBoard;                    // Color independant. 4bits per square * 64 squares
 
 
-
+    /*  Open Questions */
+    //  Do we store which squares the minor pieces are on?
+    //  Do we store set of legal moves in the position? in a vector or LL?
+    //  Does the generate moves (Set of) function(s) reside as a member function?
+    //  How to modularise
 
     /* ToDo */
 
+    //  Assert in constructor that sideToMove is W or B, not 'Both'
     //  Set bit of square X on pawn bitboard 
     //  Function Prototypes to retrieve piece at given E_Square sq. [Check if sq is onboard]
     //  Function Prototypes to remove ''
     //  Function Prototypes to add    ''
     //  Much more
+    //  Read and parse FEN
+    //  Write Constructor
+    //  Hashkey to detect 3-fold (player must claim draw) and 5-fold (forced draw) repetition
 
 
 
