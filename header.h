@@ -17,13 +17,24 @@ typedef unsigned long long int  U64;
 #define BOARD_SIZE              (120)
 #define MAX_MOVES               (2048)
 
-#define FR2SQ(f, r)             (10 + ((r) * 10) + (f))             // Convert File, Rank to 120 based Square indexing
+#define FR2SQ(f, r)             (10 + ((r) * 10) + (f))     // Convert File, Rank to 120 based Square indexing
 
-#define SQ120(sq64)             (10 + ((sq64 / 8 + 1) * 10) + (sq64 % 8 + 1))             // Given Square in 64  based indexing convert to 120 based indexing
-#define SQ64(sq120)             ((8*((sq120)/10))+((sq120)%10)-17)  // Given Square in 120 based indexing convert to 64  based indexing
+#define SQ120(sq64)             (10 + ((sq64 / 8 + 1) * 10) + (sq64 % 8 + 1))       // Given Square in 64  based indexing convert to 120 based indexing
+#define SQ64(sq120)             sq120To64[sq120]                                    // Given Square in 120 based indexing convert to 64  based indexing
 
-#define SQ2FILE(sq120)          ((sq120) % 10)                      // Given square in 120 indexing, find corresponding file
-#define SQ2RANK(sq120)          (((sq120) / 10) - 1)                // Given square in 120 indexing, find corresponding rank
+/*  
+Given Square in 120 based indexing convert to 64  based indexing
+
+#define SQ64(sq120)             ((sq120 % 10 == 0) || (sq120 % 10 == 9) ||  \       
+                                (sq120 < 20) || (sq120 > 99)) ?  99 :       \
+                                ((8*((sq120)/10))+((sq120)%10)-17)  
+
+
+#define SQ64(sq120)           ((8*((sq120)/10))+((sq120)%10)-17)                          
+*/
+
+#define SQ2FILE(sq120)          ((sq120) % 10)              // Given square in 120 indexing, find corresponding file
+#define SQ2RANK(sq120)          (((sq120) / 10) - 1)        // Given square in 120 indexing, find corresponding rank
 
 /* Enumerations */
 
@@ -71,6 +82,24 @@ enum E_CASTLE_RIGHTS
     wQ_castle = 2,
     bK_castle = 4,
     bQ_castle = 8
+};
+
+/* Arrays */
+
+char sq120To64[120] = 
+{
+    99,   99,   99,   99,   99,   99,   99,   99,   99,   99,
+    99,   99,   99,   99,   99,   99,   99,   99,   99,   99,
+    99,    0,    1,    2,    3,    4,    5,    6,    7,   99,
+    99,    8,    9,   10,   11,   12,   13,   14,   15,   99,
+    99,   16,   17,   18,   19,   20,   21,   22,   23,   99,
+    99,   24,   25,   26,   27,   28,   29,   30,   31,   99,
+    99,   32,   33,   34,   35,   36,   37,   38,   39,   99,
+    99,   40,   41,   42,   43,   44,   45,   46,   47,   99,
+    99,   48,   49,   50,   51,   52,   53,   54,   55,   99,
+    99,   56,   57,   58,   59,   60,   61,   62,   63,   99,
+    99,   99,   99,   99,   99,   99,   99,   99,   99,   99,
+    99,   99,   99,   99,   99,   99,   99,   99,   99,   99
 };
 
 
