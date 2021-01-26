@@ -10,14 +10,20 @@
 
 
 /* Macros and Typedefs */
-typedef unsigned long long int uint64;
-typedef unsigned long long int U64;
+typedef unsigned long long int  uint64;
+typedef unsigned long long int  U64;
 
-#define NAME        "Dexter 1.0" 
-#define BOARD_SIZE  (120)
+#define NAME                    "Dexter 1.0" 
+#define BOARD_SIZE              (120)
+#define MAX_MOVES               (2048)
 
+#define FR2SQ(f, r)             (10 + (r * 10) + (f))               // Convert File, Rank to 120 based Square indexing
 
+#define SQ120(sq64)             ()                                  // Given Square in 64  based indexing convert to 120 based indexing
+#define SQ64(sq120)             ((8*((sq120)/10))+((sq120)%10)-17)  // Given Square in 120 based indexing convert to 64  based indexing
 
+#define SQ2FILE(sq120)          ((sq120) % 10)                      // Given square in 120 indexing, find corresponding file
+#define SQ2RANK(sq120)          (((sq120) / 10) - 1)                // Given square in 120 indexing, find corresponding rank
 
 /* Enumerations */
 
@@ -66,43 +72,42 @@ enum E_CASTLE_RIGHTS
     bK_castle = 4,
     bQ_castle = 8
 };
+
+
 /* Function Declarations */
+
+
+
 
 /* Structures and Classes */
 
 
 typedef struct S_HISTORY
 {
-    /* data */
+    int                     move;                           // What move was played 
+    int                     castlePermissions;              // Castle Permissions when (after??) this move is made
+    E_SQUARE                enPassantSquare;                // En Passant Square 
+    U64                     posHashKey;                     // Hashkey of position when(after??) the move was made
     
 } History;
 
 typedef struct S_BOARD
 {
-    /*
-    *   This Data Structure aims to store all properties that uniquely define a board  
-    * 
-    *   Additional properties are stored with aim of improving calculations at cost of memory
-    * 
-    *   Additionally, member functions to assist with D.S. manipulation are WIP
-    */
+    /**
+     *   This Data Structure aims to store all properties that uniquely define a board  
+     *   Additional properties are stored with aim of improving calculations at cost of memory
+     *   Additionally, member functions to assist with D.S. manipulation are WIP
+    **/
 
   
     
     int                     plys;
-
     E_COLOR                 sideToMove;
-
     std::vector<History>    moveHistory;
-
-    int                     fiftyMoveRuleCount;
-
+    int                     fiftyMoveRuleCount;             // Moves since last capture. If >50 then draw. 
     E_SQUARE                enPassantSquare;
-
     U64                     posHashKey;
-    
     std::array<int, 13>     countPiece;                     // Count Pieces of each type and color.
-
     char                    castleRights;                   // Bitwise OR of E_CASTLE_RIGHTS
                      
 
@@ -111,7 +116,6 @@ typedef struct S_BOARD
     */
 
     std::bitset<64>         pawnBitBoard[3];                // For WHITE, BLACK and BOTH
-
     std::bitset<256>        posBitBoard;                    // Color independant. 4bits per square * 64 squares
 
 

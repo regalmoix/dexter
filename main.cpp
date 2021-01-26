@@ -12,6 +12,11 @@
 
 int main()
 {
-    
+    int sq120 = C5;
+    int file = SQ2FILE(sq120);
+    int rank = SQ2RANK(sq120);
+
+    std::cout << "File " << SQ2FILE(sq120) << " Rank " << SQ2RANK(sq120) << " | " << " 64 based index " << SQ64(sq120) << std::endl;
+    std::cout << "Verifying FR2SQ " << FR2SQ(file, rank) << " and sq120 is " << sq120 << std::endl;
     return 0;
 }
