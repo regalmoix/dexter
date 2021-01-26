@@ -17,9 +17,9 @@ typedef unsigned long long int  U64;
 #define BOARD_SIZE              (120)
 #define MAX_MOVES               (2048)
 
-#define FR2SQ(f, r)             (10 + (r * 10) + (f))               // Convert File, Rank to 120 based Square indexing
+#define FR2SQ(f, r)             (10 + ((r) * 10) + (f))             // Convert File, Rank to 120 based Square indexing
 
-#define SQ120(sq64)             ()                                  // Given Square in 64  based indexing convert to 120 based indexing
+#define SQ120(sq64)             (10 + ((sq64 / 8 + 1) * 10) + (sq64 % 8 + 1))             // Given Square in 64  based indexing convert to 120 based indexing
 #define SQ64(sq120)             ((8*((sq120)/10))+((sq120)%10)-17)  // Given Square in 120 based indexing convert to 64  based indexing
 
 #define SQ2FILE(sq120)          ((sq120) % 10)                      // Given square in 120 indexing, find corresponding file
