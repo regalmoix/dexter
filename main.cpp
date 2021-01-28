@@ -21,11 +21,23 @@ int main()
     std::cout << "File " << SQ2FILE(sq120) << " Rank " << SQ2RANK(sq120) << " | " << " 64 based index " << SQ64(sq120) << std::endl;
     std::cout << "Verifying FR2SQ " << FR2SQ(file, rank) << " and sq120 is " << SQ120(sq64) << std::endl;
     return 0;
-    */
+    
 
     for (int i = 0; i < BOARD_SIZE; i++)
     {
         if (i%10 == 0)  printf("\n");
         printf("%5d,", SQ64(i));
     }
+
+    */
+    std::string FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+    //std::cin >> FEN;
+
+    Board gameBoard(FEN);
+
+    std::cout << "[]][][ " << gameBoard.posBitBoard << std::endl;
+
+    gameBoard.PrintBoard();
+
+
 }

@@ -6,7 +6,11 @@
 #include <iostream>
 #include <vector>
 #include <array>
+#include <string>
 #include <bitset>
+#include <cstdio>
+#include <sstream>
+#include <assert.h>
 
 
 /* Macros and Typedefs */
@@ -45,7 +49,7 @@ enum E_PIECE
     bP, bN, bB, bR, bQ, bK
 };
 
-enum E_RANKS
+enum E_RANK
 {
     RankInvalid,
     Rank_1, Rank_2, Rank_3, Rank_4, Rank_5, Rank_6, Rank_7, Rank_8
@@ -145,7 +149,10 @@ typedef struct S_BOARD
     */
 
     std::bitset<64>         pawnBitBoard[3];                // For WHITE, BLACK and BOTH
-    std::bitset<256>        posBitBoard;                    // Color independant. 4bits per square * 64 squares
+    std::bitset<480>        posBitBoard;                    // Color independant. 4bits per square * 120 squares
+
+    // Note : 120 * 4 = 480. Bits 0:3 = Sq 0 and Bits 4:7 = Sq 1 and so on...
+    // Hence Sq i means bits 4*i : 4*i + 3
 
 
     /*  Open Questions */
@@ -167,7 +174,268 @@ typedef struct S_BOARD
     //  Hashkey to detect 3-fold (player must claim draw) and 5-fold (forced draw) repetition
 
 
+    S_BOARD(std::string fenString)
+    {
+        posBitBoard = 0;
+        sideToMove = E_COLOR::BOTH;
+        fiftyMoveRuleCount = 9999;
+        posHashKey = 8888;
+        //countPiece = 7777;
+        castleRights = 100;
+        enPassantSquare = E_SQUARE::Square_Invalid;
+        plys = 555;
 
+
+        ParseFen(fenString);
+        
+    }
+
+    E_PIECE GetPieceOnSquare (E_SQUARE sq120)
+    {
+        /*
+        unsigned long int bb = posBitBoard.to_ulong();
+
+        return static_cast<E_PIECE>(bb & (0xF << (sq120 * 4)));
+        */
+
+       std::bitset<480> temp (0xF << (sq120 * 4));
+       return static_cast<E_PIECE> ((temp & posBitBoard).to_ulong());
+    }
+
+
+    void SetPieceOnSquare (int sq120, E_PIECE piece)
+    {
+        posBitBoard[4 * sq120 + 0]  = piece & 1;
+        posBitBoard[4 * sq120 + 1]  = piece & 2;
+        posBitBoard[4 * sq120 + 2]  = piece & 4;
+        posBitBoard[4 * sq120 + 3]  = piece & 8;
+
+        // Also set pawn bit boards and piece lists if piece == wP or bP
+    }
+
+    void ParseFen (std::string fenString)
+    {
+        std::vector <std::string> fenStringTokens;
+
+        std::stringstream fenStream (fenString);
+
+        std::string token;
+
+        while (getline(fenStream, token, ' ')) 
+        { 
+            fenStringTokens.push_back(token); 
+        }
+
+        for (std::string s : fenStringTokens)
+        {
+            std::cout << s << std::endl;
+        }
+
+
+        // fenStringTokens[0] => '/' delimited string of pieces on a rank
+        std::stringstream rankStream (fenStringTokens[0]);
+        std::string rankInfo;
+
+        int curr_rank = E_RANK::Rank_8;
+        while (getline(rankStream, rankInfo, '/'))
+        {
+            std::string::iterator it = rankInfo.begin();
+            int curr_file  = E_FILE::File_A;
+
+            std::cout << rankInfo << std::endl;
+
+            while ((curr_file <= E_FILE::File_H) && (it != rankInfo.end()))
+            {
+                //std::cout << "\nReading char : " << *it << std::endl;
+                //std::cout << "Enter Loop" << std::endl;
+                char c = rankInfo[it - rankInfo.begin()];
+
+
+                switch (c)
+                {
+                    case 'P' :
+                    {
+                        SetPieceOnSquare(FR2SQ(curr_file, curr_rank), E_PIECE::wP);
+                        ++ curr_file;
+                        ++ it;   
+                        break;
+                    }
+
+                    case 'N' :
+                    {
+                        SetPieceOnSquare(FR2SQ(curr_file, curr_rank), E_PIECE::wN);
+                        ++ curr_file;
+                        ++ it;   
+                        break;
+                    }
+
+                    case 'B' :
+                    {
+                        SetPieceOnSquare(FR2SQ(curr_file, curr_rank), E_PIECE::wB);
+                        ++ curr_file;
+                        ++ it;   
+                        break;
+                    }
+
+                    case 'R' :
+                    {
+                        SetPieceOnSquare(FR2SQ(curr_file, curr_rank), E_PIECE::wR);
+                        ++ curr_file;
+                        ++ it;   
+                        break;
+                    }
+
+                    case 'Q' :
+                    {
+                        SetPieceOnSquare(FR2SQ(curr_file, curr_rank), E_PIECE::wQ);
+                        ++ curr_file;
+                        ++ it;   
+                        break;
+                    }
+
+                    case 'K' :
+                    {
+                        SetPieceOnSquare(FR2SQ(curr_file, curr_rank), E_PIECE::wK);
+                        ++ curr_file;
+                        ++ it;   
+                        break;
+                    }
+
+
+                    case 'p' :
+                    {
+                        SetPieceOnSquare(FR2SQ(curr_file, curr_rank), E_PIECE::bP);
+                        ++ curr_file;
+                        ++ it;   
+                        break;
+                    }
+
+                    case 'n' :
+                    {
+                        SetPieceOnSquare(FR2SQ(curr_file, curr_rank), E_PIECE::bN);
+                        ++ curr_file;
+                        ++ it;   
+                        break;
+                    }
+
+                    case 'b' :
+                    {
+                        SetPieceOnSquare(FR2SQ(curr_file, curr_rank), E_PIECE::bB);
+                        ++ curr_file;
+                        ++ it;   
+                        break;
+                    }
+
+                    case 'r' :
+                    {
+                        SetPieceOnSquare(FR2SQ(curr_file, curr_rank), E_PIECE::bR);
+                        ++ curr_file;
+                        ++ it;   
+                        break;
+                    }
+
+                    case 'q' :
+                    {
+                        SetPieceOnSquare(FR2SQ(curr_file, curr_rank), E_PIECE::bQ);
+                        ++ curr_file;
+                        ++ it;   
+                        break;
+                    }
+
+                    case 'k' :
+                    {
+                        SetPieceOnSquare(FR2SQ(curr_file, curr_rank), E_PIECE::bK);
+                        ++ curr_file;
+                        ++ it;   
+                        break;
+                    }
+
+                    default :
+                    {
+                        assert (c >= '1' && c <= '8');
+                        
+                        for (int i = 0; i < c - '0'; ++i)
+                        {
+                            SetPieceOnSquare(FR2SQ(curr_file, curr_rank), E_PIECE::EMPTY);
+                            ++ curr_file;
+                            ++ it;
+                        }
+
+                        break;
+                    }
+                }
+
+                //std::cout << "Exit Loop" << std::endl;
+            }
+        }
+
+        // fenStringTokens[1] => side to move
+        
+
+        sideToMove = (fenStringTokens[1] == "w") ? E_COLOR::WHITE : E_COLOR::BLACK;
+
+        // fenStringTokens[2] => castle rights
+        for (char& c : fenStringTokens[2])
+        {
+            switch (c)
+            {
+                case 'K' : 
+                {
+                    castleRights |= E_CASTLE_RIGHTS::wK_castle;
+                    break;
+                }
+
+                case 'Q' : 
+                {
+                    castleRights |= E_CASTLE_RIGHTS::wQ_castle;
+                    break;
+                }
+
+                case 'k' : 
+                {
+                    castleRights |= E_CASTLE_RIGHTS::bK_castle;
+                    break;
+                }
+
+                case 'q' : 
+                {
+                    castleRights |= E_CASTLE_RIGHTS::bQ_castle;
+                    break;
+                }
+            }
+        }
+
+
+
+        // fenStringTokens[3] => enPassant square
+        if  (fenStringTokens[3] != "-")
+            enPassantSquare = static_cast<E_SQUARE> (FR2SQ (fenStringTokens[3][0] - 'a' + 1, fenStringTokens[3][1] - '1' + 1));
+
+
+
+        // fenStringTokens[4] => 50 move rule plys
+        fiftyMoveRuleCount = std::stoi(fenStringTokens[4]);
+
+        // fenStringTokens[5] => Num of fullmoves, incremented after Black plays
+        plys = 2 * std::stoi(fenStringTokens[5]) + sideToMove - 1; 
+
+    }
+
+    void PrintBoard ()
+    {
+        std::cout << "EnPass " << enPassantSquare << " && Castle " << (int)castleRights << std::endl;
+
+
+        for (int i = 0; i < BOARD_SIZE; i++)
+        {
+            if (i % 10 == 0)
+                printf("\n");
+            
+            E_SQUARE sq = static_cast<E_SQUARE> (i);
+
+            printf("%5d,", GetPieceOnSquare(sq));
+        }
+    }
 
 } Board;
 
