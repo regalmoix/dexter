@@ -10,7 +10,7 @@
 #include <bitset>
 #include <cstdio>
 #include <sstream>
-#include <assert.h>
+#include <cassert>
 
 
 /* Macros and Typedefs */
@@ -190,7 +190,7 @@ typedef struct S_BOARD
         
     }
 
-    E_PIECE GetPieceOnSquare (E_SQUARE sq120)
+    int GetPieceOnSquare (E_SQUARE sq120)
     {
         /*
         unsigned long int bb = posBitBoard.to_ulong();
@@ -199,7 +199,8 @@ typedef struct S_BOARD
         */
 
        std::bitset<480> temp (0xF << (sq120 * 4));
-       return static_cast<E_PIECE> ((temp & posBitBoard).to_ulong());
+       //std::cout << "Temp is " <<temp.to_ulong() << std::endl;
+       return ((temp & posBitBoard)>>(sq120 * 4)).to_ulong();
     }
 
 
@@ -208,7 +209,7 @@ typedef struct S_BOARD
         posBitBoard[4 * sq120 + 0]  = piece & 1;
         posBitBoard[4 * sq120 + 1]  = piece & 2;
         posBitBoard[4 * sq120 + 2]  = piece & 4;
-        posBitBoard[4 * sq120 + 3]  = piece & 8;
+        posBitBoard[4 * sq120 + 3]  = piece & 8; 
 
         // Also set pawn bit boards and piece lists if piece == wP or bP
     }
@@ -352,6 +353,7 @@ typedef struct S_BOARD
 
                     default :
                     {
+                        std :: cout << "digit is " << c;
                         assert (c >= '1' && c <= '8');
                         
                         for (int i = 0; i < c - '0'; ++i)
@@ -370,11 +372,11 @@ typedef struct S_BOARD
         }
 
         // fenStringTokens[1] => side to move
-        
-
         sideToMove = (fenStringTokens[1] == "w") ? E_COLOR::WHITE : E_COLOR::BLACK;
 
         // fenStringTokens[2] => castle rights
+        castleRights = 0;
+
         for (char& c : fenStringTokens[2])
         {
             switch (c)
@@ -408,6 +410,7 @@ typedef struct S_BOARD
 
 
         // fenStringTokens[3] => enPassant square
+        enPassantSquare = Square_Invalid;
         if  (fenStringTokens[3] != "-")
             enPassantSquare = static_cast<E_SQUARE> (FR2SQ (fenStringTokens[3][0] - 'a' + 1, fenStringTokens[3][1] - '1' + 1));
 
@@ -424,6 +427,9 @@ typedef struct S_BOARD
     void PrintBoard ()
     {
         std::cout << "EnPass " << enPassantSquare << " && Castle " << (int)castleRights << std::endl;
+
+        std::cout << "Side to move " << sideToMove << " && ply " << plys << std::endl;
+
 
 
         for (int i = 0; i < BOARD_SIZE; i++)
