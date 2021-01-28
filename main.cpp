@@ -29,7 +29,7 @@ int main()
         printf("%5d,", SQ64(i));
     }
 
-    */
+    
     //std::string FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
     std::string FEN = "3r1b1r/pp2nb2/3k1n1p/2Qp1B2/3P2P1/N4N1P/PP3P2/2R2RK1 b - - 0 20";
@@ -40,6 +40,37 @@ int main()
     std::cout << "[]][][ " << gameBoard.posBitBoard << std::endl;
 
     gameBoard.PrintBoard();
+
+    */
+
+    std::string FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+    //std::string FEN = "R7/8/8/8/8/8/8/8 w KQkq - 0 1";
+
+    Board b(FEN);
+
+    //b.PrintBoard();
+
+    //b.SetPieceOnSquare(FR2SQ(1,8), E_PIECE::wR);
+
+    
+
+    //std::cout << "Details of A1 square : " << b.posBitBoard[A1*4 + 3] << b.posBitBoard[A1*4 + 2] << b.posBitBoard[A1*4 + 1] << b.posBitBoard[A1*4 + 0] << std::endl;
+
+    //b.SetPieceOnSquare(H3, bK);
+
+    // std::cout << "Details of H3 square : " << b.posBitBoard[H3*4 + 3] << b.posBitBoard[H3*4 + 2] << b.posBitBoard[H3*4 + 1] << b.posBitBoard[H3*4 + 0] << std::endl;
+
+
+    // std::bitset<480> temp = 0xF << 192;
+
+    b.PrintBoard();
+    
+    
+    // std :: cout << "temp is " << temp.to_string(); 
+
+    // unsigned long long x = ((temp & b.posBitBoard) >> 192).to_ullong();
+
+    // std :: cout << "x is " << x << std::endl;
 
 
 }

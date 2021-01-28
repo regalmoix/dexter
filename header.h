@@ -190,6 +190,20 @@ typedef struct S_BOARD
         
     }
 
+    S_BOARD()
+    {
+        posBitBoard = 0;
+        sideToMove = E_COLOR::BOTH;
+        fiftyMoveRuleCount = 9999;
+        posHashKey = 8888;
+        //countPiece = 7777;
+        castleRights = 100;
+        enPassantSquare = E_SQUARE::Square_Invalid;
+        plys = 555;
+
+    }
+
+
     int GetPieceOnSquare (E_SQUARE sq120)
     {
         /*
@@ -198,9 +212,14 @@ typedef struct S_BOARD
         return static_cast<E_PIECE>(bb & (0xF << (sq120 * 4)));
         */
 
-       std::bitset<480> temp (0xF << (sq120 * 4));
-       //std::cout << "Temp is " <<temp.to_ulong() << std::endl;
-       return ((temp & posBitBoard)>>(sq120 * 4)).to_ulong();
+        std::bitset<480> temp = 0;
+
+        temp.set(sq120 * 4, 1);
+        temp.set(sq120 * 4 + 1, 1);
+        temp.set(sq120 * 4 + 2, 1);
+        temp.set(sq120 * 4 + 3, 1);
+        //std::cout << "Temp is " <<temp.to_ulong() << std::endl;
+        return ((temp & posBitBoard)>>(sq120 * 4)).to_ulong();
     }
 
 
@@ -245,11 +264,12 @@ typedef struct S_BOARD
 
             std::cout << rankInfo << std::endl;
 
-            while ((curr_file <= E_FILE::File_H) && (it != rankInfo.end()))
+            while ((curr_file <= E_FILE::File_H) && (it < rankInfo.end()))
             {
                 //std::cout << "\nReading char : " << *it << std::endl;
                 //std::cout << "Enter Loop" << std::endl;
-                char c = rankInfo[it - rankInfo.begin()];
+                char c = *it;
+                std::cout << "C is " << c << std::endl;
 
 
                 switch (c)
@@ -280,6 +300,7 @@ typedef struct S_BOARD
 
                     case 'R' :
                     {
+                        std::cout <<"Rook @ f,r = " << curr_file << " and " << curr_rank << std::endl;
                         SetPieceOnSquare(FR2SQ(curr_file, curr_rank), E_PIECE::wR);
                         ++ curr_file;
                         ++ it;   
@@ -353,12 +374,12 @@ typedef struct S_BOARD
 
                     default :
                     {
-                        std :: cout << "digit is " << c;
+                        //std :: cout << "digit is " << c;
                         assert (c >= '1' && c <= '8');
                         
                         for (int i = 0; i < c - '0'; ++i)
                         {
-                            SetPieceOnSquare(FR2SQ(curr_file, curr_rank), E_PIECE::EMPTY);
+                            //SetPieceOnSquare(FR2SQ(curr_file, curr_rank), E_PIECE::EMPTY);
                             ++ curr_file;
                             ++ it;
                         }
@@ -368,15 +389,17 @@ typedef struct S_BOARD
                 }
 
                 //std::cout << "Exit Loop" << std::endl;
+                
             }
+            curr_rank --;
         }
 
         // fenStringTokens[1] => side to move
+        assert (fenStringTokens[1] == "w" || fenStringTokens[1] == "b");
         sideToMove = (fenStringTokens[1] == "w") ? E_COLOR::WHITE : E_COLOR::BLACK;
 
         // fenStringTokens[2] => castle rights
         castleRights = 0;
-
         for (char& c : fenStringTokens[2])
         {
             switch (c)
@@ -430,20 +453,114 @@ typedef struct S_BOARD
 
         std::cout << "Side to move " << sideToMove << " && ply " << plys << std::endl;
 
+        std::cout << "Pos " << posBitBoard << std::endl;
 
 
-        for (int i = 0; i < BOARD_SIZE; i++)
+
+        for (int i = 0; i < 64; i++)
         {
-            if (i % 10 == 0)
+            if (i % 8 == 0)
                 printf("\n");
             
-            E_SQUARE sq = static_cast<E_SQUARE> (i);
+            
+            E_SQUARE sq = static_cast<E_SQUARE> (SQ120(i));
 
-            printf("%5d,", GetPieceOnSquare(sq));
+            int pce = GetPieceOnSquare(sq);
+
+            char x;
+
+            switch (pce)
+            {
+                case EMPTY : 
+                {
+                    x = ' ';
+                    break;
+                }
+
+                case wP : 
+                {
+                    x = 'P';
+                    break;
+                }
+
+                case wN : 
+                {
+                    x = 'N';
+                    break;
+                }
+
+                case wB : 
+                {
+                    x = 'B';
+                    break;
+                }
+
+                case wR : 
+                {
+                    x = 'R';
+                    break;
+                }
+
+                case wQ : 
+                {
+                    x = 'Q';
+                    break;
+                }
+
+                case wK : 
+                {
+                    x = 'K';
+                    break;
+                }
+
+                case bP : 
+                {
+                    x = 'p';
+                    break;
+                }
+
+                case bN : 
+                {
+                    x = 'n';
+                    break;
+                }
+
+                case bB : 
+                {
+                    x = 'b';
+                    break;
+                }
+
+                case bR : 
+                {
+                    x = 'r';
+                    break;
+                }
+
+                case bQ : 
+                {
+                    x = 'q';
+                    break;
+                }
+
+                case bK : 
+                {
+                    x = 'k';
+                    break;
+                }
+
+                
+
+            }
+            printf("%5c,", x);
         }
+
+        printf("\n");
     }
 
+
 } Board;
+
 
 
 #endif
