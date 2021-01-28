@@ -2,3 +2,4 @@ dexter
 .vscode
 test.cpp
 test
+*.o
