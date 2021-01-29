@@ -47,7 +47,7 @@ int main()
     //std::string FEN = "R7/8/8/8/8/8/8/8 w KQkq - 0 1";
 
 
-    getline(std::cin, FEN);
+    //getline(std::cin, FEN);
     Board b(FEN);
 
     //b.PrintBoard();

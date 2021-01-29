@@ -1,7 +1,7 @@
 #ifndef HEADERS_H
 #define HEADERS_H
 
-/* Headers */
+/** INCLUDES **/
 
 #include <iostream>
 #include <vector>
@@ -11,36 +11,46 @@
 #include <cstdio>
 #include <sstream>
 #include <cassert>
+#include <unordered_set>
+
+using std::vector;
+using std::array;
+using std::cout;
+using std::endl;
+using std::cin;
 
 
-/* Macros and Typedefs */
+/** ALIASES **/
+
 typedef unsigned long long int  uint64;
 typedef unsigned long long int  U64;
+typedef std::unordered_set<int> uset;
 
-#define NAME                    "Dexter 1.0" 
+
+/** MACRO EXPANSIONS **/
+
+#define NAME                    "Dexter 1.0.0" 
 #define BOARD_SIZE              (120)
 #define MAX_MOVES               (2048)
-
 #define FR2SQ(f, r)             (10 + ((r) * 10) + (f))     // Convert File, Rank to 120 based Square indexing
-
+#define SQ2FILE(sq120)          ((sq120) % 10)              // Given square in 120 indexing, find corresponding file
+#define SQ2RANK(sq120)          (((sq120) / 10) - 1)        // Given square in 120 indexing, find corresponding rank
 #define SQ120(sq64)             (10 + ((sq64 / 8 + 1) * 10) + (sq64 % 8 + 1))       // Given Square in 64  based indexing convert to 120 based indexing
 #define SQ64(sq120)             sq120To64[sq120]                                    // Given Square in 120 based indexing convert to 64  based indexing
 
-/*  
-Given Square in 120 based indexing convert to 64  based indexing
+/** ALTERNATE/BUGGY CODE 
+    Given Square in 120 based indexing convert to 64  based indexing
 
-#define SQ64(sq120)             ((sq120 % 10 == 0) || (sq120 % 10 == 9) ||  \       
-                                (sq120 < 20) || (sq120 > 99)) ?  99 :       \
-                                ((8*((sq120)/10))+((sq120)%10)-17)  
+    #define SQ64(sq120)             ((sq120 % 10 == 0) || (sq120 % 10 == 9) ||  \       
+                                    (sq120 < 20) || (sq120 > 99)) ?  99 :       \
+                                    ((8*((sq120)/10))+((sq120)%10)-17)  
 
 
-#define SQ64(sq120)           ((8*((sq120)/10))+((sq120)%10)-17)                          
-*/
+    #define SQ64(sq120)           ((8*((sq120)/10))+((sq120)%10)-17)                          
+**/
 
-#define SQ2FILE(sq120)          ((sq120) % 10)              // Given square in 120 indexing, find corresponding file
-#define SQ2RANK(sq120)          (((sq120) / 10) - 1)        // Given square in 120 indexing, find corresponding rank
 
-/* Enumerations */
+/** ENUMERATIONS **/
 
 enum E_PIECE
 {
@@ -80,7 +90,6 @@ enum E_COLOR
     WHITE, BLACK, BOTH
 };
 
-
 enum E_CASTLE_RIGHTS
 {
     wK_castle = 1,
@@ -89,17 +98,16 @@ enum E_CASTLE_RIGHTS
     bQ_castle = 8
 };
 
-/* Arrays */
+
+/** GLOBAL VARIABLES **/
 
 extern char sq120To64[];
 
-/* Function Declarations */
+
+/** FUNCTION DECLARATIONS **/
 
 
-
-
-/* Structures and Classes */
-
+/** STRUCTS | CLASSES **/
 
 typedef struct S_HISTORY
 {
@@ -112,14 +120,15 @@ typedef struct S_HISTORY
 
 typedef struct S_BOARD
 {
-    /**
-     *   This Data Structure aims to store all properties that uniquely define a board  
-     *   Additional properties are stored with aim of improving calculations at cost of memory
-     *   Additionally, member functions to assist with D.S. manipulation are WIP
+    /** DESCRIPTION 
+     * 
+     *  This Data Structure aims to store all properties that uniquely define a board  
+     *  Additional properties are stored with aim of improving calculations at cost of memory
+     *  Additionally, member functions to assist with D.S. manipulation are WIP
     **/
 
 private :
-
+    
     int                     plys;
     E_COLOR                 sideToMove;
     std::vector<History>    moveHistory;
@@ -138,6 +147,7 @@ private :
 
     std::bitset<64>         pawnBitBoard[3];                // For WHITE, BLACK and BOTH
     std::bitset<480>        posBitBoard;                    // Color independant. 4bits per square * 120 squares
+    std::array<uset, 13>    pieceList;                      // pieceList[X] returns unordered_set of 120-indexed square where X exists 
 
     /** NOTE
      *  
@@ -164,6 +174,8 @@ private :
      *  Read and parse FEN
      *  Write Constructor
      *  Hashkey to detect 3-fold (player must claim draw) and 5-fold (forced draw) repetition
+     *  Init pieceList while parsing FEN. 
+     *  Maintain consistency across member variables 
     **/
 
 public :
@@ -185,7 +197,6 @@ public :
     void ResetBoard ();
 
 } Board;
-
 
 
 #endif

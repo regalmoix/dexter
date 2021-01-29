@@ -3,3 +3,5 @@ dexter
 test.cpp
 test
 *.o
+build/*
+obj/*
