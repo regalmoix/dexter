@@ -1,6 +1,6 @@
 CXX = g++
-CXXFLAGS = -Wall -Werror -Wextra -pedantic -std=c++17 -g -fsanitize=address
-LDFLAGS =  -fsanitize=address
+CXXFLAGS = -Wall -Werror -Wextra -pedantic -std=c++17 -g -fsanitize=address -O3
+LDFLAGS =  -fsanitize=address -O3
 
 SRCDIR = ./src
 SRC = $(wildcard $(SRCDIR)/*.cpp)
@@ -14,7 +14,7 @@ $(EXEC): $(OBJ)
 	$(CXX) $(LDFLAGS) -o $@ $(OBJ) $(LBLIBS)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp $(SRCDIR)/*.h 
-	$(CXX) -c $(CXX_FLAGS) $< -o $@
+	$(CXX) -c -O3 $(CXX_FLAGS) $< -o $@
 
 clean:
 	rm -rf $(OBJ) $(EXEC)
