@@ -43,7 +43,7 @@ int main()
 
     */
 
-    std::string FEN = "1r1q2k1/1r1n1p1p/3Pp1p1/R7/5P2/1PQ2B2/2P4P/1K1R4 b - - 4 30";
+    std::string FEN = "1r1q2k1/1r1n1p1p/3Pp1p1/R7/5P2/1PQ2B2/2P4P/1K1R4 b - h7 4 30";
     //std::string FEN = "R7/8/8/8/8/8/8/8 w KQkq - 0 1";
 
 
@@ -59,8 +59,8 @@ int main()
 
     printf("\n\nPrintBoard : \n");
     b.PrintBoard();
-    
-
+    //cout << "size: " << sizeof(S_BOARD) << ", "  << sizeof(S_HISTORY) << ", " << sizeof(S_BOARD) << ", " << sizeof(U8set) << ", ";
+    //b.SquareList(bK);
     // printf("\n\nPrintBoard2 : \n");
     // b.PrintBoard120();
     // std :: cout << "temp is " << temp.to_string(); 

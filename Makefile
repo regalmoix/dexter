@@ -13,8 +13,11 @@ all: $(EXEC)
 $(EXEC): $(OBJ)
 	$(CXX) $(LDFLAGS) -o $@ $(OBJ) $(LBLIBS)
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.cpp $(SRCDIR)/*.h 
+$(OBJDIR)/%.o: $(SRCDIR)/%.cpp $(SRCDIR)/*.h
+	@mkdir -p ./build
+	@mkdir -p ./obj
 	$(CXX) -c -O3 $(CXX_FLAGS) $< -o $@
+
 
 clean:
 	rm -rf $(OBJ) $(EXEC)

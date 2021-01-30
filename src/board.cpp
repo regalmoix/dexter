@@ -378,7 +378,8 @@ void S_BOARD::PrintBoard ()
     printf("Side To Move : %c\n", sideToMove == E_COLOR::WHITE ? 'W' : 'B');
     printf("Castle       : %d\n", castleRights);
     printf("Plys         : %d\n", plys);
-    printf("En Passant   : %c%d\n", SQ2FILE(enPassantSquare)+ 'a' - 1, SQ2RANK(enPassantSquare));
+    printf("En Passant   : %c%d\n", SQ2FILE(enPassantSquare) ? (SQ2FILE(enPassantSquare) + 'a' - 1) : '0', SQ2RANK(enPassantSquare));
+    // printf("Equality test: %d\n", SQ2RANK(enPassantSquare));
 }
 
 
@@ -390,15 +391,18 @@ void S_BOARD::ResetBoard()
      *  whenever the S_BOARD D.S. is changed.
     **/
 
-    for (int i = 0; i < 480; i++)
+    for (int i = 0; i < 120; i++)
     {
-        posBitBoard.set(i, 1);
+        // posBitBoard.set(i, 1);
+        SetPieceOnSquare(i, E_PIECE::OFFBOARD);
     }
 
     for (int i = 0; i < 64; i++)
     {
-        SetPieceOnSquare(SQ120(i), EMPTY);
+        SetPieceOnSquare(SQ120(i), E_PIECE::EMPTY);
     }
+
+
 }
 
 
@@ -512,4 +516,49 @@ void S_BOARD::PrintBoard120 ()
     }
 
     printf("\n");
+}
+
+
+std::vector<U8> S_BOARD::GetSquareList(E_PIECE piece)
+{
+    if (piece == E_PIECE::EMPTY)
+    {
+        std::vector<U8> sqList;
+
+        for (int i = 0; i < 64; i++)
+        {
+            if (GetPieceOnSquare(static_cast<E_SQUARE>(SQ120(i))) == E_PIECE::EMPTY)
+            {
+                sqList.push_back(SQ120(i));
+            }
+        }
+
+        return sqList;
+    }
+
+    else if (E_PIECE::wP < piece && piece < E_PIECE::wK) 
+    {
+        std::vector<U8> sqList(pieceList[piece - 1], pieceList[piece - 1] + 10);
+        return sqList;
+    }
+
+    else if (E_PIECE::bP < piece &&  piece < E_PIECE::wK) 
+    {
+        std::vector<U8> sqList(pieceList[piece - 2], pieceList[piece - 2] + 10);
+        return sqList;
+    }
+
+    else if (piece == E_PIECE::wK)
+    {
+        std::vector<U8> sqList(1, kingSq[E_COLOR::WHITE]);
+        return sqList;
+    }
+    
+    else if (piece == E_PIECE::bK)
+    {
+        std::vector<U8> sqList(1, kingSq[E_COLOR::WHITE]);
+        return sqList;
+    }
+
+    return {};
 }
