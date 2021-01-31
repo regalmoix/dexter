@@ -16,6 +16,7 @@ $(EXEC): $(OBJ)
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp $(SRCDIR)/*.h
 	@mkdir -p ./build
 	@mkdir -p ./obj
+	@rm -f ./build/dexter
 	$(CXX) -c -O3 $(CXX_FLAGS) $< -o $@
 
 

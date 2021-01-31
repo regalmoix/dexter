@@ -94,14 +94,15 @@ E_PIECE S_BOARD::SetPieceOnSquare (U8 sq120, E_PIECE piece, std::string mode = "
 
     else 
     {
+        // Set pieceLists appropriately.
+        // [To Do] Using ModifySquareList() to add sq120 for 'piece' and del sq120 for 'currPce'. Check validity of both ops.
+
+
         // Set posBitBoard appropriately.
         posBitBoard[4 * sq120 + 0]  = piece & 1;
         posBitBoard[4 * sq120 + 1]  = piece & 2;
         posBitBoard[4 * sq120 + 2]  = piece & 4;
         posBitBoard[4 * sq120 + 3]  = piece & 8;
-
-        // Set pieceLists appropriately.
-        // [To Do]
 
         //  Set pieceCount appropriately
         countPiece[currPce]--;
@@ -438,6 +439,8 @@ void S_BOARD::ResetBoard()
      *
      *  The following function is incomplete and must be regularly updated
      *  whenever the S_BOARD D.S. is changed.
+     *  
+     *  Reset pieceLists also. and count piece etc etc.
     **/
 
     for (int i = 0; i < 120; i++)
@@ -449,8 +452,6 @@ void S_BOARD::ResetBoard()
     {
         SetPieceOnSquare(SQ120(i), E_PIECE::EMPTY, "reset");
     }
-
-
 }
 
 
@@ -616,11 +617,19 @@ U8 S_BOARD::ModifySquareList(U8 piece, U8 sq120, std::string operation)
 {
     /** NOTE
      *  
-     *  @params :   piece => the piece whose list is to be modified
+     *  @param :    piece => the piece whose list is to be modified
      *              sq120 => 120 based square involved in operation
      *              operation => "add" or "del" to add square to pieceList or to remove it.
+     * 
+     *  @return :   Some error code if sq120 cant be deleted or cant be added. Else return success code (or some other useful info)  
      *  
      *  Description : modify 'piecelist' 
+     * 
+     *  Reminder :  pieceList[x] is weirdly indexed to save space. 
+     *              for x = 0..4 => piece wP..wQ [ie piece 1..5]
+     *              for x = 5..9 => piece bP..bQ [ie piece 7..11]
+     *              piece EMPTY [piece 0] is not associated with any list
+     *              piece wK or bK are associated with kingSq[] indexed by color. 
     **/
 
     return 0;
