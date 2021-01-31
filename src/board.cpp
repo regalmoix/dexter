@@ -42,7 +42,7 @@ S_BOARD::S_BOARD()
 }
 
 
-int S_BOARD::GetPieceOnSquare (E_SQUARE sq120)
+U8 S_BOARD::GetPieceOnSquare (U8 sq120)
 {
     std::bitset<480> temp = 0;
 
@@ -55,15 +55,63 @@ int S_BOARD::GetPieceOnSquare (E_SQUARE sq120)
 }
 
 
-void S_BOARD::SetPieceOnSquare (int sq120, E_PIECE piece)
+E_PIECE S_BOARD::SetPieceOnSquare (U8 sq120, E_PIECE piece, std::string mode = "normal")
 {
-    posBitBoard[4 * sq120 + 0]  = piece & 1;
-    posBitBoard[4 * sq120 + 1]  = piece & 2;
-    posBitBoard[4 * sq120 + 2]  = piece & 4;
-    posBitBoard[4 * sq120 + 3]  = piece & 8; 
+    /** NOTE
+     *  
+     *  Returns existing piece on square before overwriting
+     *  Check if piece exists on a square before setting it. 
+     *  Disallow when piece to be put on square is of same color as existing piece. 
+     *  In "normal mode", all errors are caught. In "reset" mode, no errors are reported
+    **/
 
-    // Also set pawn bit boards and piece lists if piece == wP or bP
-    // Handle Captures? Maybe return existing piece before setting new piece?
+    U8 currPce = GetPieceOnSquare(sq120);
+
+    if (currPce == E_PIECE::OFFBOARD && mode != "reset")     // 2nd condition allows re-setting offboard to offboard. 1st condition doesnt allow overwriting 'offboard'
+    {
+        if (piece != E_PIECE::OFFBOARD)
+        {
+            std::cerr << "[ERROR] Setting onboard piece " << (int)piece << " to offboard square. Transaction incomplete.\n";
+        }
+
+        else                        
+        {
+            // Means currPiece and piece both are offboard.
+            // No over writing needed.
+        }
+        
+        return static_cast<E_PIECE>(currPce);
+    }
+
+    else if (currPce != E_PIECE::EMPTY && piece != E_PIECE::EMPTY && mode != "reset")              
+    {
+        if ((currPce >= E_PIECE::bP) == (piece >= E_PIECE::bP))         // For a non-empty square, disallow overwriting pieces of same color
+        {
+            std::cerr << "[ERROR] Attempted overwriting " << piece << " on " << currPce << " of same color. Transaction incomplete.\n";
+            return static_cast<E_PIECE>(currPce);
+        }
+    }
+
+    else 
+    {
+        // Set posBitBoard appropriately.
+        posBitBoard[4 * sq120 + 0]  = piece & 1;
+        posBitBoard[4 * sq120 + 1]  = piece & 2;
+        posBitBoard[4 * sq120 + 2]  = piece & 4;
+        posBitBoard[4 * sq120 + 3]  = piece & 8;
+
+        // Set pieceLists appropriately.
+        // [To Do]
+
+        //  Set pieceCount appropriately
+        countPiece[currPce]--;
+        countPiece[piece]++;
+
+        return static_cast<E_PIECE>(currPce);
+    }
+    // Handle piece lists
+
+    return E_PIECE::OFFBOARD;                                           // Control should not reach here
 }
 
 
@@ -378,6 +426,7 @@ void S_BOARD::PrintBoard ()
     printf("Side To Move : %c\n", sideToMove == E_COLOR::WHITE ? 'W' : 'B');
     printf("Castle       : %d\n", castleRights);
     printf("Plys         : %d\n", plys);
+    printf("50 move cnt  : %d\n", fiftyMoveRuleCount);
     printf("En Passant   : %c%d\n", SQ2FILE(enPassantSquare) ? (SQ2FILE(enPassantSquare) + 'a' - 1) : '0', SQ2RANK(enPassantSquare));
     // printf("Equality test: %d\n", SQ2RANK(enPassantSquare));
 }
@@ -393,13 +442,12 @@ void S_BOARD::ResetBoard()
 
     for (int i = 0; i < 120; i++)
     {
-        // posBitBoard.set(i, 1);
-        SetPieceOnSquare(i, E_PIECE::OFFBOARD);
+        SetPieceOnSquare(i, E_PIECE::OFFBOARD, "reset");
     }
 
     for (int i = 0; i < 64; i++)
     {
-        SetPieceOnSquare(SQ120(i), E_PIECE::EMPTY);
+        SetPieceOnSquare(SQ120(i), E_PIECE::EMPTY, "reset");
     }
 
 
@@ -519,7 +567,7 @@ void S_BOARD::PrintBoard120 ()
 }
 
 
-std::vector<U8> S_BOARD::GetSquareList(E_PIECE piece)
+std::vector<U8> S_BOARD::GetSquareList(U8 piece)
 {
     if (piece == E_PIECE::EMPTY)
     {
@@ -561,4 +609,19 @@ std::vector<U8> S_BOARD::GetSquareList(E_PIECE piece)
     }
 
     return {};
+}
+
+
+U8 S_BOARD::ModifySquareList(U8 piece, U8 sq120, std::string operation)
+{
+    /** NOTE
+     *  
+     *  @params :   piece => the piece whose list is to be modified
+     *              sq120 => 120 based square involved in operation
+     *              operation => "add" or "del" to add square to pieceList or to remove it.
+     *  
+     *  Description : modify 'piecelist' 
+    **/
+
+    return 0;
 }

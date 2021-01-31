@@ -187,9 +187,9 @@ public :
 
     S_BOARD(std::string fenString);
 
-    int GetPieceOnSquare (E_SQUARE sq120);
+    U8 GetPieceOnSquare (U8 sq120);
 
-    void SetPieceOnSquare (int sq120, E_PIECE piece);
+    E_PIECE SetPieceOnSquare (U8 sq120, E_PIECE piece, std::string mode);
 
     void ParseFen (std::string fenString);
     
@@ -199,7 +199,9 @@ public :
 
     void ResetBoard ();
 
-    std::vector<U8> GetSquareList(E_PIECE piece);
+    std::vector<U8> GetSquareList(U8 piece);
+
+    U8 ModifySquareList(U8 piece, U8 sq120, std::string operation);
 
 } Board;
 
