@@ -60,7 +60,10 @@ int main()
 
     printf("\n\nPrintBoard : \n");
     b.PrintBoard();
+    printf("\n\nPrint Piece List : \n");
     b.PrintPieceList();
+    cout << endl;
+    b.PrintPieceList2();
     //cout << "size: " << sizeof(S_BOARD) << ", "  << sizeof(S_HISTORY) << ", " << sizeof(S_BOARD) << ", " << sizeof(U8set) << ", ";
     //b.SquareList(bK);
     // printf("\n\nPrintBoard2 : \n");

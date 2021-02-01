@@ -199,6 +199,8 @@ public :
 
     void PrintPieceList ();
 
+    void PrintPieceList2 ();
+
     void ResetBoard ();
 
     std::vector<U8> GetSquareList(U8 piece);
