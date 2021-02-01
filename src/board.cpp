@@ -1,6 +1,6 @@
 #include "header.h"
 
-char sq120To64[120] = 
+char sq120To64[120] =
 {
     99,   99,   99,   99,   99,   99,   99,   99,   99,   99,
     99,   99,   99,   99,   99,   99,   99,   99,   99,   99,
@@ -20,7 +20,7 @@ char sq120To64[120] =
 S_BOARD::S_BOARD(std::string fenString) : S_BOARD::S_BOARD()
 {
     /** NOTE
-     *  
+     *
      *  Delegating Constructor used.
      *  S_BOARD() called first then control returned to S_BOARD(std::string s)
     **/
@@ -30,13 +30,6 @@ S_BOARD::S_BOARD(std::string fenString) : S_BOARD::S_BOARD()
 
 S_BOARD::S_BOARD()
 {
-    posBitBoard = 0;
-    sideToMove = E_COLOR::BOTH;
-    fiftyMoveRuleCount = 0;
-    posHashKey = 0;
-    castleRights = 0;
-    enPassantSquare = E_SQUARE::Square_Invalid;
-    plys = 0;
 
     ResetBoard();
 }
@@ -58,10 +51,10 @@ U8 S_BOARD::GetPieceOnSquare (U8 sq120)
 E_PIECE S_BOARD::SetPieceOnSquare (U8 sq120, E_PIECE piece, std::string mode = "normal")
 {
     /** NOTE
-     *  
+     *
      *  Returns existing piece on square before overwriting
-     *  Check if piece exists on a square before setting it. 
-     *  Disallow when piece to be put on square is of same color as existing piece. 
+     *  Check if piece exists on a square before setting it.
+     *  Disallow when piece to be put on square is of same color as existing piece.
      *  In "normal mode", all errors are caught. In "reset" mode, no errors are reported
     **/
 
@@ -74,16 +67,16 @@ E_PIECE S_BOARD::SetPieceOnSquare (U8 sq120, E_PIECE piece, std::string mode = "
             std::cerr << "[ERROR] Setting onboard piece " << (int)piece << " to offboard square. Transaction incomplete.\n";
         }
 
-        else                        
+        else
         {
             // Means currPiece and piece both are offboard.
             // No over writing needed.
         }
-        
+
         return static_cast<E_PIECE>(currPce);
     }
 
-    else if (currPce != E_PIECE::EMPTY && piece != E_PIECE::EMPTY && mode != "reset")              
+    else if (currPce != E_PIECE::EMPTY && piece != E_PIECE::EMPTY && mode != "reset")
     {
         if ((currPce >= E_PIECE::bP) == (piece >= E_PIECE::bP))         // For a non-empty square, disallow overwriting pieces of same color
         {
@@ -92,27 +85,21 @@ E_PIECE S_BOARD::SetPieceOnSquare (U8 sq120, E_PIECE piece, std::string mode = "
         }
     }
 
-    else 
-    {
         // Set pieceLists appropriately.
         // [To Do] Using ModifySquareList() to add sq120 for 'piece' and del sq120 for 'currPce'. Check validity of both ops.
 
 
         // Set posBitBoard appropriately.
-        posBitBoard[4 * sq120 + 0]  = piece & 1;
-        posBitBoard[4 * sq120 + 1]  = piece & 2;
-        posBitBoard[4 * sq120 + 2]  = piece & 4;
-        posBitBoard[4 * sq120 + 3]  = piece & 8;
+      posBitBoard[4 * sq120 + 0]  = piece & 1;
+      posBitBoard[4 * sq120 + 1]  = piece & 2;
+      posBitBoard[4 * sq120 + 2]  = piece & 4;
+      posBitBoard[4 * sq120 + 3]  = piece & 8;
 
-        //  Set pieceCount appropriately
-        countPiece[currPce]--;
-        countPiece[piece]++;
 
-        return static_cast<E_PIECE>(currPce);
-    }
-    // Handle piece lists
+      return static_cast<E_PIECE>(currPce);
 
-    return E_PIECE::OFFBOARD;                                           // Control should not reach here
+
+
 }
 
 
@@ -122,9 +109,9 @@ void S_BOARD::ParseFen (std::string fenString)
     std::stringstream fenStream (fenString);
     std::string token;
 
-    while (getline(fenStream, token, ' ')) 
-    { 
-        fenStringTokens.push_back(token); 
+    while (getline(fenStream, token, ' '))
+    {
+        fenStringTokens.push_back(token);
     }
 
     // fenStringTokens[0] => '/' delimited string of pieces on a rank
@@ -146,48 +133,54 @@ void S_BOARD::ParseFen (std::string fenString)
                 case 'P' :
                 {
                     SetPieceOnSquare(FR2SQ(curr_file, curr_rank), E_PIECE::wP);
+                    ModifySquareList(E_PIECE::wP,FR2SQ(curr_file,curr_rank),"add");
                     ++ curr_file;
-                    ++ it;   
+                    ++ it;
                     break;
                 }
 
                 case 'N' :
                 {
                     SetPieceOnSquare(FR2SQ(curr_file, curr_rank), E_PIECE::wN);
+                    ModifySquareList(E_PIECE::wN,FR2SQ(curr_file,curr_rank),"add");
                     ++ curr_file;
-                    ++ it;   
+                    ++ it;
                     break;
                 }
 
                 case 'B' :
                 {
                     SetPieceOnSquare(FR2SQ(curr_file, curr_rank), E_PIECE::wB);
+                    ModifySquareList(E_PIECE::wB,FR2SQ(curr_file,curr_rank),"add");
                     ++ curr_file;
-                    ++ it;   
+                    ++ it;
                     break;
                 }
 
                 case 'R' :
                 {
                     SetPieceOnSquare(FR2SQ(curr_file, curr_rank), E_PIECE::wR);
+                    ModifySquareList(E_PIECE::wR,FR2SQ(curr_file,curr_rank),"add");
                     ++ curr_file;
-                    ++ it;   
+                    ++ it;
                     break;
                 }
 
                 case 'Q' :
                 {
                     SetPieceOnSquare(FR2SQ(curr_file, curr_rank), E_PIECE::wQ);
+                    ModifySquareList(E_PIECE::wQ,FR2SQ(curr_file,curr_rank),"add");
                     ++ curr_file;
-                    ++ it;   
+                    ++ it;
                     break;
                 }
 
                 case 'K' :
                 {
                     SetPieceOnSquare(FR2SQ(curr_file, curr_rank), E_PIECE::wK);
+                    ModifySquareList(E_PIECE::wK,FR2SQ(curr_file,curr_rank),"add");
                     ++ curr_file;
-                    ++ it;   
+                    ++ it;
                     break;
                 }
 
@@ -195,55 +188,61 @@ void S_BOARD::ParseFen (std::string fenString)
                 case 'p' :
                 {
                     SetPieceOnSquare(FR2SQ(curr_file, curr_rank), E_PIECE::bP);
+                    ModifySquareList(E_PIECE::bP,FR2SQ(curr_file,curr_rank),"add");
                     ++ curr_file;
-                    ++ it;   
+                    ++ it;
                     break;
                 }
 
                 case 'n' :
                 {
                     SetPieceOnSquare(FR2SQ(curr_file, curr_rank), E_PIECE::bN);
+                    ModifySquareList(E_PIECE::bN,FR2SQ(curr_file,curr_rank),"add");
                     ++ curr_file;
-                    ++ it;   
+                    ++ it;
                     break;
                 }
 
                 case 'b' :
                 {
                     SetPieceOnSquare(FR2SQ(curr_file, curr_rank), E_PIECE::bB);
+                    ModifySquareList(E_PIECE::bB,FR2SQ(curr_file,curr_rank),"add");
                     ++ curr_file;
-                    ++ it;   
+                    ++ it;
                     break;
                 }
 
                 case 'r' :
                 {
                     SetPieceOnSquare(FR2SQ(curr_file, curr_rank), E_PIECE::bR);
+                    ModifySquareList(E_PIECE::bR,FR2SQ(curr_file,curr_rank),"add");
                     ++ curr_file;
-                    ++ it;   
+                    ++ it;
                     break;
                 }
 
                 case 'q' :
                 {
                     SetPieceOnSquare(FR2SQ(curr_file, curr_rank), E_PIECE::bQ);
+                    ModifySquareList(E_PIECE::bQ,FR2SQ(curr_file,curr_rank),"add");
                     ++ curr_file;
-                    ++ it;   
+                    ++ it;
                     break;
                 }
 
                 case 'k' :
                 {
                     SetPieceOnSquare(FR2SQ(curr_file, curr_rank), E_PIECE::bK);
+                    ModifySquareList(E_PIECE::bK,FR2SQ(curr_file,curr_rank),"add");
                     ++ curr_file;
-                    ++ it;   
+                    ++ it;
                     break;
                 }
 
                 default :
                 {
                     assert (c >= '1' && c <= '8');
-                    
+
                     for (int i = 0; i < c - '0'; ++i)
                     {
                         SetPieceOnSquare(FR2SQ(curr_file, curr_rank), E_PIECE::EMPTY);
@@ -252,7 +251,7 @@ void S_BOARD::ParseFen (std::string fenString)
                     ++it;
                     break;
                 }
-            } 
+            }
         }
         curr_rank --;
     }
@@ -268,25 +267,25 @@ void S_BOARD::ParseFen (std::string fenString)
     {
         switch (c)
         {
-            case 'K' : 
+            case 'K' :
             {
                 castleRights |= E_CASTLE_RIGHTS::wK_castle;
                 break;
             }
 
-            case 'Q' : 
+            case 'Q' :
             {
                 castleRights |= E_CASTLE_RIGHTS::wQ_castle;
                 break;
             }
 
-            case 'k' : 
+            case 'k' :
             {
                 castleRights |= E_CASTLE_RIGHTS::bK_castle;
                 break;
             }
 
-            case 'q' : 
+            case 'q' :
             {
                 castleRights |= E_CASTLE_RIGHTS::bQ_castle;
                 break;
@@ -308,12 +307,12 @@ void S_BOARD::ParseFen (std::string fenString)
 
 
     // fenStringTokens[5] => Num of fullmoves, incremented after Black plays
-    plys = 2 * std::stoi(fenStringTokens[5]) + sideToMove - 2; 
+    plys = 2 * std::stoi(fenStringTokens[5]) + sideToMove - 2;
 }
 
 
 void S_BOARD::PrintBoard ()
-{   
+{
     /*
         std::cout << "EnPass " << enPassantSquare << " && Castle " << (int)castleRights << std::endl;
 
@@ -334,79 +333,79 @@ void S_BOARD::PrintBoard ()
 
             switch (pce)
             {
-                case EMPTY : 
+                case EMPTY :
                 {
                     x = '-';
                     break;
                 }
 
-                case wP : 
+                case wP :
                 {
                     x = 'P';
                     break;
                 }
 
-                case wN : 
+                case wN :
                 {
                     x = 'N';
                     break;
                 }
 
-                case wB : 
+                case wB :
                 {
                     x = 'B';
                     break;
                 }
 
-                case wR : 
+                case wR :
                 {
                     x = 'R';
                     break;
                 }
 
-                case wQ : 
+                case wQ :
                 {
                     x = 'Q';
                     break;
                 }
 
-                case wK : 
+                case wK :
                 {
                     x = 'K';
                     break;
                 }
 
-                case bP : 
+                case bP :
                 {
                     x = 'p';
                     break;
                 }
 
-                case bN : 
+                case bN :
                 {
                     x = 'n';
                     break;
                 }
 
-                case bB : 
+                case bB :
                 {
                     x = 'b';
                     break;
                 }
 
-                case bR : 
+                case bR :
                 {
                     x = 'r';
                     break;
                 }
 
-                case bQ : 
+                case bQ :
                 {
                     x = 'q';
                     break;
                 }
 
-                case bK : 
+                case bK :
                 {
                     x = 'k';
                     break;
@@ -420,7 +419,7 @@ void S_BOARD::PrintBoard ()
             }
             printf("%2c", x);
         }
-        printf("\n");    
+        printf("\n");
     }
     printf("\n\n");
 
@@ -439,9 +438,26 @@ void S_BOARD::ResetBoard()
      *
      *  The following function is incomplete and must be regularly updated
      *  whenever the S_BOARD D.S. is changed.
-     *  
+     *
      *  Reset pieceLists also. and count piece etc etc.
     **/
+
+    posBitBoard = 0;
+    sideToMove = E_COLOR::BOTH;
+    fiftyMoveRuleCount = 0;
+    posHashKey = 0;
+    castleRights = 0;
+    enPassantSquare = E_SQUARE::Square_Invalid;
+    plys = 0;
+
+    for(int i = 0; i < 12; i++)
+    {
+      for(int j = 0; j < 10; j++)
+      {
+        pieceList[i][j] = Square_Invalid;
+      }
+    }
+
 
     for (int i = 0; i < 120; i++)
     {
@@ -456,7 +472,7 @@ void S_BOARD::ResetBoard()
 
 
 void S_BOARD::PrintBoard120 ()
-{   
+{
     /*
         std::cout << "EnPass " << enPassantSquare << " && Castle " << (int)castleRights << std::endl;
 
@@ -468,7 +484,7 @@ void S_BOARD::PrintBoard120 ()
     {
         if (i % 10 == 0)
             printf("\n");
-        
+
         E_SQUARE sq = static_cast<E_SQUARE> ((i));
 
         int pce = GetPieceOnSquare(sq);
@@ -476,79 +492,79 @@ void S_BOARD::PrintBoard120 ()
 
         switch (pce)
         {
-            case EMPTY : 
+            case EMPTY :
             {
                 x = ' ';
                 break;
             }
 
-            case wP : 
+            case wP :
             {
                 x = 'P';
                 break;
             }
 
-            case wN : 
+            case wN :
             {
                 x = 'N';
                 break;
             }
 
-            case wB : 
+            case wB :
             {
                 x = 'B';
                 break;
             }
 
-            case wR : 
+            case wR :
             {
                 x = 'R';
                 break;
             }
 
-            case wQ : 
+            case wQ :
             {
                 x = 'Q';
                 break;
             }
 
-            case wK : 
+            case wK :
             {
                 x = 'K';
                 break;
             }
 
-            case bP : 
+            case bP :
             {
                 x = 'p';
                 break;
             }
 
-            case bN : 
+            case bN :
             {
                 x = 'n';
                 break;
             }
 
-            case bB : 
+            case bB :
             {
                 x = 'b';
                 break;
             }
 
-            case bR : 
+            case bR :
             {
                 x = 'r';
                 break;
             }
 
-            case bQ : 
+            case bQ :
             {
                 x = 'q';
                 break;
             }
 
-            case bK : 
+            case bK :
             {
                 x = 'k';
                 break;
@@ -585,52 +601,99 @@ std::vector<U8> S_BOARD::GetSquareList(U8 piece)
         return sqList;
     }
 
-    else if (E_PIECE::wP < piece && piece < E_PIECE::wK) 
-    {
-        std::vector<U8> sqList(pieceList[piece - 1], pieceList[piece - 1] + 10);
-        return sqList;
-    }
+    // else if (E_PIECE::wP < piece && piece < E_PIECE::wK)
+    // {
+    //     std::vector<U8> sqList(pieceList[piece - 1], pieceList[piece - 1] + 10);
+    //     return sqList;
+    // }
+    //
+    // else if (E_PIECE::bP < piece &&  piece < E_PIECE::wK)
+    // {
+    //     std::vector<U8> sqList(pieceList[piece - 2], pieceList[piece - 2] + 10);
+    //     return sqList;
+    // }
+    //
+    // else if (piece == E_PIECE::wK)
+    // {
+    //     std::vector<U8> sqList(1, kingSq[E_COLOR::WHITE]);
+    //     return sqList;
+    // }
+    //
+    // else if (piece == E_PIECE::bK)
+    // {
+    //     std::vector<U8> sqList(1, kingSq[E_COLOR::BLACK]);
+    //     return sqList;
+    // }
 
-    else if (E_PIECE::bP < piece &&  piece < E_PIECE::wK) 
-    {
-        std::vector<U8> sqList(pieceList[piece - 2], pieceList[piece - 2] + 10);
-        return sqList;
-    }
-
-    else if (piece == E_PIECE::wK)
-    {
-        std::vector<U8> sqList(1, kingSq[E_COLOR::WHITE]);
-        return sqList;
-    }
-    
-    else if (piece == E_PIECE::bK)
-    {
-        std::vector<U8> sqList(1, kingSq[E_COLOR::WHITE]);
-        return sqList;
-    }
-
-    return {};
+    std::vector<U8> sqList(pieceList[piece - 1], pieceList[piece - 1] + 10);
+    return sqList;
+    // return {};
 }
 
 
 U8 S_BOARD::ModifySquareList(U8 piece, U8 sq120, std::string operation)
 {
     /** NOTE
-     *  
+     *
      *  @param :    piece => the piece whose list is to be modified
      *              sq120 => 120 based square involved in operation
      *              operation => "add" or "del" to add square to pieceList or to remove it.
-     * 
-     *  @return :   Some error code if sq120 cant be deleted or cant be added. Else return success code (or some other useful info)  
-     *  
-     *  Description : modify 'piecelist' 
-     * 
-     *  Reminder :  pieceList[x] is weirdly indexed to save space. 
+     *
+     *  @return :   Some error code if sq120 cant be deleted or cant be added. Else return success code (or some other useful info)
+     *
+     *  Description : modify 'piecelist'
+     *
+     *  Reminder :  pieceList[x] is weirdly indexed to save space.
      *              for x = 0..4 => piece wP..wQ [ie piece 1..5]
      *              for x = 5..9 => piece bP..bQ [ie piece 7..11]
      *              piece EMPTY [piece 0] is not associated with any list
-     *              piece wK or bK are associated with kingSq[] indexed by color. 
+     *              piece wK or bK are associated with kingSq[] indexed by color.
     **/
 
+    if(operation == "add")
+    {
+      int i = 0;
+
+      while(i < 10 && pieceList[piece-1][i] != Square_Invalid)
+      {
+        i++;
+      }
+
+      pieceList[piece-1][i] = sq120;
+    }
+
+    else
+    {
+      int i = 0;
+
+      while(i < 10 && pieceList[piece-1][i] != sq120)
+      {
+        i++;
+      }
+
+      pieceList[piece-1][i] = Square_Invalid;
+
+      for(int j = i; j < 9; j++)
+      {
+
+        if(pieceList[piece-1][j]==Square_Invalid)
+          break;
+          
+        pieceList[piece-1][j] = pieceList[piece-1][j+1];
+      }
+    }
     return 0;
+}
+
+void S_BOARD::PrintPieceList(){
+
+
+  for(int i = 0; i < 12; i++)
+  {
+    for(int j = 0; j < 10; j++)
+    {
+      printf("%d ",pieceList[i][j]);
+    }
+    printf("\n");
+  }
 }

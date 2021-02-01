@@ -29,9 +29,9 @@ typedef unsigned char           U8;
 typedef std::unordered_set<U8>  U8set;
 
 
-/** MACRO EXPANSIONS **/    
+/** MACRO EXPANSIONS **/
 
-#define NAME                    "Dexter 1.0.0" 
+#define NAME                    "Dexter 1.0.0"
 #define BOARD_SIZE              (120)
 #define MAX_MOVES               (2048)
 #define FR2SQ(f, r)             (10 + ((r) * 10) + (f))                             // Convert File, Rank to 120 based Square indexing
@@ -40,15 +40,15 @@ typedef std::unordered_set<U8>  U8set;
 #define SQ120(sq64)             (10 + ((sq64 / 8 + 1) * 10) + (sq64 % 8 + 1))       // Given Square in 64  based indexing convert to 120 based indexing
 #define SQ64(sq120)             sq120To64[sq120]                                    // Given Square in 120 based indexing convert to 64  based indexing
 
-/** ALTERNATE/BUGGY CODE 
+/** ALTERNATE/BUGGY CODE
     Given Square in 120 based indexing convert to 64  based indexing
 
-    #define SQ64(sq120)             ((sq120 % 10 == 0) || (sq120 % 10 == 9) ||  \       
+    #define SQ64(sq120)             ((sq120 % 10 == 0) || (sq120 % 10 == 9) ||  \
                                     (sq120 < 20) || (sq120 > 99)) ?  99 :       \
-                                    ((8*((sq120)/10))+((sq120)%10)-17)  
+                                    ((8*((sq120)/10))+((sq120)%10)-17)
 
 
-    #define SQ64(sq120)           ((8*((sq120)/10))+((sq120)%10)-17)                          
+    #define SQ64(sq120)           ((8*((sq120)/10))+((sq120)%10)-17)
 **/
 
 
@@ -56,8 +56,8 @@ typedef std::unordered_set<U8>  U8set;
 
 enum E_PIECE : U8
 {
-    EMPTY, 
-    wP, wN, wB, wR, wQ, wK, 
+    EMPTY,
+    wP, wN, wB, wR, wQ, wK,
     bP, bN, bB, bR, bQ, bK,
     OFFBOARD = 15
 };
@@ -113,53 +113,53 @@ extern char sq120To64[];
 
 typedef struct S_HISTORY
 {
-    U64                     move;                           // What move was played 
+    U64                     move;                           // What move was played
     U64                     posHashKey;                     // Hashkey of position when(after??) the move was made
-    U8                      enPassantSquare;                // En Passant Square 
+    U8                      enPassantSquare;                // En Passant Square
     U8                      castlePermissions;              // Castle Permissions when (after??) this move is made
-   
+
 } History;
 
 typedef struct S_BOARD
 {
-    /** DESCRIPTION 
-     * 
-     *  This Data Structure aims to store all properties that uniquely define a board  
+    /** DESCRIPTION
+     *
+     *  This Data Structure aims to store all properties that uniquely define a board
      *  Additional properties are stored with aim of improving calculations at cost of memory
      *  Additionally, member functions to assist with D.S. manipulation are WIP
     **/
 
 private :
 
-    U64                     posHashKey;    
+    U64                     posHashKey;
     U16                     plys;
     U8                      sideToMove;
-    U8                      fiftyMoveRuleCount;             // Moves since last capture. If >50 then draw. 
+    U8                      fiftyMoveRuleCount;             // Moves since last capture. If >50 then draw.
     U8                      enPassantSquare;
     U8                      castleRights;                   // Bitwise OR of E_CASTLE_RIGHTS
 
     std::vector<History>    moveHistory;
 
     /** Piece Lists, Bitboards
-     *  
+     *
      *  To store pawns in bitboards? Currently removed, saves 24 Bytes. :)
      *  Piece List ? yes => update functions : no => any disadvantage?
      *  Using standard arrays for piece lists to save on memory
     **/
 
     U8                      kingSq[2];
-    U8                      pieceList[10][10];              // pceList[pce] stores array of squares where Pce exists
+    U8                      pieceList[12][10];              // pceList[pce] stores array of squares where Pce exists
     std::array<U8, 13>      countPiece;                     // Count Pieces of each type and color.
     std::bitset<480>        posBitBoard;                    // Color independant. 4bits per square * 120 squares
 
     /** NOTE
-     *  
+     *
      *  120 * 4 = 480. Bits 0:3 = Sq 0 and Bits 4:7 = Sq 1 and so on...
      *  Hence Sq i means bits 4*i : 4*i + 3
     **/
-    
+
     /** OPEN QUESTIONS
-     * 
+     *
      *  Do we store which squares the minor pieces are on?
      *  Do we store set of legal moves in the position? in a vector or LL?
      *  Does the generate moves (Set of) function(s) reside as a member function?
@@ -167,9 +167,9 @@ private :
     **/
 
     /** TODO
-     * 
+     *
      *  Assert in constructor that sideToMove is W or B, not 'Both'
-     *  Set bit of square X on pawn bitboard 
+     *  Set bit of square X on pawn bitboard
      *  Function Prototypes to retrieve piece at given E_Square sq. [Check if sq is onboard]
      *  Function Prototypes to remove ''
      *  Function Prototypes to add    ''
@@ -177,8 +177,8 @@ private :
      *  Read and parse FEN
      *  Write Constructor
      *  Hashkey to detect 3-fold (player must claim draw) and 5-fold (forced draw) repetition
-     *  Init pieceList while parsing FEN. 
-     *  Maintain consistency across member variables 
+     *  Init pieceList while parsing FEN.
+     *  Maintain consistency across member variables
     **/
 
 public :
@@ -192,10 +192,12 @@ public :
     E_PIECE SetPieceOnSquare (U8 sq120, E_PIECE piece, std::string mode);
 
     void ParseFen (std::string fenString);
-    
+
     void PrintBoard ();
 
     void PrintBoard120 ();
+
+    void PrintPieceList ();
 
     void ResetBoard ();
 
