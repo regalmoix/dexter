@@ -27,6 +27,8 @@ typedef unsigned int            U32;
 typedef unsigned short int      U16;
 typedef unsigned char           U8;
 typedef std::unordered_set<U8>  U8set;
+typedef short int               S16;
+
 
 
 /** MACRO EXPANSIONS **/
@@ -39,6 +41,10 @@ typedef std::unordered_set<U8>  U8set;
 #define SQ2RANK(sq120)          ((((sq120) / 10) - 1)*(sq120 != Square_Invalid))    // Given square in 120 indexing, find corresponding rank
 #define SQ120(sq64)             (10 + ((sq64 / 8 + 1) * 10) + (sq64 % 8 + 1))       // Given Square in 64  based indexing convert to 120 based indexing
 #define SQ64(sq120)             sq120To64[sq120]                                    // Given Square in 120 based indexing convert to 64  based indexing
+
+// Pack info (side, enPassant, pawnDoublePush, CastleType, promotion, promotedPiece) to U8
+#define INFO2MOVE(side, ep, dp, ca, isProm, pp) \
+                                ((side) << 7) | ((ep) << 6) | ((dp) << 5) | ((ca) << 3) | ((isProm) << 2) | ((pp) << 0)                                           
 
 /** ALTERNATE/BUGGY CODE
     Given Square in 120 based indexing convert to 64  based indexing
@@ -203,11 +209,95 @@ public :
 
     void ResetBoard ();
 
-    std::vector<U8> GetSquareList(U8 piece);
+    std::vector<U8> GetSquareList (U8 piece);
 
-    U8 ModifySquareList(U8 piece, U8 sq120, std::string operation);
+    U8 ModifySquareList (U8 piece, U8 sq120, std::string operation);
 
+    U8 GetSideToMove ();
+
+    U8 GetEPSquare ();
+
+    U8 GetCastleRights ();
 } Board;
+
+
+typedef struct S_MOVE
+{
+    S16                     score;
+
+    U8                      fromSquare;
+    U8                      toSquare;
+    U8                      pieceInfo;                      // 4 bits each for moving/curr piece[3..0] and captured piece [7..4] 
+    U8                      moveKind;
+
+    /** NOTE
+     *  
+     *  Bit representation format of moveKind.
+     *  
+     *  side : 1;
+     *  enPassant : 1;
+     *  U8 doublePush : 1;
+     *  castle : 2;
+     *  promotion : 1
+     *  promoted piece : 2;
+    **/
+   
+
+    bool isCapture()
+    {
+        return ((pieceInfo & 0xF0) != E_PIECE::EMPTY) || isEP();
+    }
+
+    bool isEP()
+    {
+        return moveKind & (1 << 6);
+    }
+
+    S_MOVE(Board board, U8 from, U8 to)
+    {
+        fromSquare      = from;
+        toSquare        = to;
+
+        U8 t_currPiece  = board.GetPieceOnSquare(from);
+        U8 t_capPiece   = board.GetPieceOnSquare(to);                               // Doesn't  handle EP yet
+
+        pieceInfo       = 0;
+        pieceInfo       |= t_capPiece << 4;
+        pieceInfo       |= t_currPiece;
+
+        U8 t_side       = board.GetSideToMove();
+        U8 t_isProm     = 0;
+        U8 t_promPce    = E_PIECE::EMPTY;
+        U8 t_pawnFirst  = 0;
+        
+        if ((t_currPiece == E_PIECE::wP && SQ2RANK(to) == E_RANK::Rank_8) || (t_currPiece == E_PIECE::bP && SQ2RANK(to) == E_RANK::Rank_8))
+        {
+            t_isProm = 1;
+            t_promPce = (t_side == E_COLOR::WHITE) ? E_PIECE::wQ : E_PIECE::bQ;        // Default prom to Queen iff Pawn moves to last rank  
+        }
+
+        U8 t_castle     = 0;
+        U8 t_EP         = (to == board.GetEPSquare() && (t_currPiece == wP || t_currPiece == bP));  // Double check this
+
+        moveKind        = INFO2MOVE(t_side, t_EP, t_pawnFirst, t_castle, t_isProm, t_promPce);
+    }
+
+    S_MOVE (Board board, U8 from, U8 to, U8 moveInfo)
+    {
+        fromSquare      = from;
+        toSquare        = to;
+        
+        U8 t_currPiece  = board.GetPieceOnSquare(from);
+        U8 t_capPiece   = board.GetPieceOnSquare(to);                               // Doesn't  handle EP yet
+
+        pieceInfo       = 0;
+        pieceInfo       |= t_capPiece << 4;
+        pieceInfo       |= t_currPiece;
+
+        moveKind        = moveInfo;
+    }
+
+} Move;
 
 
 #endif

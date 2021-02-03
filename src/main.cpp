@@ -64,7 +64,7 @@ int main()
     b.PrintPieceList();
     cout << endl;
     b.PrintPieceList2();
-    //cout << "size: " << sizeof(S_BOARD) << ", "  << sizeof(S_HISTORY) << ", " << sizeof(S_BOARD) << ", " << sizeof(U8set) << ", ";
+    cout << "size: " << sizeof(S_BOARD) << ", "  << sizeof(S_HISTORY) << ", " << sizeof(S_MOVE) << ", ";
     //b.SquareList(bK);
     // printf("\n\nPrintBoard2 : \n");
     // b.PrintBoard120();

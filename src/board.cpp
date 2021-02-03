@@ -682,7 +682,7 @@ U8 S_BOARD::ModifySquareList(U8 piece, U8 sq120, std::string operation)
         for(int j = i; j < 9; j++)
         {
 
-            if(pieceList[piece-1][j]==Square_Invalid)
+            if(pieceList[piece-1][j] == Square_Invalid)
                 break;
             
             pieceList[piece-1][j] = pieceList[piece-1][j+1];
@@ -724,4 +724,22 @@ void S_BOARD::PrintPieceList2()
         // }
         printf("\n");
     }
+}
+
+
+U8 S_BOARD::GetSideToMove ()
+{
+    return this->sideToMove;
+}
+
+
+U8 S_BOARD::GetEPSquare ()
+{
+    return this->enPassantSquare;
+}
+
+
+U8 S_BOARD::GetCastleRights ()
+{
+    return this->castleRights;
 }
