@@ -40,8 +40,8 @@ typedef short int               S16;
 #define SQ2FILE(sq120)          ((sq120 % 10)*(sq120 != Square_Invalid))            // Given square in 120 indexing, find corresponding file
 #define SQ2RANK(sq120)          ((((sq120) / 10) - 1)*(sq120 != Square_Invalid))    // Given square in 120 indexing, find corresponding rank
 #define SQ120(sq64)             (10 + ((sq64 / 8 + 1) * 10) + (sq64 % 8 + 1))       // Given Square in 64  based indexing convert to 120 based indexing
-#define SQ64(sq120)             sq120To64[sq120]                                    // Given Square in 120 based indexing convert to 64  based indexing
-
+#define SQ64(sq120)             (sq120To64[sq120])                                  // Given Square in 120 based indexing convert to 64  based indexing
+#define SQLEGAL(sq120)          (sq120To64[sq120] != Square_Invalid)
 // Pack info (check, enPassant, pawnDoublePush, CastleType, promotion, promotedPiece) to U8
 #define PACKMOVE(CHK, EP, DP, CA, P, PP) \
                                 ((CHK) << 7 | (EP) << 6 | (DP) << 5 | (CA) << 3 | (P) << 2 | (PP))    
@@ -96,7 +96,7 @@ enum E_SQUARE : U8
     A6 = 71, B6, C6, D6, E6, F6, G6, H6,
     A7 = 81, B7, C7, D7, E7, F7, G7, H7,
     A8 = 91, B8, C8, D8, E8, F8, G8, H8,
-    Square_Invalid
+    Square_Invalid = 99
 };
 
 enum E_COLOR : U8
@@ -111,15 +111,6 @@ enum E_CASTLE_RIGHTS : U8
     bK_castle = 4,
     bQ_castle = 8
 };
-
-
-/** GLOBAL VARIABLES **/
-
-extern char sq120To64[];
-
-
-/** FUNCTION DECLARATIONS **/
-
 
 /** STRUCTS | CLASSES **/
 
@@ -276,5 +267,14 @@ typedef struct S_MOVE
    
 } Move;
 
+
+/** GLOBAL VARIABLES **/
+
+extern char sq120To64[];
+extern std::vector<S_MOVE> moveList;
+
+
+
+/** FUNCTION DECLARATIONS **/
 
 #endif

@@ -85,16 +85,15 @@ U8 S_MOVE::getCapturedPiece()
 }
 
 
-S_MOVE::S_MOVE(Board board, U8 from, U8 to)                 // Assume QUIET Move
+S_MOVE::S_MOVE(Board board, U8 from, U8 to)                 // Assume Non Special Move
 {
     fromSquare      = from;
     toSquare        = to;
 
     // Verify that Move is made when Board is in consistent state. Else we will set wrong Pieces when Getting Piece on Square.
     U8 t_currPiece  = board.GetPieceOnSquare(from);
-    U8 t_capPiece   = board.GetPieceOnSquare(to);                                       // Should be EMPTY.
+    U8 t_capPiece   = board.GetPieceOnSquare(to);                                      
 
-    assert (t_capPiece == E_PIECE::EMPTY);   
     assert (!(t_currPiece == E_PIECE::wP && SQ2RANK(to) == E_RANK::Rank_8));                        
     assert (!(t_currPiece == E_PIECE::bP && SQ2RANK(to) == E_RANK::Rank_1));                        
 
