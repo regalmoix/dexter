@@ -276,5 +276,9 @@ extern std::vector<S_MOVE> moveList;
 
 
 /** FUNCTION DECLARATIONS **/
+extern void PawnMoves(Board& board);
+extern void addQuietMove(Board& board, Move& move);
+extern void addCaptureMove(Board& board, Move& move);
+
 
 #endif

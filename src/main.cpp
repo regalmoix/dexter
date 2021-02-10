@@ -44,9 +44,10 @@ int main()
     */
 
 
-    std::string FEN = "1r1q2k1/1r1n1p1p/3Pp1p1/R7/5P2/1PQ2B2/2P4P/1K1R4 b - h7 4 30";
+    // std::string FEN = "1r1q2k1/1r1n1p1p/3Pp1p1/R7/5P2/1PQ2B2/2P4P/1K1R4 b - h7 4 30";
     //std::string FEN = "R7/8/8/8/8/8/8/8 w KQkq - 0 1";
 
+    std::string FEN = "r2qkb1r/p1pb2pp/2n3n1/1pPppp1P/1P2P3/5N2/P2PBPP1/RNBQK2R w KQkq b6 0 9";
 
     //getline(std::cin, FEN);
     Board b(FEN);
@@ -60,17 +61,31 @@ int main()
 
     printf("\n\nPrintBoard : \n");
     b.PrintBoard();
-    printf("\n\nPrint Piece List : \n");
-    b.PrintPieceList();
-    cout << endl;
-    b.PrintPieceList2();
-    cout << "size: " << sizeof(S_BOARD) << ", "  << sizeof(S_HISTORY) << ", " << sizeof(S_MOVE) << ", ";
+    // printf("\n\nPrint Piece List : \n");
+    // b.PrintPieceList();
+    // cout << endl;
+    // b.PrintPieceList2();
+    // cout << "size: " << sizeof(S_BOARD) << ", "  << sizeof(S_HISTORY) << ", " << sizeof(S_MOVE) << ", ";
     //b.SquareList(bK);
     // printf("\n\nPrintBoard2 : \n");
     // b.PrintBoard120();
     // std :: cout << "temp is " << temp.to_string();
     // unsigned long long x = ((temp & b.posBitBoard) >> 192).to_ullong();
     // std :: cout << "x is " << x << std::endl;
+
+    // cout << "Pce on 78 ;" << (int)b.GetPieceOnSquare(78) << ";" << endl;
+    PawnMoves(b);
+    cout << "\n\n\n";
+
+    for (auto moves : moveList)
+    {
+        // cout << (int)moves.fromSquare << " -> " << (int)moves.toSquare << endl;
+        printf("%c%d -> ",SQ2FILE(moves.fromSquare) + 'A' - 1, SQ2RANK(moves.fromSquare));
+        printf("%c%d \n" ,SQ2FILE(moves.toSquare) + 'A' - 1, SQ2RANK(moves.toSquare));
+
+
+    }
+
 
     return 0;
 }

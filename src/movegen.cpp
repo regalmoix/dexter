@@ -22,7 +22,11 @@ void PawnMoves(Board& board)
 
         for (U8 pawnSquare : pawnSqList)
         {
-            assert (pawnSquare != E_SQUARE::Square_Invalid);
+            // cout << (int)pawnSquare  << endl;
+            //assert (pawnSquare != E_SQUARE::Square_Invalid);
+            if (pawnSquare == E_SQUARE::Square_Invalid)
+                continue;
+            
             assert (SQ2RANK(pawnSquare) != E_RANK::Rank_8);
 
             if (SQ2RANK(pawnSquare) == E_RANK::Rank_7)  // These can not be quiet moves
@@ -60,14 +64,16 @@ void PawnMoves(Board& board)
             }
 
             // Pawn not on Ranks 7 or 8, Quiet Move
+            // cout << (int)pawnSquare << endl;
             if (board.GetPieceOnSquare(pawnSquare + 10) == E_PIECE::EMPTY)
             {
+                //cout << "Test";
                 Move move(board, pawnSquare, pawnSquare + 10);
                 addQuietMove(board, move);
             }
 
             // Pawn not on Ranks 7 or 8, Double Push Move
-            if ((SQ2RANK(pawnSquare) == E_RANK::Rank_2) && (board.GetPieceOnSquare(pawnSquare + 20) == E_PIECE::EMPTY))
+            if ((SQ2RANK(pawnSquare) == E_RANK::Rank_2) && (board.GetPieceOnSquare(pawnSquare + 20) == E_PIECE::EMPTY) && (board.GetPieceOnSquare(pawnSquare + 10) == E_PIECE::EMPTY))
             {
                 Move move(board, pawnSquare, pawnSquare + 20, PACKMOVE(0,0,1,0,0,0));
                 addQuietMove(board, move);
