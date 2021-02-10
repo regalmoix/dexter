@@ -42,9 +42,10 @@ typedef short int               S16;
 #define SQ120(sq64)             (10 + ((sq64 / 8 + 1) * 10) + (sq64 % 8 + 1))       // Given Square in 64  based indexing convert to 120 based indexing
 #define SQ64(sq120)             sq120To64[sq120]                                    // Given Square in 120 based indexing convert to 64  based indexing
 
-// Pack info (side, enPassant, pawnDoublePush, CastleType, promotion, promotedPiece) to U8
-#define INFO2MOVE(side, ep, dp, ca, isProm, pp) \
-                                ((side) << 7) | ((ep) << 6) | ((dp) << 5) | ((ca) << 3) | ((isProm) << 2) | ((pp) << 0)                                           
+// Pack info (check, enPassant, pawnDoublePush, CastleType, promotion, promotedPiece) to U8
+#define PACKMOVE(CHK, EP, DP, CA, P, PP) \
+                                ((CHK) << 7 | (EP) << 6 | (DP) << 5 | (CA) << 3 | (P) << 2 | (PP))    
+#define PIECECOLOR(pce)         ((wP <= pce && pce <= wK) ? WHITE : ((bP <= pce && pce <= bK) ? BLACK : BOTH))                                    
 
 /** ALTERNATE/BUGGY CODE
     Given Square in 120 based indexing convert to 64  based indexing
@@ -66,6 +67,11 @@ enum E_PIECE : U8
     wP, wN, wB, wR, wQ, wK,
     bP, bN, bB, bR, bQ, bK,
     OFFBOARD = 15
+};
+
+enum E_PROMPIECE : U8
+{
+    Prom_N, Prom_B, Prom_R, Prom_Q 
 };
 
 enum E_RANK : U8
@@ -220,83 +226,54 @@ public :
     U8 GetCastleRights ();
 } Board;
 
-
 typedef struct S_MOVE
 {
     S16                     score;
-
     U8                      fromSquare;
     U8                      toSquare;
     U8                      pieceInfo;                      // 4 bits each for moving/curr piece[3..0] and captured piece [7..4] 
-    U8                      moveKind;
+    U8                      moveData;
 
     /** NOTE
      *  
      *  Bit representation format of moveKind.
      *  
-     *  side : 1;
+     *  isCheck : 1; 
      *  enPassant : 1;
-     *  U8 doublePush : 1;
+     *  doublePush : 1;
      *  castle : 2;
      *  promotion : 1
      *  promoted piece : 2;
+     * 
+     *  CHK | EP | DP | CA | CA | P | PP | PP
+     *  
+     *  ((CHK) << 7 | (EP) << 6 | (DP) << 5 | (CA) << 3 | (P) << 2 | (PP))
     **/
+
+    bool isNormalCapture();
+
+    bool isEPCapture();
+
+    bool isCheck();
+
+    bool isPawnDoublePush();
+
+    bool isPromotion();
+
+    E_PIECE getPromotedPiece();
+
+    void setAttributes (U8 moveInfo);
+
+    void unsetAttributes (U8 moveInfo);
+
+    U8 getMovingPiece();
+
+    U8 getCapturedPiece();
+
+    S_MOVE(Board board, U8 from, U8 to);                                            // Assume QUIET Move
+
+    S_MOVE (Board board, U8 from, U8 to, U8 moveInfo);
    
-
-    bool isCapture()
-    {
-        return ((pieceInfo & 0xF0) != E_PIECE::EMPTY) || isEP();
-    }
-
-    bool isEP()
-    {
-        return moveKind & (1 << 6);
-    }
-
-    S_MOVE(Board board, U8 from, U8 to)
-    {
-        fromSquare      = from;
-        toSquare        = to;
-
-        U8 t_currPiece  = board.GetPieceOnSquare(from);
-        U8 t_capPiece   = board.GetPieceOnSquare(to);                               // Doesn't  handle EP yet
-
-        pieceInfo       = 0;
-        pieceInfo       |= t_capPiece << 4;
-        pieceInfo       |= t_currPiece;
-
-        U8 t_side       = board.GetSideToMove();
-        U8 t_isProm     = 0;
-        U8 t_promPce    = E_PIECE::EMPTY;
-        U8 t_pawnFirst  = 0;
-        
-        if ((t_currPiece == E_PIECE::wP && SQ2RANK(to) == E_RANK::Rank_8) || (t_currPiece == E_PIECE::bP && SQ2RANK(to) == E_RANK::Rank_8))
-        {
-            t_isProm = 1;
-            t_promPce = (t_side == E_COLOR::WHITE) ? E_PIECE::wQ : E_PIECE::bQ;        // Default prom to Queen iff Pawn moves to last rank  
-        }
-
-        U8 t_castle     = 0;
-        U8 t_EP         = (to == board.GetEPSquare() && (t_currPiece == wP || t_currPiece == bP));  // Double check this
-
-        moveKind        = INFO2MOVE(t_side, t_EP, t_pawnFirst, t_castle, t_isProm, t_promPce);
-    }
-
-    S_MOVE (Board board, U8 from, U8 to, U8 moveInfo)
-    {
-        fromSquare      = from;
-        toSquare        = to;
-        
-        U8 t_currPiece  = board.GetPieceOnSquare(from);
-        U8 t_capPiece   = board.GetPieceOnSquare(to);                               // Doesn't  handle EP yet
-
-        pieceInfo       = 0;
-        pieceInfo       |= t_capPiece << 4;
-        pieceInfo       |= t_currPiece;
-
-        moveKind        = moveInfo;
-    }
-
 } Move;
 
 
