@@ -75,6 +75,20 @@ int main()
 
     // cout << "Pce on 78 ;" << (int)b.GetPieceOnSquare(78) << ";" << endl;
     PawnMoves(b);
+    // cout << "\n\n\n";
+    //
+    // for (auto moves : moveList)
+    // {
+    //     // cout << (int)moves.fromSquare << " -> " << (int)moves.toSquare << endl;
+    //     printf("%c%d -> ",SQ2FILE(moves.fromSquare) + 'A' - 1, SQ2RANK(moves.fromSquare));
+    //     printf("%c%d \n" ,SQ2FILE(moves.toSquare) + 'A' - 1, SQ2RANK(moves.toSquare));
+    //
+    //
+    // }
+    KnightMoves(b);
+    BishopMoves(b);
+    RookMoves(b);
+    QueenMoves(b);
     cout << "\n\n\n";
 
     for (auto moves : moveList)

@@ -44,8 +44,8 @@ typedef short int               S16;
 #define SQLEGAL(sq120)          (sq120To64[sq120] != Square_Invalid)
 // Pack info (check, enPassant, pawnDoublePush, CastleType, promotion, promotedPiece) to U8
 #define PACKMOVE(CHK, EP, DP, CA, P, PP) \
-                                ((CHK) << 7 | (EP) << 6 | (DP) << 5 | (CA) << 3 | (P) << 2 | (PP))    
-#define PIECECOLOR(pce)         ((wP <= pce && pce <= wK) ? WHITE : ((bP <= pce && pce <= bK) ? BLACK : BOTH))                                    
+                                ((CHK) << 7 | (EP) << 6 | (DP) << 5 | (CA) << 3 | (P) << 2 | (PP))
+#define PIECECOLOR(pce)         ((wP <= pce && pce <= wK) ? WHITE : ((bP <= pce && pce <= bK) ? BLACK : BOTH))
 
 /** ALTERNATE/BUGGY CODE
     Given Square in 120 based indexing convert to 64  based indexing
@@ -71,7 +71,7 @@ enum E_PIECE : U8
 
 enum E_PROMPIECE : U8
 {
-    Prom_N, Prom_B, Prom_R, Prom_Q 
+    Prom_N, Prom_B, Prom_R, Prom_Q
 };
 
 enum E_RANK : U8
@@ -222,22 +222,22 @@ typedef struct S_MOVE
     S16                     score;
     U8                      fromSquare;
     U8                      toSquare;
-    U8                      pieceInfo;                      // 4 bits each for moving/curr piece[3..0] and captured piece [7..4] 
+    U8                      pieceInfo;                      // 4 bits each for moving/curr piece[3..0] and captured piece [7..4]
     U8                      moveData;
 
     /** NOTE
-     *  
+     *
      *  Bit representation format of moveKind.
-     *  
-     *  isCheck : 1; 
+     *
+     *  isCheck : 1;
      *  enPassant : 1;
      *  doublePush : 1;
      *  castle : 2;
      *  promotion : 1
      *  promoted piece : 2;
-     * 
+     *
      *  CHK | EP | DP | CA | CA | P | PP | PP
-     *  
+     *
      *  ((CHK) << 7 | (EP) << 6 | (DP) << 5 | (CA) << 3 | (P) << 2 | (PP))
     **/
 
@@ -264,7 +264,7 @@ typedef struct S_MOVE
     S_MOVE(Board board, U8 from, U8 to);                                            // Assume QUIET Move
 
     S_MOVE (Board board, U8 from, U8 to, U8 moveInfo);
-   
+
 } Move;
 
 
@@ -277,6 +277,12 @@ extern std::vector<S_MOVE> moveList;
 
 /** FUNCTION DECLARATIONS **/
 extern void PawnMoves(Board& board);
+extern void KnightMoves(Board& board);
+extern void BishopMoves(Board& board);
+extern void RookMoves(Board& board);
+extern void QueenMoves(Board& board);
+extern void RookListGenerator(Board& board, U8 piece);
+extern void BishopListGenerator(Board& board, U8 piece);
 extern void addQuietMove(Board& board, Move& move);
 extern void addCaptureMove(Board& board, Move& move);
 
