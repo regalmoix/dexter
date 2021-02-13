@@ -281,10 +281,16 @@ extern void KnightMoves(Board& board);
 extern void BishopMoves(Board& board);
 extern void RookMoves(Board& board);
 extern void QueenMoves(Board& board);
+extern bool isAttacked(Board& board, U8 sq120);
 extern void RookListGenerator(Board& board, U8 piece);
 extern void BishopListGenerator(Board& board, U8 piece);
 extern void addQuietMove(Board& board, Move& move);
 extern void addCaptureMove(Board& board, Move& move);
-
+extern bool isRook(Board& board, U8 sq120);
+extern bool isBishop(Board& board, U8 sq120);
+extern bool isQueen(Board& board, U8 sq120);
+extern bool isKing(Board& board, U8 sq120);
+extern bool isKnight(Board& board, U8 sq120);
+extern bool isPawn(Board& board, U8 sq120);
 
 #endif

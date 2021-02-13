@@ -47,8 +47,8 @@ int main()
     // std::string FEN = "1r1q2k1/1r1n1p1p/3Pp1p1/R7/5P2/1PQ2B2/2P4P/1K1R4 b - h7 4 30";
     //std::string FEN = "R7/8/8/8/8/8/8/8 w KQkq - 0 1";
 
-    std::string FEN = "r2qkb1r/p1pb2pp/2n3n1/1pPppp1P/1P2P3/5N2/P2PBPP1/RNBQK2R w KQkq b6 0 9";
-
+    // std::string FEN = "r2qkb1r/p1pb2pp/2n3n1/1pPppp1P/1P2P3/5N2/P2PBPP1/RNBQK2R w KQkq b6 0 9";
+    std::string FEN = "r4rk1/p2nbp1p/1qp1bpp1/3p4/3P4/2NBPN2/PPQ2PPP/R4RK1 w - - 0 1";
     //getline(std::cin, FEN);
     Board b(FEN);
 
@@ -85,6 +85,8 @@ int main()
     //
     //
     // }
+    bool flag = isAttacked(b,E_SQUARE::D2);
+    cout<<flag<<"\n";
     KnightMoves(b);
     BishopMoves(b);
     RookMoves(b);
@@ -99,7 +101,6 @@ int main()
 
 
     }
-
-
+    cout<<moveList.size()<<"\n";
     return 0;
 }
