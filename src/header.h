@@ -28,6 +28,8 @@ typedef unsigned short int      U16;
 typedef unsigned char           U8;
 typedef std::unordered_set<U8>  U8set;
 typedef short int               S16;
+typedef char                    S8;
+
 
 
 
@@ -261,7 +263,7 @@ typedef struct S_MOVE
 
     U8 getCapturedPiece();
 
-    S_MOVE(Board board, U8 from, U8 to);                                            // Assume QUIET Move
+    S_MOVE (Board board, U8 from, U8 to);                                            // Assume QUIET Move
 
     S_MOVE (Board board, U8 from, U8 to, U8 moveInfo);
 
@@ -281,11 +283,16 @@ extern void KnightMoves(Board& board);
 extern void BishopMoves(Board& board);
 extern void RookMoves(Board& board);
 extern void QueenMoves(Board& board);
-extern bool isAttacked(Board& board, U8 sq120);
+extern void KingMoves(Board& board);
+
+extern bool isAttacked(Board& board, U8 sq120, S8 attackingside = (S8)(-1));
+
 extern void RookListGenerator(Board& board, U8 piece);
 extern void BishopListGenerator(Board& board, U8 piece);
+
 extern void addQuietMove(Board& board, Move& move);
 extern void addCaptureMove(Board& board, Move& move);
+
 extern bool isRook(Board& board, U8 sq120);
 extern bool isBishop(Board& board, U8 sq120);
 extern bool isQueen(Board& board, U8 sq120);

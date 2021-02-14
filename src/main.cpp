@@ -47,7 +47,7 @@ int main()
     // std::string FEN = "1r1q2k1/1r1n1p1p/3Pp1p1/R7/5P2/1PQ2B2/2P4P/1K1R4 b - h7 4 30";
     //std::string FEN = "R7/8/8/8/8/8/8/8 w KQkq - 0 1";
 
-    // std::string FEN = "r2qkb1r/p1pb2pp/2n3n1/1pPppp1P/1P2P3/5N2/P2PBPP1/RNBQK2R w KQkq b6 0 9";
+    // std::string FEN = "r2qkb1r/p1pb2pp/2n3n1/1pPppp1P/1Pb1P3/1r1K1N2/P2P1PPb/R3B2R w KQkq b6 0 9";
     std::string FEN = "r4rk1/p2nbp1p/1qp1bpp1/3p4/3P4/2NBPN2/PPQ2PPP/R4RK1 w - - 0 1";
     //getline(std::cin, FEN);
     Board b(FEN);
@@ -91,6 +91,8 @@ int main()
     BishopMoves(b);
     RookMoves(b);
     QueenMoves(b);
+    KingMoves(b);
+
     cout << "\n\n\n";
 
     for (auto moves : moveList)
