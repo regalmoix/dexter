@@ -104,5 +104,6 @@ int main()
 
     }
     cout<<moveList.size()<<"\n";
+
     return 0;
 }

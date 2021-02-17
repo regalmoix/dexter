@@ -44,10 +44,16 @@ typedef char                    S8;
 #define SQ120(sq64)             (10 + ((sq64 / 8 + 1) * 10) + (sq64 % 8 + 1))       // Given Square in 64  based indexing convert to 120 based indexing
 #define SQ64(sq120)             (sq120To64[sq120])                                  // Given Square in 120 based indexing convert to 64  based indexing
 #define SQLEGAL(sq120)          (sq120To64[sq120] != Square_Invalid)
+#define PIECECOLOR(pce)         ((wP <= pce && pce <= wK) ? WHITE : ((bP <= pce && pce <= bK) ? BLACK : BOTH))
+
+
 // Pack info (check, enPassant, pawnDoublePush, CastleType, promotion, promotedPiece) to U8
 #define PACKMOVE(CHK, EP, DP, CA, P, PP) \
                                 ((CHK) << 7 | (EP) << 6 | (DP) << 5 | (CA) << 3 | (P) << 2 | (PP))
-#define PIECECOLOR(pce)         ((wP <= pce && pce <= wK) ? WHITE : ((bP <= pce && pce <= bK) ? BLACK : BOTH))
+                                
+// Pack info of current piece and captured piece to U8 for S_Move
+#define PACKPIECEINFO(myPiece, capPiece) \
+                                (((capPiece) << 4) | (myPiece))
 
 /** ALTERNATE/BUGGY CODE
     Given Square in 120 based indexing convert to 64  based indexing
@@ -266,6 +272,8 @@ typedef struct S_MOVE
     S_MOVE (Board board, U8 from, U8 to);                                            // Assume QUIET Move
 
     S_MOVE (Board board, U8 from, U8 to, U8 moveInfo);
+
+    S_MOVE (Board board, U8 from, U8 to, U8 moveInfo, U8 pieceInfo);
 
 } Move;
 
