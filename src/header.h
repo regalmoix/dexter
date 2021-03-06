@@ -1,4 +1,4 @@
-#ifndef HEADERS_H
+#ifndef HEADERS_H   
 #define HEADERS_H
 
 /** INCLUDES **/
@@ -141,8 +141,6 @@ typedef struct S_BOARD
     **/
 
 private :
-
-    U64                     posHashKey;
     U16                     plys;
     U8                      sideToMove;
     U8                      fiftyMoveRuleCount;             // Moves since last capture. If >50 then draw.
@@ -162,6 +160,9 @@ private :
     U8                      pieceList[12][10];              // pceList[pce] stores array of squares where Pce exists
     std::array<U8, 13>      countPiece;                     // Count Pieces of each type and color.
     std::bitset<480>        posBitBoard;                    // Color independant. 4bits per square * 120 squares
+
+public :
+    U64                     posHashKey;
 
     /** NOTE
      *
@@ -193,7 +194,6 @@ private :
     **/
 
 public :
-
     S_BOARD();
 
     S_BOARD(std::string fenString);
@@ -223,6 +223,7 @@ public :
     U8 GetEPSquare ();
 
     U8 GetCastleRights ();
+
 } Board;
 
 typedef struct S_MOVE
@@ -277,12 +278,27 @@ typedef struct S_MOVE
 
 } Move;
 
+typedef struct S_HASH
+{
+    U64                                         sideToMoveHash;
+    std::array<std::array<U64, BOARD_SIZE>, 13> pieceSquarePairHash;
+    std::array<U64, 9>                          epHash;                     // 9 since we index by file which is 1 to 8. epHash[0] unused
+    std::array<U64, 16>                         castleHash;
+    
+    void InitHash();
+
+    U64 GenerateHash(Board& board);
+
+    S_HASH();
+
+    S_HASH(Board& board);
+
+} S_HASH;  
 
 /** GLOBAL VARIABLES **/
 
 extern char sq120To64[];
 extern std::vector<S_MOVE> moveList;
-
 
 
 /** FUNCTION DECLARATIONS **/

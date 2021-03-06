@@ -17,6 +17,13 @@ char sq120To64[120] =
 };
 
 
+/** Contructor to Reset Board and init with FEN string
+ *  
+ *  @param      none
+ *
+ *  @return     none
+ * 
+**/
 S_BOARD::S_BOARD(std::string fenString) : S_BOARD::S_BOARD()
 {
     /** NOTE
@@ -28,13 +35,26 @@ S_BOARD::S_BOARD(std::string fenString) : S_BOARD::S_BOARD()
 }
 
 
+/** Contructor to Reset Board
+ *  
+ *  @param      none
+ *
+ *  @return     none
+ * 
+**/
 S_BOARD::S_BOARD()
 {
-
     ResetBoard();
 }
 
 
+/** Get the piece on the square.
+ *  
+ *  @param      sq120  120 based square involved in operation
+ *
+ *  @return     U8 piece that exists on the square
+ * 
+**/
 U8 S_BOARD::GetPieceOnSquare (U8 sq120)
 {
     std::bitset<480> temp = 0;
@@ -48,16 +68,19 @@ U8 S_BOARD::GetPieceOnSquare (U8 sq120)
 }
 
 
+/** Set the piece on the square.
+ *  
+ *  @param      sq120  120 based square involved in operation
+ *  @param      piece  piece to set on square
+ *  @param      mode   "normal" prevents overwriting of OFFBOARD squares. Also prevents capturing own pieces.
+ *
+ *  @return     U8 piece that exists on the square before updation.
+ * 
+ *  @todo       Remove useless error checking and move it to a useful place.
+ * 
+**/
 E_PIECE S_BOARD::SetPieceOnSquare (U8 sq120, E_PIECE piece, std::string mode = "normal")
 {
-    /** NOTE
-     *
-     *  Returns existing piece on square before overwriting
-     *  Check if piece exists on a square before setting it.
-     *  Disallow when piece to be put on square is of same color as existing piece.
-     *  In "normal mode", all errors are caught. In "reset" mode, no errors are reported
-    **/
-
     U8 currPce = GetPieceOnSquare(sq120);
 
     if (currPce == E_PIECE::OFFBOARD && mode != "reset")     // 2nd condition allows re-setting offboard to offboard. 1st condition doesnt allow overwriting 'offboard'
@@ -100,6 +123,12 @@ E_PIECE S_BOARD::SetPieceOnSquare (U8 sq120, E_PIECE piece, std::string mode = "
 }
 
 
+/** Parses FEN and sets member fields of the Data Structure appropriately.
+ *  
+ *  @param  fenstring The supplied FEN String
+ *  
+ *  @return None
+**/
 void S_BOARD::ParseFen (std::string fenString)
 {
     std::vector <std::string> fenStringTokens;
@@ -308,16 +337,13 @@ void S_BOARD::ParseFen (std::string fenString)
 }
 
 
+/** Print the Board to console in Readable format
+ *  
+ *  @param  None
+ *  @return None
+**/
 void S_BOARD::PrintBoard ()
 {
-    /*
-        std::cout << "EnPass " << enPassantSquare << " && Castle " << (int)castleRights << std::endl;
-
-        std::cout << "Side to move " << sideToMove << " && ply " << plys << std::endl;
-
-        std::cout << "Pos " << posBitBoard << std::endl;
-    */
-
     for (int rank = E_RANK::Rank_8; rank >= E_RANK::Rank_1; rank--)
     {
         std::cout << rank;
@@ -433,16 +459,19 @@ void S_BOARD::PrintBoard ()
     printf("Plys         : %d\n", plys);
     printf("50 move cnt  : %d\n", fiftyMoveRuleCount);
     printf("En Passant   : %c%d\n", SQ2FILE(enPassantSquare) ? (SQ2FILE(enPassantSquare) + 'a' - 1) : '0', SQ2RANK(enPassantSquare));
-    // printf("Equality test: %d\n", SQ2RANK(enPassantSquare));
 }
 
-
+/** Reset all data structure fields in an appropriate fashion.
+ * 
+ *  @param  None
+ *  @return None
+ * 
+ *  @todo   Regularly Update this function as an when new variables get associated with the board
+ * 
+**/
 void S_BOARD::ResetBoard()
 {
     /** NOTE
-     *
-     *  The following function is incomplete and must be regularly updated
-     *  whenever the S_BOARD D.S. is changed.
      *
      *  Reset pieceLists also. and count piece etc etc.
     **/
@@ -476,15 +505,13 @@ void S_BOARD::ResetBoard()
 }
 
 
+/** Alternative way to print the Board to console in Readable format
+ *  
+ *  @param  None
+ *  @return None
+**/
 void S_BOARD::PrintBoard120 ()
 {
-    /*
-        std::cout << "EnPass " << enPassantSquare << " && Castle " << (int)castleRights << std::endl;
-
-        std::cout << "Side to move " << sideToMove << " && ply " << plys << std::endl;
-
-        std::cout << "Pos " << posBitBoard << std::endl;
-    */
     for (int i = 0; i < 120; i++)
     {
         if (i % 10 == 0)
@@ -589,6 +616,15 @@ void S_BOARD::PrintBoard120 ()
 }
 
 
+/** Get the piecelist of all squares this piece is on.
+ *  
+ *  @param      piece  the piece whose list is to be retrieved
+ *  @param      sq120  120 based square involved in operation
+ *
+ *  @return     std::vector<> of sq120 where piece exists.
+ * 
+ *  @todo       Remove all E_SQUARE::Square_Invalid from the returned
+**/
 std::vector<U8> S_BOARD::GetSquareList(U8 piece)
 {
     if (piece == E_PIECE::EMPTY)
@@ -606,55 +642,30 @@ std::vector<U8> S_BOARD::GetSquareList(U8 piece)
         return sqList;
     }
 
-    /** UNUSED CODE
-        else if (E_PIECE::wP < piece && piece < E_PIECE::wK)
-        {
-            std::vector<U8> sqList(pieceList[piece - 1], pieceList[piece - 1] + 10);
-            return sqList;
-        }
-        
-        else if (E_PIECE::bP < piece &&  piece < E_PIECE::wK)
-        {
-            std::vector<U8> sqList(pieceList[piece - 2], pieceList[piece - 2] + 10);
-            return sqList;
-        }
-        
-        else if (piece == E_PIECE::wK)
-        {
-            std::vector<U8> sqList(1, kingSq[E_COLOR::WHITE]);
-            return sqList;
-        }
-        
-        else if (piece == E_PIECE::bK)
-        {
-            std::vector<U8> sqList(1, kingSq[E_COLOR::BLACK]);
-            return sqList;
-        }
-    **/
-
     std::vector<U8> sqList(pieceList[piece - 1], pieceList[piece - 1] + 10);
     return sqList;
 }
 
 
+/** Modify piecelist which stores all squares a piece is on.
+ *  
+ *  @param      piece  the piece whose list is to be modified
+ *  @param      sq120  120 based square involved in operation
+ *  @param      operation  "add" or "del" to add square to pieceList or to remove it.
+ *
+ *  @return     Some error code if sq120 cant be deleted or cant be added. Else return success code (or some other useful info)
+ * 
+ *  
+ *  
+ *  @reminder   pieceList[x] is weirdly indexed to save space.
+ *              for x = 0..4 => piece wP..wQ [ie piece 1..5]
+ *              for x = 5..9 => piece bP..bQ [ie piece 7..11]
+ *              piece EMPTY [piece 0] is not associated with any list
+ *              piece wK or bK are associated with kingSq[] indexed by color.
+**/
 U8 S_BOARD::ModifySquareList(U8 piece, U8 sq120, std::string operation)
 {
-    /** NOTE
-     *
-     *  @param :    piece => the piece whose list is to be modified
-     *              sq120 => 120 based square involved in operation
-     *              operation => "add" or "del" to add square to pieceList or to remove it.
-     *
-     *  @return :   Some error code if sq120 cant be deleted or cant be added. Else return success code (or some other useful info)
-     *
-     *  Description : modify 'piecelist'
-     *
-     *  Reminder :  pieceList[x] is weirdly indexed to save space.
-     *              for x = 0..4 => piece wP..wQ [ie piece 1..5]
-     *              for x = 5..9 => piece bP..bQ [ie piece 7..11]
-     *              piece EMPTY [piece 0] is not associated with any list
-     *              piece wK or bK are associated with kingSq[] indexed by color.
-    **/
+    
 
     if (operation == "add")
     {
@@ -692,6 +703,11 @@ U8 S_BOARD::ModifySquareList(U8 piece, U8 sq120, std::string operation)
 }
 
 
+/** Prints PieceLists
+ * 
+ *  @param none
+ *  @return none
+**/
 void S_BOARD::PrintPieceList()
 {
     for (int i = 0; i < 12; i++)
@@ -707,6 +723,11 @@ void S_BOARD::PrintPieceList()
 }
 
 
+/** Prints PieceLists (Alterenative)
+ * 
+ *  @param none
+ *  @return none
+**/
 void S_BOARD::PrintPieceList2()
 {
     for (int i = wP; i <= bK; i++)
@@ -717,28 +738,38 @@ void S_BOARD::PrintPieceList2()
         {
             printf("%c%d ",SQ2FILE(j) + 'A' - 1, SQ2RANK(j));   
         }
-        // for(int j = 0; j < 10; j++)
-        // {
-        //     printf("%c%d ",SQ2FILE(pieceList[i][j]) + 'A' - 1, SQ2RANK(pieceList[i][j]));
-            
-        // }
         printf("\n");
     }
 }
 
 
+/** Gets Side to Move
+ * 
+ *  @param  None
+ *  @return U8 sideToMove. WHITE == 0, BLACK == 1
+**/
 U8 S_BOARD::GetSideToMove ()
 {
     return this->sideToMove;
 }
 
 
+/** Gets En Passant Square
+ * 
+ *  @param  None
+ *  @return U8 EP Square in 120 based indexing.
+**/
 U8 S_BOARD::GetEPSquare ()
 {
     return this->enPassantSquare;
 }
 
 
+/** Gets Castling Rights
+ * 
+ *  @param  None
+ *  @return U8 castleRights. Bitwise OR of available castle permissions.
+**/
 U8 S_BOARD::GetCastleRights ()
 {
     return this->castleRights;

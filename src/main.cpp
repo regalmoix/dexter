@@ -59,8 +59,8 @@ int main()
     // std::cout << "Details of H3 square : " << b.posBitBoard[H3*4 + 3] << b.posBitBoard[H3*4 + 2] << b.posBitBoard[H3*4 + 1] << b.posBitBoard[H3*4 + 0] << std::endl;
     // std::bitset<480> temp = 0xF << 192;
 
-    printf("\n\nPrintBoard : \n");
-    b.PrintBoard();
+    // printf("\n\nPrintBoard : \n");
+    // b.PrintBoard();
     // printf("\n\nPrint Piece List : \n");
     // b.PrintPieceList();
     // cout << endl;
@@ -86,24 +86,36 @@ int main()
     //
     // }
     bool flag = isAttacked(b,E_SQUARE::D2);
-    cout<<flag<<"\n";
+    // cout<<flag<<"\n";
     KnightMoves(b);
     BishopMoves(b);
     RookMoves(b);
     QueenMoves(b);
     KingMoves(b);
 
-    cout << "\n\n\n";
+    // cout << "\n\n\n";
 
-    for (auto moves : moveList)
+    // for (auto moves : moveList)
+    // {
+    //     // cout << (int)moves.fromSquare << " -> " << (int)moves.toSquare << endl;
+    //     printf("%c%d -> ",SQ2FILE(moves.fromSquare) + 'A' - 1, SQ2RANK(moves.fromSquare));
+    //     printf("%c%d \n" ,SQ2FILE(moves.toSquare) + 'A' - 1, SQ2RANK(moves.toSquare));
+
+
+    // }
+    // cout<<moveList.size()<<"\n";
+    
+    S_HASH Hash(b);
+
+
+    for (U8 sq120 = 0; sq120 < BOARD_SIZE; ++sq120)
     {
-        // cout << (int)moves.fromSquare << " -> " << (int)moves.toSquare << endl;
-        printf("%c%d -> ",SQ2FILE(moves.fromSquare) + 'A' - 1, SQ2RANK(moves.fromSquare));
-        printf("%c%d \n" ,SQ2FILE(moves.toSquare) + 'A' - 1, SQ2RANK(moves.toSquare));
-
-
+        for (U8 pce = E_PIECE::EMPTY; pce <= E_PIECE::bK; ++pce)
+        {            
+            printf("%X   ", Hash.pieceSquarePairHash[pce][sq120]);
+        }
+        printf("\n");
     }
-    cout<<moveList.size()<<"\n";
-
+    
     return 0;
 }
