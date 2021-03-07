@@ -200,7 +200,7 @@ public :
 
     U8 GetPieceOnSquare (U8 sq120);
 
-    E_PIECE SetPieceOnSquare (U8 sq120, E_PIECE piece, std::string mode);
+    E_PIECE SetPieceOnSquare (U8 sq120, E_PIECE piece, std::string mode = "normal");
 
     void ParseFen (std::string fenString);
 
@@ -299,7 +299,7 @@ typedef struct S_HASH
 
 extern char sq120To64[];
 extern std::vector<S_MOVE> moveList;
-
+extern S_HASH HASH;
 
 /** FUNCTION DECLARATIONS **/
 extern void PawnMoves(Board& board);

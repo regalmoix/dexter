@@ -79,7 +79,7 @@ U8 S_BOARD::GetPieceOnSquare (U8 sq120)
  *  @todo       Remove useless error checking and move it to a useful place.
  * 
 **/
-E_PIECE S_BOARD::SetPieceOnSquare (U8 sq120, E_PIECE piece, std::string mode = "normal")
+E_PIECE S_BOARD::SetPieceOnSquare (U8 sq120, E_PIECE piece, std::string mode)
 {
     U8 currPce = GetPieceOnSquare(sq120);
 
@@ -665,8 +665,6 @@ std::vector<U8> S_BOARD::GetSquareList(U8 piece)
 **/
 U8 S_BOARD::ModifySquareList(U8 piece, U8 sq120, std::string operation)
 {
-    
-
     if (operation == "add")
     {
         for (int i = 0; i < 10; i++)

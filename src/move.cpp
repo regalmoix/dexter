@@ -139,6 +139,7 @@ S_MOVE::S_MOVE (Board board, U8 from, U8 to, U8 moveInfo)
     pieceInfo       |= t_currPiece;
 }
 
+
 S_MOVE::S_MOVE (Board board, U8 from, U8 to, U8 moveInfo, U8 pieceInfo)
 {
     fromSquare              = from;

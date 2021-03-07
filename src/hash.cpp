@@ -2,6 +2,11 @@
 #include <chrono> 
 #include <random> 
 
+/** Initialise Hash Values for each piece-square pairs and other flags
+ * 
+ *  @param  None
+ *  @return None
+**/
 void S_HASH::InitHash()
 {
     U64 seed = std::chrono::system_clock::now().time_since_epoch().count(); 
@@ -24,17 +29,35 @@ void S_HASH::InitHash()
     sideToMoveHash = randomGenerator();
 }
 
+
+/** Constructor that initialises hash values.
+ * 
+ *  @param  None
+ *  @return None
+**/
 S_HASH::S_HASH()
 {
     InitHash();    
 }
 
+
+/** Constructor that initialises hash values. Then Generates Hash Key for it.
+ * 
+ *  @param  board   The board to extract data for generating Hash key.
+ *  @return None
+**/
 S_HASH::S_HASH(Board& board)
 {
     InitHash();
     GenerateHash(board);
 }
 
+
+/** Generates Hash Key for the board.
+ * 
+ *  @param  board   The board to extract data for generating Hash key.
+ *  @return         Returns the 64 bit hashkey for the position set to board's posHashKey. Return value need not be stored
+**/
 U64 S_HASH::GenerateHash(Board& board)
 {
     U64 hashKey = 0;
@@ -43,7 +66,7 @@ U64 S_HASH::GenerateHash(Board& board)
     {
         U8 pce = board.GetPieceOnSquare(sq120);
 
-        if (pce != E_PIECE::OFFBOARD)
+        if (pce != E_PIECE::OFFBOARD && pce != E_PIECE::EMPTY)      // pce not empty ensured because we don't want to (un)hash EMPTY whenever we add/remove a piece
         {
             hashKey ^= pieceSquarePairHash[pce][sq120];
         }
@@ -58,6 +81,8 @@ U64 S_HASH::GenerateHash(Board& board)
         hashKey ^= epHash[SQ2FILE(epSq)];
     
     hashKey ^= castleHash[board.GetCastleRights()];
+
+    board.posHashKey = hashKey;
 
     return hashKey;
 }
