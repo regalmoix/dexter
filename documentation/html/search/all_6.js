@@ -1,0 +1,21 @@
+var searchData=
+[
+  ['g1_94',['G1',['../header_8h.html#a3d1a9f09478aa733a1838a0c87de8c61aaec6d2231567cdb9063f093d8effa224',1,'header.h']]],
+  ['g2_95',['G2',['../header_8h.html#a3d1a9f09478aa733a1838a0c87de8c61aedce8067580fa0c4c235f8534f25a7b3',1,'header.h']]],
+  ['g3_96',['G3',['../header_8h.html#a3d1a9f09478aa733a1838a0c87de8c61a99381344bd0c2206ca3bcf98254783f0',1,'header.h']]],
+  ['g4_97',['G4',['../header_8h.html#a3d1a9f09478aa733a1838a0c87de8c61af0083cb5d419863c9fa614b3e5a3213b',1,'header.h']]],
+  ['g5_98',['G5',['../header_8h.html#a3d1a9f09478aa733a1838a0c87de8c61a33e4e589075c868910acfa95b14efb5f',1,'header.h']]],
+  ['g6_99',['G6',['../header_8h.html#a3d1a9f09478aa733a1838a0c87de8c61a6ab0f7aca08fd2ba5505168472501d98',1,'header.h']]],
+  ['g7_100',['G7',['../header_8h.html#a3d1a9f09478aa733a1838a0c87de8c61ae236ad64088ffc77d9e098628d5ba342',1,'header.h']]],
+  ['g8_101',['G8',['../header_8h.html#a3d1a9f09478aa733a1838a0c87de8c61aa1c865ccd52132fb116c4587969e6ad8',1,'header.h']]],
+  ['generatehash_102',['GenerateHash',['../structS__HASH.html#ac40868ea633c2c363fca523fb1304417',1,'S_HASH']]],
+  ['getcapturedpiece_103',['getCapturedPiece',['../structS__MOVE.html#a4e0ff9008033b9a405fbe0a132965a64',1,'S_MOVE']]],
+  ['getcastle_104',['getCastle',['../structS__MOVE.html#a3bc394a47c8d7e170bcf1e34406016d4',1,'S_MOVE']]],
+  ['getcastlerights_105',['GetCastleRights',['../structS__BOARD.html#ac5d7a0310e6358447f9dd903c338b02d',1,'S_BOARD']]],
+  ['getepsquare_106',['GetEPSquare',['../structS__BOARD.html#af00d3d82ead21490d58a29597fc85649',1,'S_BOARD']]],
+  ['getmovingpiece_107',['getMovingPiece',['../structS__MOVE.html#a1167af464ff7331f2945e654dafd5bbf',1,'S_MOVE']]],
+  ['getpieceonsquare_108',['GetPieceOnSquare',['../structS__BOARD.html#a29121db43af4dc2c4fe32b937e184a7c',1,'S_BOARD']]],
+  ['getpromotedpiece_109',['getPromotedPiece',['../structS__MOVE.html#ad89752f307067591f5e7b3efc52e9d91',1,'S_MOVE']]],
+  ['getsidetomove_110',['GetSideToMove',['../structS__BOARD.html#a7e5f7cb1c01a86574964085d4500674c',1,'S_BOARD']]],
+  ['getsquarelist_111',['GetSquareList',['../structS__BOARD.html#aee4e1de800c7deabd26e1d650e455744',1,'S_BOARD']]]
+];

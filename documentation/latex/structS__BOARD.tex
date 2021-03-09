@@ -1,0 +1,571 @@
+\hypertarget{structS__BOARD}{}\doxysection{S\+\_\+\+BOARD Struct Reference}
+\label{structS__BOARD}\index{S\_BOARD@{S\_BOARD}}
+
+
+{\ttfamily \#include $<$header.\+h$>$}
+
+
+
+Collaboration diagram for S\+\_\+\+BOARD\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structS__BOARD__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structS__BOARD_adb3387a421127b1c251a8c53f72c4333}{S\+\_\+\+BOARD}} ()
+\item 
+\mbox{\hyperlink{structS__BOARD_aca52f74fb87d9e6c1a01be1a088377d7}{S\+\_\+\+BOARD}} (std\+::string fen\+String)
+\item 
+\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} \mbox{\hyperlink{structS__BOARD_a29121db43af4dc2c4fe32b937e184a7c}{Get\+Piece\+On\+Square}} (\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} sq120)
+\item 
+\mbox{\hyperlink{header_8h_a6cf299ea7ef1ad876e1f0751259aa8f2}{E\+\_\+\+PIECE}} \mbox{\hyperlink{structS__BOARD_a6b80099a2ea90dcfdd4b487871dc710c}{Set\+Piece\+On\+Square}} (\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} sq120, \mbox{\hyperlink{header_8h_a6cf299ea7ef1ad876e1f0751259aa8f2}{E\+\_\+\+PIECE}} piece, std\+::string mode=\char`\"{}normal\char`\"{})
+\item 
+void \mbox{\hyperlink{structS__BOARD_a00999dd21c74bce7a62edcf34acff114}{Parse\+Fen}} (std\+::string fen\+String)
+\item 
+void \mbox{\hyperlink{structS__BOARD_ad5b2fe38cc7bbc555ed90be4b0956c16}{Print\+Board}} ()
+\item 
+void \mbox{\hyperlink{structS__BOARD_ab8ae75f071c04acca316881652804455}{Print\+Board120}} ()
+\item 
+void \mbox{\hyperlink{structS__BOARD_a32cad748ae4c12cc9ca0bf5ddcc3542d}{Print\+Piece\+List}} ()
+\item 
+void \mbox{\hyperlink{structS__BOARD_a2f33fe4ab4bbd7b79c20fef414a6768f}{Print\+Piece\+List2}} ()
+\item 
+void \mbox{\hyperlink{structS__BOARD_aa3633793b7953270f505a302ffc18e25}{Reset\+Board}} ()
+\item 
+std\+::vector$<$ \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} $>$ \mbox{\hyperlink{structS__BOARD_aee4e1de800c7deabd26e1d650e455744}{Get\+Square\+List}} (\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} piece)
+\item 
+\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} \mbox{\hyperlink{structS__BOARD_a48c663dd36259f82bc5a76f287cab4db}{Modify\+Square\+List}} (\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} piece, \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} sq120, std\+::string operation)
+\item 
+\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} \mbox{\hyperlink{structS__BOARD_a7e5f7cb1c01a86574964085d4500674c}{Get\+Side\+To\+Move}} ()
+\item 
+\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} \mbox{\hyperlink{structS__BOARD_af00d3d82ead21490d58a29597fc85649}{Get\+EPSquare}} ()
+\item 
+\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} \mbox{\hyperlink{structS__BOARD_ac5d7a0310e6358447f9dd903c338b02d}{Get\+Castle\+Rights}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{header_8h_ac4de1ae30664d5bd186fb6b2ae44e725}{U16}} \mbox{\hyperlink{structS__BOARD_a0ee49093632eb74342056c1560409c54}{plys}}
+\item 
+\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} \mbox{\hyperlink{structS__BOARD_a4f6e27e8a1e514e6c5f3a471e781a492}{side\+To\+Move}}
+\item 
+\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} \mbox{\hyperlink{structS__BOARD_a7363add483791231666709f955c1fff7}{fifty\+Move\+Rule\+Count}}
+\item 
+\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} \mbox{\hyperlink{structS__BOARD_ac4ea8701c38b83f0fc6faa2149c69002}{en\+Passant\+Square}}
+\item 
+\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} \mbox{\hyperlink{structS__BOARD_a00025f3d90a83f9d676cb2c2b9fd8067}{castle\+Rights}}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{header_8h_ae2c9be7b2235138a3a472b5f444a1578}{History}} $>$ \mbox{\hyperlink{structS__BOARD_a0a3b47ada9e14220e0e99caa74fcac45}{move\+History}}
+\item 
+\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} \mbox{\hyperlink{structS__BOARD_ad408cc9f6c0420c929efcdb5b12e7d94}{king\+Sq}} \mbox{[}2\mbox{]}
+\item 
+\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} \mbox{\hyperlink{structS__BOARD_a4cc751ada3402bf15f9b19becb68c3a8}{piece\+List}} \mbox{[}12\mbox{]}\mbox{[}10\mbox{]}
+\item 
+std\+::array$<$ \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}}, 13 $>$ \mbox{\hyperlink{structS__BOARD_abbd5fe0ef3cea6feff99e399564cc94a}{count\+Piece}}
+\item 
+std\+::bitset$<$ 480 $>$ \mbox{\hyperlink{structS__BOARD_a173cb7b99f206d3364372815b5d6c161}{pos\+Bit\+Board}}
+\item 
+\mbox{\hyperlink{header_8h_ac5ba485b10f1f4605b2ab45562499938}{U64}} \mbox{\hyperlink{structS__BOARD_a09787c4152864f9a625ad878f06a541f}{pos\+Hash\+Key}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structS__BOARD_adb3387a421127b1c251a8c53f72c4333}\label{structS__BOARD_adb3387a421127b1c251a8c53f72c4333}} 
+\index{S\_BOARD@{S\_BOARD}!S\_BOARD@{S\_BOARD}}
+\index{S\_BOARD@{S\_BOARD}!S\_BOARD@{S\_BOARD}}
+\doxysubsubsection{\texorpdfstring{S\_BOARD()}{S\_BOARD()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily S\+\_\+\+BOARD\+::\+S\+\_\+\+BOARD (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+NOTE
+
+120 $\ast$ 4 = 480. Bits 0\+:3 = Sq 0 and Bits 4\+:7 = Sq 1 and so on... Hence Sq i means bits 4$\ast$i \+: 4$\ast$i + 3 OPEN QUESTIONS
+
+Do we store which squares the minor pieces are on? Do we store set of legal moves in the position? in a vector or LL? Does the generate moves (Set of) function(s) reside as a member function? How to modularise TODO
+
+Assert in constructor that side\+To\+Move is W or B, not \textquotesingle{}Both\textquotesingle{} Set bit of square X on pawn bitboard Function Prototypes to retrieve piece at given E\+\_\+\+Square sq. \mbox{[}Check if sq is onboard\mbox{]} Function Prototypes to remove \textquotesingle{}\textquotesingle{} Function Prototypes to add \textquotesingle{}\textquotesingle{} Much more Read and parse FEN Write Constructor Hashkey to detect 3-\/fold (player must claim draw) and 5-\/fold (forced draw) repetition Init piece\+List while parsing FEN. Maintain consistency across member variables
+
+Contructor to Reset Board
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structS__BOARD_adb3387a421127b1c251a8c53f72c4333_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{structS__BOARD_aca52f74fb87d9e6c1a01be1a088377d7}\label{structS__BOARD_aca52f74fb87d9e6c1a01be1a088377d7}} 
+\index{S\_BOARD@{S\_BOARD}!S\_BOARD@{S\_BOARD}}
+\index{S\_BOARD@{S\_BOARD}!S\_BOARD@{S\_BOARD}}
+\doxysubsubsection{\texorpdfstring{S\_BOARD()}{S\_BOARD()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily S\+\_\+\+BOARD\+::\+S\+\_\+\+BOARD (\begin{DoxyParamCaption}\item[{std\+::string}]{fen\+String }\end{DoxyParamCaption})}
+
+Contructor to Reset Board and init with FEN string
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+NOTE
+
+Delegating Constructor used. \mbox{\hyperlink{structS__BOARD_adb3387a421127b1c251a8c53f72c4333}{S\+\_\+\+BOARD()}} called first then control returned to \mbox{\hyperlink{structS__BOARD_aca52f74fb87d9e6c1a01be1a088377d7}{S\+\_\+\+BOARD(std\+::string s)}}Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structS__BOARD_aca52f74fb87d9e6c1a01be1a088377d7_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structS__BOARD_ac5d7a0310e6358447f9dd903c338b02d}\label{structS__BOARD_ac5d7a0310e6358447f9dd903c338b02d}} 
+\index{S\_BOARD@{S\_BOARD}!GetCastleRights@{GetCastleRights}}
+\index{GetCastleRights@{GetCastleRights}!S\_BOARD@{S\_BOARD}}
+\doxysubsubsection{\texorpdfstring{GetCastleRights()}{GetCastleRights()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} S\+\_\+\+BOARD\+::\+Get\+Castle\+Rights (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Gets Castling Rights
+
+
+\begin{DoxyParams}{Parameters}
+{\em None} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+U8 castle\+Rights. Bitwise OR of available castle permissions. 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structS__BOARD_ac5d7a0310e6358447f9dd903c338b02d_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{structS__BOARD_af00d3d82ead21490d58a29597fc85649}\label{structS__BOARD_af00d3d82ead21490d58a29597fc85649}} 
+\index{S\_BOARD@{S\_BOARD}!GetEPSquare@{GetEPSquare}}
+\index{GetEPSquare@{GetEPSquare}!S\_BOARD@{S\_BOARD}}
+\doxysubsubsection{\texorpdfstring{GetEPSquare()}{GetEPSquare()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} S\+\_\+\+BOARD\+::\+Get\+EPSquare (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Gets En Passant Square
+
+
+\begin{DoxyParams}{Parameters}
+{\em None} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+U8 EP Square in 120 based indexing. 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structS__BOARD_af00d3d82ead21490d58a29597fc85649_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{structS__BOARD_a29121db43af4dc2c4fe32b937e184a7c}\label{structS__BOARD_a29121db43af4dc2c4fe32b937e184a7c}} 
+\index{S\_BOARD@{S\_BOARD}!GetPieceOnSquare@{GetPieceOnSquare}}
+\index{GetPieceOnSquare@{GetPieceOnSquare}!S\_BOARD@{S\_BOARD}}
+\doxysubsubsection{\texorpdfstring{GetPieceOnSquare()}{GetPieceOnSquare()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} S\+\_\+\+BOARD\+::\+Get\+Piece\+On\+Square (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}}}]{sq120 }\end{DoxyParamCaption})}
+
+Get the piece on the square.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sq120} & 120 based square involved in operation\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+U8 piece that exists on the square 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structS__BOARD_a29121db43af4dc2c4fe32b937e184a7c_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{structS__BOARD_a7e5f7cb1c01a86574964085d4500674c}\label{structS__BOARD_a7e5f7cb1c01a86574964085d4500674c}} 
+\index{S\_BOARD@{S\_BOARD}!GetSideToMove@{GetSideToMove}}
+\index{GetSideToMove@{GetSideToMove}!S\_BOARD@{S\_BOARD}}
+\doxysubsubsection{\texorpdfstring{GetSideToMove()}{GetSideToMove()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} S\+\_\+\+BOARD\+::\+Get\+Side\+To\+Move (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Gets Side to Move
+
+
+\begin{DoxyParams}{Parameters}
+{\em None} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+U8 side\+To\+Move. WHITE == 0, BLACK == 1 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structS__BOARD_a7e5f7cb1c01a86574964085d4500674c_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{structS__BOARD_aee4e1de800c7deabd26e1d650e455744}\label{structS__BOARD_aee4e1de800c7deabd26e1d650e455744}} 
+\index{S\_BOARD@{S\_BOARD}!GetSquareList@{GetSquareList}}
+\index{GetSquareList@{GetSquareList}!S\_BOARD@{S\_BOARD}}
+\doxysubsubsection{\texorpdfstring{GetSquareList()}{GetSquareList()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} $>$ S\+\_\+\+BOARD\+::\+Get\+Square\+List (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}}}]{piece }\end{DoxyParamCaption})}
+
+Get the piecelist of all squares this piece is on.
+
+
+\begin{DoxyParams}{Parameters}
+{\em piece} & the piece whose list is to be retrieved \\
+\hline
+{\em sq120} & 120 based square involved in operation\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::vector$<$$>$ of sq120 where piece exists.
+\end{DoxyReturn}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000003}{Todo}}]Remove all E\+\_\+\+SQUARE\+::\+Square\+\_\+\+Invalid from the returned \end{DoxyRefDesc}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structS__BOARD_aee4e1de800c7deabd26e1d650e455744_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structS__BOARD_aee4e1de800c7deabd26e1d650e455744_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{structS__BOARD_a48c663dd36259f82bc5a76f287cab4db}\label{structS__BOARD_a48c663dd36259f82bc5a76f287cab4db}} 
+\index{S\_BOARD@{S\_BOARD}!ModifySquareList@{ModifySquareList}}
+\index{ModifySquareList@{ModifySquareList}!S\_BOARD@{S\_BOARD}}
+\doxysubsubsection{\texorpdfstring{ModifySquareList()}{ModifySquareList()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} S\+\_\+\+BOARD\+::\+Modify\+Square\+List (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}}}]{piece,  }\item[{\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}}}]{sq120,  }\item[{std\+::string}]{operation }\end{DoxyParamCaption})}
+
+Modify piecelist which stores all squares a piece is on.
+
+
+\begin{DoxyParams}{Parameters}
+{\em piece} & the piece whose list is to be modified \\
+\hline
+{\em sq120} & 120 based square involved in operation \\
+\hline
+{\em operation} & \char`\"{}add\char`\"{} or \char`\"{}del\char`\"{} to add square to piece\+List or to remove it.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Some error code if sq120 cant be deleted or cant be added. Else return success code (or some other useful info)
+\end{DoxyReturn}
+@reminder piece\+List\mbox{[}x\mbox{]} is weirdly indexed to save space. for x = 0..4 =$>$ piece wP..wQ \mbox{[}ie piece 1..5\mbox{]} for x = 5..9 =$>$ piece bP..bQ \mbox{[}ie piece 7..11\mbox{]} piece EMPTY \mbox{[}piece 0\mbox{]} is not associated with any list piece wK or bK are associated with king\+Sq\mbox{[}\mbox{]} indexed by color. Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structS__BOARD_a48c663dd36259f82bc5a76f287cab4db_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{structS__BOARD_a00999dd21c74bce7a62edcf34acff114}\label{structS__BOARD_a00999dd21c74bce7a62edcf34acff114}} 
+\index{S\_BOARD@{S\_BOARD}!ParseFen@{ParseFen}}
+\index{ParseFen@{ParseFen}!S\_BOARD@{S\_BOARD}}
+\doxysubsubsection{\texorpdfstring{ParseFen()}{ParseFen()}}
+{\footnotesize\ttfamily void S\+\_\+\+BOARD\+::\+Parse\+Fen (\begin{DoxyParamCaption}\item[{std\+::string}]{fen\+String }\end{DoxyParamCaption})}
+
+Parses FEN and sets member fields of the Data Structure appropriately.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fenstring} & The supplied FEN String\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+None 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structS__BOARD_a00999dd21c74bce7a62edcf34acff114_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=345pt]{structS__BOARD_a00999dd21c74bce7a62edcf34acff114_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{structS__BOARD_ad5b2fe38cc7bbc555ed90be4b0956c16}\label{structS__BOARD_ad5b2fe38cc7bbc555ed90be4b0956c16}} 
+\index{S\_BOARD@{S\_BOARD}!PrintBoard@{PrintBoard}}
+\index{PrintBoard@{PrintBoard}!S\_BOARD@{S\_BOARD}}
+\doxysubsubsection{\texorpdfstring{PrintBoard()}{PrintBoard()}}
+{\footnotesize\ttfamily void S\+\_\+\+BOARD\+::\+Print\+Board (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Print the Board to console in Readable format
+
+
+\begin{DoxyParams}{Parameters}
+{\em None} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+None 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structS__BOARD_ad5b2fe38cc7bbc555ed90be4b0956c16_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{structS__BOARD_ab8ae75f071c04acca316881652804455}\label{structS__BOARD_ab8ae75f071c04acca316881652804455}} 
+\index{S\_BOARD@{S\_BOARD}!PrintBoard120@{PrintBoard120}}
+\index{PrintBoard120@{PrintBoard120}!S\_BOARD@{S\_BOARD}}
+\doxysubsubsection{\texorpdfstring{PrintBoard120()}{PrintBoard120()}}
+{\footnotesize\ttfamily void S\+\_\+\+BOARD\+::\+Print\+Board120 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Alternative way to print the Board to console in Readable format
+
+
+\begin{DoxyParams}{Parameters}
+{\em None} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+None 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structS__BOARD_ab8ae75f071c04acca316881652804455_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{structS__BOARD_a32cad748ae4c12cc9ca0bf5ddcc3542d}\label{structS__BOARD_a32cad748ae4c12cc9ca0bf5ddcc3542d}} 
+\index{S\_BOARD@{S\_BOARD}!PrintPieceList@{PrintPieceList}}
+\index{PrintPieceList@{PrintPieceList}!S\_BOARD@{S\_BOARD}}
+\doxysubsubsection{\texorpdfstring{PrintPieceList()}{PrintPieceList()}}
+{\footnotesize\ttfamily void S\+\_\+\+BOARD\+::\+Print\+Piece\+List (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Prints Piece\+Lists
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structS__BOARD_a2f33fe4ab4bbd7b79c20fef414a6768f}\label{structS__BOARD_a2f33fe4ab4bbd7b79c20fef414a6768f}} 
+\index{S\_BOARD@{S\_BOARD}!PrintPieceList2@{PrintPieceList2}}
+\index{PrintPieceList2@{PrintPieceList2}!S\_BOARD@{S\_BOARD}}
+\doxysubsubsection{\texorpdfstring{PrintPieceList2()}{PrintPieceList2()}}
+{\footnotesize\ttfamily void S\+\_\+\+BOARD\+::\+Print\+Piece\+List2 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Prints Piece\+Lists (Alterenative)
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structS__BOARD_a2f33fe4ab4bbd7b79c20fef414a6768f_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{structS__BOARD_aa3633793b7953270f505a302ffc18e25}\label{structS__BOARD_aa3633793b7953270f505a302ffc18e25}} 
+\index{S\_BOARD@{S\_BOARD}!ResetBoard@{ResetBoard}}
+\index{ResetBoard@{ResetBoard}!S\_BOARD@{S\_BOARD}}
+\doxysubsubsection{\texorpdfstring{ResetBoard()}{ResetBoard()}}
+{\footnotesize\ttfamily void S\+\_\+\+BOARD\+::\+Reset\+Board (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Reset all data structure fields in an appropriate fashion.
+
+
+\begin{DoxyParams}{Parameters}
+{\em None} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+None
+\end{DoxyReturn}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000002}{Todo}}]Regularly Update this function as an when new variables get associated with the board\end{DoxyRefDesc}
+NOTE
+
+Reset piece\+Lists also. and count piece etc etc.Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structS__BOARD_aa3633793b7953270f505a302ffc18e25_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structS__BOARD_aa3633793b7953270f505a302ffc18e25_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{structS__BOARD_a6b80099a2ea90dcfdd4b487871dc710c}\label{structS__BOARD_a6b80099a2ea90dcfdd4b487871dc710c}} 
+\index{S\_BOARD@{S\_BOARD}!SetPieceOnSquare@{SetPieceOnSquare}}
+\index{SetPieceOnSquare@{SetPieceOnSquare}!S\_BOARD@{S\_BOARD}}
+\doxysubsubsection{\texorpdfstring{SetPieceOnSquare()}{SetPieceOnSquare()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{header_8h_a6cf299ea7ef1ad876e1f0751259aa8f2}{E\+\_\+\+PIECE}} S\+\_\+\+BOARD\+::\+Set\+Piece\+On\+Square (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}}}]{sq120,  }\item[{\mbox{\hyperlink{header_8h_a6cf299ea7ef1ad876e1f0751259aa8f2}{E\+\_\+\+PIECE}}}]{piece,  }\item[{std\+::string}]{mode = {\ttfamily \char`\"{}normal\char`\"{}} }\end{DoxyParamCaption})}
+
+Set the piece on the square.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sq120} & 120 based square involved in operation \\
+\hline
+{\em piece} & piece to set on square \\
+\hline
+{\em mode} & \char`\"{}normal\char`\"{} prevents overwriting of OFFBOARD squares. Also prevents capturing own pieces.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+U8 piece that exists on the square before updation.
+\end{DoxyReturn}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000001}{Todo}}]Remove useless error checking and move it to a useful place.\end{DoxyRefDesc}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structS__BOARD_a6b80099a2ea90dcfdd4b487871dc710c_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structS__BOARD_a6b80099a2ea90dcfdd4b487871dc710c_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structS__BOARD_a00025f3d90a83f9d676cb2c2b9fd8067}\label{structS__BOARD_a00025f3d90a83f9d676cb2c2b9fd8067}} 
+\index{S\_BOARD@{S\_BOARD}!castleRights@{castleRights}}
+\index{castleRights@{castleRights}!S\_BOARD@{S\_BOARD}}
+\doxysubsubsection{\texorpdfstring{castleRights}{castleRights}}
+{\footnotesize\ttfamily \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} S\+\_\+\+BOARD\+::castle\+Rights}
+
+\mbox{\Hypertarget{structS__BOARD_abbd5fe0ef3cea6feff99e399564cc94a}\label{structS__BOARD_abbd5fe0ef3cea6feff99e399564cc94a}} 
+\index{S\_BOARD@{S\_BOARD}!countPiece@{countPiece}}
+\index{countPiece@{countPiece}!S\_BOARD@{S\_BOARD}}
+\doxysubsubsection{\texorpdfstring{countPiece}{countPiece}}
+{\footnotesize\ttfamily std\+::array$<$\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}}, 13$>$ S\+\_\+\+BOARD\+::count\+Piece}
+
+\mbox{\Hypertarget{structS__BOARD_ac4ea8701c38b83f0fc6faa2149c69002}\label{structS__BOARD_ac4ea8701c38b83f0fc6faa2149c69002}} 
+\index{S\_BOARD@{S\_BOARD}!enPassantSquare@{enPassantSquare}}
+\index{enPassantSquare@{enPassantSquare}!S\_BOARD@{S\_BOARD}}
+\doxysubsubsection{\texorpdfstring{enPassantSquare}{enPassantSquare}}
+{\footnotesize\ttfamily \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} S\+\_\+\+BOARD\+::en\+Passant\+Square}
+
+\mbox{\Hypertarget{structS__BOARD_a7363add483791231666709f955c1fff7}\label{structS__BOARD_a7363add483791231666709f955c1fff7}} 
+\index{S\_BOARD@{S\_BOARD}!fiftyMoveRuleCount@{fiftyMoveRuleCount}}
+\index{fiftyMoveRuleCount@{fiftyMoveRuleCount}!S\_BOARD@{S\_BOARD}}
+\doxysubsubsection{\texorpdfstring{fiftyMoveRuleCount}{fiftyMoveRuleCount}}
+{\footnotesize\ttfamily \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} S\+\_\+\+BOARD\+::fifty\+Move\+Rule\+Count}
+
+\mbox{\Hypertarget{structS__BOARD_ad408cc9f6c0420c929efcdb5b12e7d94}\label{structS__BOARD_ad408cc9f6c0420c929efcdb5b12e7d94}} 
+\index{S\_BOARD@{S\_BOARD}!kingSq@{kingSq}}
+\index{kingSq@{kingSq}!S\_BOARD@{S\_BOARD}}
+\doxysubsubsection{\texorpdfstring{kingSq}{kingSq}}
+{\footnotesize\ttfamily \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} S\+\_\+\+BOARD\+::king\+Sq\mbox{[}2\mbox{]}}
+
+Piece Lists, Bitboards
+
+To store pawns in bitboards? Currently removed, saves 24 Bytes. \+:) Piece List ? yes =$>$ update functions \+: no =$>$ any disadvantage? Using standard arrays for piece lists to save on memory \mbox{\Hypertarget{structS__BOARD_a0a3b47ada9e14220e0e99caa74fcac45}\label{structS__BOARD_a0a3b47ada9e14220e0e99caa74fcac45}} 
+\index{S\_BOARD@{S\_BOARD}!moveHistory@{moveHistory}}
+\index{moveHistory@{moveHistory}!S\_BOARD@{S\_BOARD}}
+\doxysubsubsection{\texorpdfstring{moveHistory}{moveHistory}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{header_8h_ae2c9be7b2235138a3a472b5f444a1578}{History}}$>$ S\+\_\+\+BOARD\+::move\+History}
+
+\mbox{\Hypertarget{structS__BOARD_a4cc751ada3402bf15f9b19becb68c3a8}\label{structS__BOARD_a4cc751ada3402bf15f9b19becb68c3a8}} 
+\index{S\_BOARD@{S\_BOARD}!pieceList@{pieceList}}
+\index{pieceList@{pieceList}!S\_BOARD@{S\_BOARD}}
+\doxysubsubsection{\texorpdfstring{pieceList}{pieceList}}
+{\footnotesize\ttfamily \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} S\+\_\+\+BOARD\+::piece\+List\mbox{[}12\mbox{]}\mbox{[}10\mbox{]}}
+
+\mbox{\Hypertarget{structS__BOARD_a0ee49093632eb74342056c1560409c54}\label{structS__BOARD_a0ee49093632eb74342056c1560409c54}} 
+\index{S\_BOARD@{S\_BOARD}!plys@{plys}}
+\index{plys@{plys}!S\_BOARD@{S\_BOARD}}
+\doxysubsubsection{\texorpdfstring{plys}{plys}}
+{\footnotesize\ttfamily \mbox{\hyperlink{header_8h_ac4de1ae30664d5bd186fb6b2ae44e725}{U16}} S\+\_\+\+BOARD\+::plys}
+
+DESCRIPTION
+
+This Data Structure aims to store all properties that uniquely define a board Additional properties are stored with aim of improving calculations at cost of memory Additionally, member functions to assist with D.\+S. manipulation are WIP \mbox{\Hypertarget{structS__BOARD_a173cb7b99f206d3364372815b5d6c161}\label{structS__BOARD_a173cb7b99f206d3364372815b5d6c161}} 
+\index{S\_BOARD@{S\_BOARD}!posBitBoard@{posBitBoard}}
+\index{posBitBoard@{posBitBoard}!S\_BOARD@{S\_BOARD}}
+\doxysubsubsection{\texorpdfstring{posBitBoard}{posBitBoard}}
+{\footnotesize\ttfamily std\+::bitset$<$480$>$ S\+\_\+\+BOARD\+::pos\+Bit\+Board}
+
+\mbox{\Hypertarget{structS__BOARD_a09787c4152864f9a625ad878f06a541f}\label{structS__BOARD_a09787c4152864f9a625ad878f06a541f}} 
+\index{S\_BOARD@{S\_BOARD}!posHashKey@{posHashKey}}
+\index{posHashKey@{posHashKey}!S\_BOARD@{S\_BOARD}}
+\doxysubsubsection{\texorpdfstring{posHashKey}{posHashKey}}
+{\footnotesize\ttfamily \mbox{\hyperlink{header_8h_ac5ba485b10f1f4605b2ab45562499938}{U64}} S\+\_\+\+BOARD\+::pos\+Hash\+Key}
+
+\mbox{\Hypertarget{structS__BOARD_a4f6e27e8a1e514e6c5f3a471e781a492}\label{structS__BOARD_a4f6e27e8a1e514e6c5f3a471e781a492}} 
+\index{S\_BOARD@{S\_BOARD}!sideToMove@{sideToMove}}
+\index{sideToMove@{sideToMove}!S\_BOARD@{S\_BOARD}}
+\doxysubsubsection{\texorpdfstring{sideToMove}{sideToMove}}
+{\footnotesize\ttfamily \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} S\+\_\+\+BOARD\+::side\+To\+Move}
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{header_8h}{header.\+h}}\item 
+src/\mbox{\hyperlink{board_8cpp}{board.\+cpp}}\end{DoxyCompactItemize}

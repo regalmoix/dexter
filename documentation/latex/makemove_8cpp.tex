@@ -1,0 +1,144 @@
+\hypertarget{makemove_8cpp}{}\doxysection{src/makemove.cpp File Reference}
+\label{makemove_8cpp}\index{src/makemove.cpp@{src/makemove.cpp}}
+{\ttfamily \#include \char`\"{}header.\+h\char`\"{}}\newline
+Include dependency graph for makemove.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{makemove_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{makemove_8cpp_af5742c2eb80ee14ce1b0ac14d69783b6}{HASHPIECE}}(board,  pce,  sq120)~(board.\+pos\+Hash\+Key $^\wedge$= HASH.\+piece\+Square\+Pair\+Hash\mbox{[}pce\mbox{]}\mbox{[}sq120\mbox{]})
+\item 
+\#define \mbox{\hyperlink{makemove_8cpp_a6bbf867ebab2279e410462d6dfac4f5e}{HASHCASTLE}}(board,  castle\+Perm)~(board.\+pos\+Hash\+Key $^\wedge$= HASH.\+castle\+Hash\mbox{[}castle\+Perm\mbox{]})
+\item 
+\#define \mbox{\hyperlink{makemove_8cpp_a53dcb6ea0f95bc053c2111fa2bc595a8}{HASHEP}}(board,  ep\+Sq)~(board.\+pos\+Hash\+Key $^\wedge$= HASH.\+ep\+Hash\mbox{[}\mbox{\hyperlink{header_8h_a0656e25c4b76d58f21a46e9c12413d06}{SQ2\+FILE}}(ep\+Sq)\mbox{]})
+\item 
+\#define \mbox{\hyperlink{makemove_8cpp_a1f4df2f6263b8ed000fb5e61030377e2}{HASHSIDE}}(board,  side)~(board.\+pos\+Hash\+Key $^\wedge$= (HASH.\+side\+To\+Move\+Hash \& side))
+\item 
+\#define \mbox{\hyperlink{makemove_8cpp_a9f31884976dab106c200480712992741}{UNHASHPIECE}}(board,  pce,  sq120)~(board.\+pos\+Hash\+Key $^\wedge$= HASH.\+piece\+Square\+Pair\+Hash\mbox{[}pce\mbox{]}\mbox{[}sq120\mbox{]})
+\item 
+\#define \mbox{\hyperlink{makemove_8cpp_aa2e95c2c46557d4f2d50931b96f3e010}{UNHASHCASTLE}}(board,  castle\+Perm)~(board.\+pos\+Hash\+Key $^\wedge$= HASH.\+castle\+Hash\mbox{[}castle\+Perm\mbox{]})
+\item 
+\#define \mbox{\hyperlink{makemove_8cpp_a641c6886e2627ab6856c3ced87a7f43e}{UNHASHEP}}(board,  ep\+Sq)~(board.\+pos\+Hash\+Key $^\wedge$= HASH.\+ep\+Hash\mbox{[}\mbox{\hyperlink{header_8h_a0656e25c4b76d58f21a46e9c12413d06}{SQ2\+FILE}}(ep\+Sq)\mbox{]})
+\item 
+\#define \mbox{\hyperlink{makemove_8cpp_a7bd35f2cf079da7f6735c6b3fab58428}{UNHASHSIDE}}(board,  side)~(board.\+pos\+Hash\+Key $^\wedge$= (HASH.\+side\+To\+Move\+Hash \& side))
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{makemove_8cpp_a71e8d5d1c7294c56c3fa010e9fb8b7c7}{Make\+Move}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board, \mbox{\hyperlink{header_8h_a76150055ccfd0ca6aa84da3c19f80b5d}{Move}} move)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structS__HASH}{S\+\_\+\+HASH}} \mbox{\hyperlink{makemove_8cpp_a345e21c205e13c48dc725fe48e016016}{HASH}}
+\item 
+const int \mbox{\hyperlink{makemove_8cpp_a39da5875f12590c1733a0b0d61727197}{Castle\+Perm}} \mbox{[}120\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{makemove_8cpp_a6bbf867ebab2279e410462d6dfac4f5e}\label{makemove_8cpp_a6bbf867ebab2279e410462d6dfac4f5e}} 
+\index{makemove.cpp@{makemove.cpp}!HASHCASTLE@{HASHCASTLE}}
+\index{HASHCASTLE@{HASHCASTLE}!makemove.cpp@{makemove.cpp}}
+\doxysubsubsection{\texorpdfstring{HASHCASTLE}{HASHCASTLE}}
+{\footnotesize\ttfamily \#define HASHCASTLE(\begin{DoxyParamCaption}\item[{}]{board,  }\item[{}]{castle\+Perm }\end{DoxyParamCaption})~(board.\+pos\+Hash\+Key $^\wedge$= HASH.\+castle\+Hash\mbox{[}castle\+Perm\mbox{]})}
+
+\mbox{\Hypertarget{makemove_8cpp_a53dcb6ea0f95bc053c2111fa2bc595a8}\label{makemove_8cpp_a53dcb6ea0f95bc053c2111fa2bc595a8}} 
+\index{makemove.cpp@{makemove.cpp}!HASHEP@{HASHEP}}
+\index{HASHEP@{HASHEP}!makemove.cpp@{makemove.cpp}}
+\doxysubsubsection{\texorpdfstring{HASHEP}{HASHEP}}
+{\footnotesize\ttfamily \#define HASHEP(\begin{DoxyParamCaption}\item[{}]{board,  }\item[{}]{ep\+Sq }\end{DoxyParamCaption})~(board.\+pos\+Hash\+Key $^\wedge$= HASH.\+ep\+Hash\mbox{[}\mbox{\hyperlink{header_8h_a0656e25c4b76d58f21a46e9c12413d06}{SQ2\+FILE}}(ep\+Sq)\mbox{]})}
+
+\mbox{\Hypertarget{makemove_8cpp_af5742c2eb80ee14ce1b0ac14d69783b6}\label{makemove_8cpp_af5742c2eb80ee14ce1b0ac14d69783b6}} 
+\index{makemove.cpp@{makemove.cpp}!HASHPIECE@{HASHPIECE}}
+\index{HASHPIECE@{HASHPIECE}!makemove.cpp@{makemove.cpp}}
+\doxysubsubsection{\texorpdfstring{HASHPIECE}{HASHPIECE}}
+{\footnotesize\ttfamily \#define HASHPIECE(\begin{DoxyParamCaption}\item[{}]{board,  }\item[{}]{pce,  }\item[{}]{sq120 }\end{DoxyParamCaption})~(board.\+pos\+Hash\+Key $^\wedge$= HASH.\+piece\+Square\+Pair\+Hash\mbox{[}pce\mbox{]}\mbox{[}sq120\mbox{]})}
+
+\mbox{\Hypertarget{makemove_8cpp_a1f4df2f6263b8ed000fb5e61030377e2}\label{makemove_8cpp_a1f4df2f6263b8ed000fb5e61030377e2}} 
+\index{makemove.cpp@{makemove.cpp}!HASHSIDE@{HASHSIDE}}
+\index{HASHSIDE@{HASHSIDE}!makemove.cpp@{makemove.cpp}}
+\doxysubsubsection{\texorpdfstring{HASHSIDE}{HASHSIDE}}
+{\footnotesize\ttfamily \#define HASHSIDE(\begin{DoxyParamCaption}\item[{}]{board,  }\item[{}]{side }\end{DoxyParamCaption})~(board.\+pos\+Hash\+Key $^\wedge$= (HASH.\+side\+To\+Move\+Hash \& side))}
+
+\mbox{\Hypertarget{makemove_8cpp_aa2e95c2c46557d4f2d50931b96f3e010}\label{makemove_8cpp_aa2e95c2c46557d4f2d50931b96f3e010}} 
+\index{makemove.cpp@{makemove.cpp}!UNHASHCASTLE@{UNHASHCASTLE}}
+\index{UNHASHCASTLE@{UNHASHCASTLE}!makemove.cpp@{makemove.cpp}}
+\doxysubsubsection{\texorpdfstring{UNHASHCASTLE}{UNHASHCASTLE}}
+{\footnotesize\ttfamily \#define UNHASHCASTLE(\begin{DoxyParamCaption}\item[{}]{board,  }\item[{}]{castle\+Perm }\end{DoxyParamCaption})~(board.\+pos\+Hash\+Key $^\wedge$= HASH.\+castle\+Hash\mbox{[}castle\+Perm\mbox{]})}
+
+\mbox{\Hypertarget{makemove_8cpp_a641c6886e2627ab6856c3ced87a7f43e}\label{makemove_8cpp_a641c6886e2627ab6856c3ced87a7f43e}} 
+\index{makemove.cpp@{makemove.cpp}!UNHASHEP@{UNHASHEP}}
+\index{UNHASHEP@{UNHASHEP}!makemove.cpp@{makemove.cpp}}
+\doxysubsubsection{\texorpdfstring{UNHASHEP}{UNHASHEP}}
+{\footnotesize\ttfamily \#define UNHASHEP(\begin{DoxyParamCaption}\item[{}]{board,  }\item[{}]{ep\+Sq }\end{DoxyParamCaption})~(board.\+pos\+Hash\+Key $^\wedge$= HASH.\+ep\+Hash\mbox{[}\mbox{\hyperlink{header_8h_a0656e25c4b76d58f21a46e9c12413d06}{SQ2\+FILE}}(ep\+Sq)\mbox{]})}
+
+\mbox{\Hypertarget{makemove_8cpp_a9f31884976dab106c200480712992741}\label{makemove_8cpp_a9f31884976dab106c200480712992741}} 
+\index{makemove.cpp@{makemove.cpp}!UNHASHPIECE@{UNHASHPIECE}}
+\index{UNHASHPIECE@{UNHASHPIECE}!makemove.cpp@{makemove.cpp}}
+\doxysubsubsection{\texorpdfstring{UNHASHPIECE}{UNHASHPIECE}}
+{\footnotesize\ttfamily \#define UNHASHPIECE(\begin{DoxyParamCaption}\item[{}]{board,  }\item[{}]{pce,  }\item[{}]{sq120 }\end{DoxyParamCaption})~(board.\+pos\+Hash\+Key $^\wedge$= HASH.\+piece\+Square\+Pair\+Hash\mbox{[}pce\mbox{]}\mbox{[}sq120\mbox{]})}
+
+\mbox{\Hypertarget{makemove_8cpp_a7bd35f2cf079da7f6735c6b3fab58428}\label{makemove_8cpp_a7bd35f2cf079da7f6735c6b3fab58428}} 
+\index{makemove.cpp@{makemove.cpp}!UNHASHSIDE@{UNHASHSIDE}}
+\index{UNHASHSIDE@{UNHASHSIDE}!makemove.cpp@{makemove.cpp}}
+\doxysubsubsection{\texorpdfstring{UNHASHSIDE}{UNHASHSIDE}}
+{\footnotesize\ttfamily \#define UNHASHSIDE(\begin{DoxyParamCaption}\item[{}]{board,  }\item[{}]{side }\end{DoxyParamCaption})~(board.\+pos\+Hash\+Key $^\wedge$= (HASH.\+side\+To\+Move\+Hash \& side))}
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{makemove_8cpp_a71e8d5d1c7294c56c3fa010e9fb8b7c7}\label{makemove_8cpp_a71e8d5d1c7294c56c3fa010e9fb8b7c7}} 
+\index{makemove.cpp@{makemove.cpp}!MakeMove@{MakeMove}}
+\index{MakeMove@{MakeMove}!makemove.cpp@{makemove.cpp}}
+\doxysubsubsection{\texorpdfstring{MakeMove()}{MakeMove()}}
+{\footnotesize\ttfamily bool Make\+Move (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board,  }\item[{\mbox{\hyperlink{header_8h_a76150055ccfd0ca6aa84da3c19f80b5d}{Move}}}]{move }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=346pt]{makemove_8cpp_a71e8d5d1c7294c56c3fa010e9fb8b7c7_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{makemove_8cpp_a39da5875f12590c1733a0b0d61727197}\label{makemove_8cpp_a39da5875f12590c1733a0b0d61727197}} 
+\index{makemove.cpp@{makemove.cpp}!CastlePerm@{CastlePerm}}
+\index{CastlePerm@{CastlePerm}!makemove.cpp@{makemove.cpp}}
+\doxysubsubsection{\texorpdfstring{CastlePerm}{CastlePerm}}
+{\footnotesize\ttfamily const int Castle\+Perm\mbox{[}120\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= }
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    15, 15, 15, 15, 15, 15, 15, 15, 15, 15,}
+\DoxyCodeLine{    15, 15, 15, 15, 15, 15, 15, 15, 15, 15,}
+\DoxyCodeLine{    15, 13, 15, 15, 15, 12, 15, 15, 14, 15,}
+\DoxyCodeLine{    15, 15, 15, 15, 15, 15, 15, 15, 15, 15,}
+\DoxyCodeLine{    15, 15, 15, 15, 15, 15, 15, 15, 15, 15,}
+\DoxyCodeLine{    15, 15, 15, 15, 15, 15, 15, 15, 15, 15,}
+\DoxyCodeLine{    15, 15, 15, 15, 15, 15, 15, 15, 15, 15,}
+\DoxyCodeLine{    15, 15, 15, 15, 15, 15, 15, 15, 15, 15,}
+\DoxyCodeLine{    15, 15, 15, 15, 15, 15, 15, 15, 15, 15,}
+\DoxyCodeLine{    15,  7, 15, 15, 15,  3, 15, 15, 11, 15,}
+\DoxyCodeLine{    15, 15, 15, 15, 15, 15, 15, 15, 15, 15,}
+\DoxyCodeLine{    15, 15, 15, 15, 15, 15, 15, 15, 15, 15}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{makemove_8cpp_a345e21c205e13c48dc725fe48e016016}\label{makemove_8cpp_a345e21c205e13c48dc725fe48e016016}} 
+\index{makemove.cpp@{makemove.cpp}!HASH@{HASH}}
+\index{HASH@{HASH}!makemove.cpp@{makemove.cpp}}
+\doxysubsubsection{\texorpdfstring{HASH}{HASH}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structS__HASH}{S\+\_\+\+HASH}} HASH}
+

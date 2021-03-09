@@ -1,0 +1,11 @@
+<map id="isAttacked" name="isAttacked">
+<area shape="rect" id="node1" title=" " alt="" coords="5,174,96,200"/>
+<area shape="rect" id="node2" href="$structS__BOARD.html#a29121db43af4dc2c4fe32b937e184a7c" title=" " alt="" coords="385,199,599,226"/>
+<area shape="rect" id="node3" href="$structS__BOARD.html#a7e5f7cb1c01a86574964085d4500674c" title=" " alt="" coords="144,47,337,74"/>
+<area shape="rect" id="node4" href="$movegen_8cpp.html#aeac57a5857d0e484622b850adf5c29a5" title=" " alt="" coords="202,98,279,124"/>
+<area shape="rect" id="node5" href="$movegen_8cpp.html#a4d4a9d9c508d6a745f6a655613ed8f12" title=" " alt="" coords="209,148,272,175"/>
+<area shape="rect" id="node6" href="$movegen_8cpp.html#a88aa285acc5ef45aff2b99bf409d6853" title=" " alt="" coords="203,199,278,226"/>
+<area shape="rect" id="node7" href="$movegen_8cpp.html#a1be156cd1196645fc9a63f2f1190e1a9" title=" " alt="" coords="207,250,274,276"/>
+<area shape="rect" id="node8" href="$movegen_8cpp.html#a6d35099efa0902820e8f6ae899ea79cb" title=" " alt="" coords="203,300,278,327"/>
+<area shape="rect" id="node9" href="$movegen_8cpp.html#af8a40158f072161489253a385cd58b80" title=" " alt="" coords="207,351,274,378"/>
+</map>

@@ -1,0 +1,423 @@
+\hypertarget{movegen_8cpp}{}\doxysection{src/movegen.cpp File Reference}
+\label{movegen_8cpp}\index{src/movegen.cpp@{src/movegen.cpp}}
+{\ttfamily \#include \char`\"{}header.\+h\char`\"{}}\newline
+Include dependency graph for movegen.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{movegen_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{movegen_8cpp_af8a40158f072161489253a385cd58b80}{is\+Rook}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board, \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} sq120)
+\item 
+bool \mbox{\hyperlink{movegen_8cpp_aeac57a5857d0e484622b850adf5c29a5}{is\+Bishop}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board, \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} sq120)
+\item 
+bool \mbox{\hyperlink{movegen_8cpp_a6d35099efa0902820e8f6ae899ea79cb}{is\+Queen}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board, \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} sq120)
+\item 
+bool \mbox{\hyperlink{movegen_8cpp_a4d4a9d9c508d6a745f6a655613ed8f12}{is\+King}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board, \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} sq120)
+\item 
+bool \mbox{\hyperlink{movegen_8cpp_a88aa285acc5ef45aff2b99bf409d6853}{is\+Knight}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board, \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} sq120)
+\item 
+bool \mbox{\hyperlink{movegen_8cpp_a1be156cd1196645fc9a63f2f1190e1a9}{is\+Pawn}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board, \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} sq120)
+\item 
+bool \mbox{\hyperlink{movegen_8cpp_a6afc66dbc7b0d06a515ec783631780f0}{is\+Attacked}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board, \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} sq120, \mbox{\hyperlink{header_8h_ade097623aa363c75bbb5a87a30e08d16}{S8}} attackingside)
+\item 
+void \mbox{\hyperlink{movegen_8cpp_a048c3545742a65eace7d0736891a3625}{add\+Quiet\+Move}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board, \mbox{\hyperlink{header_8h_a76150055ccfd0ca6aa84da3c19f80b5d}{Move}} \&move)
+\item 
+void \mbox{\hyperlink{movegen_8cpp_ae803de47db95efefc528118a038938a1}{add\+Capture\+Move}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board, \mbox{\hyperlink{header_8h_a76150055ccfd0ca6aa84da3c19f80b5d}{Move}} \&move)
+\item 
+void \mbox{\hyperlink{movegen_8cpp_a8f3f62c5e1376febc270b87876ef3a68}{Pawn\+Moves}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board)
+\item 
+void \mbox{\hyperlink{movegen_8cpp_a7429d7e3d5306cc91b18b44f5fdb9fb4}{Knight\+Moves}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board)
+\item 
+void \mbox{\hyperlink{movegen_8cpp_a0733fc636df5f154f2211af0ffae1883}{Rook\+List\+Generator}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board, \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} piece)
+\item 
+void \mbox{\hyperlink{movegen_8cpp_a23a53ac870c572c3bc8d65f15650f1ab}{Bishop\+List\+Generator}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board, \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} piece)
+\item 
+void \mbox{\hyperlink{movegen_8cpp_a0b44a98de697053853b5a31a0b9df659}{Bishop\+Moves}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board)
+\item 
+void \mbox{\hyperlink{movegen_8cpp_a9dc2e779d1f7d394b2e7a1a90b62cb40}{Rook\+Moves}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board)
+\item 
+void \mbox{\hyperlink{movegen_8cpp_ad3f7feee92fb17795028e2d70e2c62f9}{Queen\+Moves}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board)
+\item 
+void \mbox{\hyperlink{movegen_8cpp_a7aa893e66f948e2a45defec8d5e39a8f}{King\+Moves}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{structS__MOVE}{S\+\_\+\+MOVE}} $>$ \mbox{\hyperlink{movegen_8cpp_a116a12a934ba3245cd1310299c9555e5}{move\+List}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{movegen_8cpp_ae803de47db95efefc528118a038938a1}\label{movegen_8cpp_ae803de47db95efefc528118a038938a1}} 
+\index{movegen.cpp@{movegen.cpp}!addCaptureMove@{addCaptureMove}}
+\index{addCaptureMove@{addCaptureMove}!movegen.cpp@{movegen.cpp}}
+\doxysubsubsection{\texorpdfstring{addCaptureMove()}{addCaptureMove()}}
+{\footnotesize\ttfamily void add\+Capture\+Move (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board,  }\item[{\mbox{\hyperlink{header_8h_a76150055ccfd0ca6aa84da3c19f80b5d}{Move}} \&}]{move }\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{movegen_8cpp_ae803de47db95efefc528118a038938a1_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{movegen_8cpp_a048c3545742a65eace7d0736891a3625}\label{movegen_8cpp_a048c3545742a65eace7d0736891a3625}} 
+\index{movegen.cpp@{movegen.cpp}!addQuietMove@{addQuietMove}}
+\index{addQuietMove@{addQuietMove}!movegen.cpp@{movegen.cpp}}
+\doxysubsubsection{\texorpdfstring{addQuietMove()}{addQuietMove()}}
+{\footnotesize\ttfamily void add\+Quiet\+Move (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board,  }\item[{\mbox{\hyperlink{header_8h_a76150055ccfd0ca6aa84da3c19f80b5d}{Move}} \&}]{move }\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{movegen_8cpp_a048c3545742a65eace7d0736891a3625_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{movegen_8cpp_a23a53ac870c572c3bc8d65f15650f1ab}\label{movegen_8cpp_a23a53ac870c572c3bc8d65f15650f1ab}} 
+\index{movegen.cpp@{movegen.cpp}!BishopListGenerator@{BishopListGenerator}}
+\index{BishopListGenerator@{BishopListGenerator}!movegen.cpp@{movegen.cpp}}
+\doxysubsubsection{\texorpdfstring{BishopListGenerator()}{BishopListGenerator()}}
+{\footnotesize\ttfamily void Bishop\+List\+Generator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board,  }\item[{\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}}}]{piece }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{movegen_8cpp_a23a53ac870c572c3bc8d65f15650f1ab_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{movegen_8cpp_a23a53ac870c572c3bc8d65f15650f1ab_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{movegen_8cpp_a0b44a98de697053853b5a31a0b9df659}\label{movegen_8cpp_a0b44a98de697053853b5a31a0b9df659}} 
+\index{movegen.cpp@{movegen.cpp}!BishopMoves@{BishopMoves}}
+\index{BishopMoves@{BishopMoves}!movegen.cpp@{movegen.cpp}}
+\doxysubsubsection{\texorpdfstring{BishopMoves()}{BishopMoves()}}
+{\footnotesize\ttfamily void Bishop\+Moves (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{movegen_8cpp_a0b44a98de697053853b5a31a0b9df659_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=239pt]{movegen_8cpp_a0b44a98de697053853b5a31a0b9df659_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{movegen_8cpp_a6afc66dbc7b0d06a515ec783631780f0}\label{movegen_8cpp_a6afc66dbc7b0d06a515ec783631780f0}} 
+\index{movegen.cpp@{movegen.cpp}!isAttacked@{isAttacked}}
+\index{isAttacked@{isAttacked}!movegen.cpp@{movegen.cpp}}
+\doxysubsubsection{\texorpdfstring{isAttacked()}{isAttacked()}}
+{\footnotesize\ttfamily bool is\+Attacked (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board,  }\item[{\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}}}]{sq120,  }\item[{\mbox{\hyperlink{header_8h_ade097623aa363c75bbb5a87a30e08d16}{S8}}}]{attackingside }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{movegen_8cpp_a6afc66dbc7b0d06a515ec783631780f0_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=332pt]{movegen_8cpp_a6afc66dbc7b0d06a515ec783631780f0_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{movegen_8cpp_aeac57a5857d0e484622b850adf5c29a5}\label{movegen_8cpp_aeac57a5857d0e484622b850adf5c29a5}} 
+\index{movegen.cpp@{movegen.cpp}!isBishop@{isBishop}}
+\index{isBishop@{isBishop}!movegen.cpp@{movegen.cpp}}
+\doxysubsubsection{\texorpdfstring{isBishop()}{isBishop()}}
+{\footnotesize\ttfamily bool is\+Bishop (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board,  }\item[{\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}}}]{sq120 }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{movegen_8cpp_aeac57a5857d0e484622b850adf5c29a5_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{movegen_8cpp_aeac57a5857d0e484622b850adf5c29a5_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{movegen_8cpp_a4d4a9d9c508d6a745f6a655613ed8f12}\label{movegen_8cpp_a4d4a9d9c508d6a745f6a655613ed8f12}} 
+\index{movegen.cpp@{movegen.cpp}!isKing@{isKing}}
+\index{isKing@{isKing}!movegen.cpp@{movegen.cpp}}
+\doxysubsubsection{\texorpdfstring{isKing()}{isKing()}}
+{\footnotesize\ttfamily bool is\+King (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board,  }\item[{\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}}}]{sq120 }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=323pt]{movegen_8cpp_a4d4a9d9c508d6a745f6a655613ed8f12_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{movegen_8cpp_a4d4a9d9c508d6a745f6a655613ed8f12_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{movegen_8cpp_a88aa285acc5ef45aff2b99bf409d6853}\label{movegen_8cpp_a88aa285acc5ef45aff2b99bf409d6853}} 
+\index{movegen.cpp@{movegen.cpp}!isKnight@{isKnight}}
+\index{isKnight@{isKnight}!movegen.cpp@{movegen.cpp}}
+\doxysubsubsection{\texorpdfstring{isKnight()}{isKnight()}}
+{\footnotesize\ttfamily bool is\+Knight (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board,  }\item[{\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}}}]{sq120 }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=332pt]{movegen_8cpp_a88aa285acc5ef45aff2b99bf409d6853_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{movegen_8cpp_a88aa285acc5ef45aff2b99bf409d6853_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{movegen_8cpp_a1be156cd1196645fc9a63f2f1190e1a9}\label{movegen_8cpp_a1be156cd1196645fc9a63f2f1190e1a9}} 
+\index{movegen.cpp@{movegen.cpp}!isPawn@{isPawn}}
+\index{isPawn@{isPawn}!movegen.cpp@{movegen.cpp}}
+\doxysubsubsection{\texorpdfstring{isPawn()}{isPawn()}}
+{\footnotesize\ttfamily bool is\+Pawn (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board,  }\item[{\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}}}]{sq120 }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=326pt]{movegen_8cpp_a1be156cd1196645fc9a63f2f1190e1a9_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{movegen_8cpp_a1be156cd1196645fc9a63f2f1190e1a9_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{movegen_8cpp_a6d35099efa0902820e8f6ae899ea79cb}\label{movegen_8cpp_a6d35099efa0902820e8f6ae899ea79cb}} 
+\index{movegen.cpp@{movegen.cpp}!isQueen@{isQueen}}
+\index{isQueen@{isQueen}!movegen.cpp@{movegen.cpp}}
+\doxysubsubsection{\texorpdfstring{isQueen()}{isQueen()}}
+{\footnotesize\ttfamily bool is\+Queen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board,  }\item[{\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}}}]{sq120 }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=332pt]{movegen_8cpp_a6d35099efa0902820e8f6ae899ea79cb_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{movegen_8cpp_a6d35099efa0902820e8f6ae899ea79cb_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{movegen_8cpp_af8a40158f072161489253a385cd58b80}\label{movegen_8cpp_af8a40158f072161489253a385cd58b80}} 
+\index{movegen.cpp@{movegen.cpp}!isRook@{isRook}}
+\index{isRook@{isRook}!movegen.cpp@{movegen.cpp}}
+\doxysubsubsection{\texorpdfstring{isRook()}{isRook()}}
+{\footnotesize\ttfamily bool is\+Rook (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board,  }\item[{\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}}}]{sq120 }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=326pt]{movegen_8cpp_af8a40158f072161489253a385cd58b80_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{movegen_8cpp_af8a40158f072161489253a385cd58b80_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{movegen_8cpp_a7aa893e66f948e2a45defec8d5e39a8f}\label{movegen_8cpp_a7aa893e66f948e2a45defec8d5e39a8f}} 
+\index{movegen.cpp@{movegen.cpp}!KingMoves@{KingMoves}}
+\index{KingMoves@{KingMoves}!movegen.cpp@{movegen.cpp}}
+\doxysubsubsection{\texorpdfstring{KingMoves()}{KingMoves()}}
+{\footnotesize\ttfamily void King\+Moves (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{movegen_8cpp_a7aa893e66f948e2a45defec8d5e39a8f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{movegen_8cpp_a7aa893e66f948e2a45defec8d5e39a8f_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{movegen_8cpp_a7429d7e3d5306cc91b18b44f5fdb9fb4}\label{movegen_8cpp_a7429d7e3d5306cc91b18b44f5fdb9fb4}} 
+\index{movegen.cpp@{movegen.cpp}!KnightMoves@{KnightMoves}}
+\index{KnightMoves@{KnightMoves}!movegen.cpp@{movegen.cpp}}
+\doxysubsubsection{\texorpdfstring{KnightMoves()}{KnightMoves()}}
+{\footnotesize\ttfamily void Knight\+Moves (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{movegen_8cpp_a7429d7e3d5306cc91b18b44f5fdb9fb4_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=237pt]{movegen_8cpp_a7429d7e3d5306cc91b18b44f5fdb9fb4_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{movegen_8cpp_a8f3f62c5e1376febc270b87876ef3a68}\label{movegen_8cpp_a8f3f62c5e1376febc270b87876ef3a68}} 
+\index{movegen.cpp@{movegen.cpp}!PawnMoves@{PawnMoves}}
+\index{PawnMoves@{PawnMoves}!movegen.cpp@{movegen.cpp}}
+\doxysubsubsection{\texorpdfstring{PawnMoves()}{PawnMoves()}}
+{\footnotesize\ttfamily void Pawn\+Moves (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board }\end{DoxyParamCaption})}
+
+FUNCTION DECLARATIONS Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{movegen_8cpp_a8f3f62c5e1376febc270b87876ef3a68_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=231pt]{movegen_8cpp_a8f3f62c5e1376febc270b87876ef3a68_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{movegen_8cpp_ad3f7feee92fb17795028e2d70e2c62f9}\label{movegen_8cpp_ad3f7feee92fb17795028e2d70e2c62f9}} 
+\index{movegen.cpp@{movegen.cpp}!QueenMoves@{QueenMoves}}
+\index{QueenMoves@{QueenMoves}!movegen.cpp@{movegen.cpp}}
+\doxysubsubsection{\texorpdfstring{QueenMoves()}{QueenMoves()}}
+{\footnotesize\ttfamily void Queen\+Moves (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{movegen_8cpp_ad3f7feee92fb17795028e2d70e2c62f9_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=237pt]{movegen_8cpp_ad3f7feee92fb17795028e2d70e2c62f9_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{movegen_8cpp_a0733fc636df5f154f2211af0ffae1883}\label{movegen_8cpp_a0733fc636df5f154f2211af0ffae1883}} 
+\index{movegen.cpp@{movegen.cpp}!RookListGenerator@{RookListGenerator}}
+\index{RookListGenerator@{RookListGenerator}!movegen.cpp@{movegen.cpp}}
+\doxysubsubsection{\texorpdfstring{RookListGenerator()}{RookListGenerator()}}
+{\footnotesize\ttfamily void Rook\+List\+Generator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board,  }\item[{\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}}}]{piece }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{movegen_8cpp_a0733fc636df5f154f2211af0ffae1883_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{movegen_8cpp_a0733fc636df5f154f2211af0ffae1883_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{movegen_8cpp_a9dc2e779d1f7d394b2e7a1a90b62cb40}\label{movegen_8cpp_a9dc2e779d1f7d394b2e7a1a90b62cb40}} 
+\index{movegen.cpp@{movegen.cpp}!RookMoves@{RookMoves}}
+\index{RookMoves@{RookMoves}!movegen.cpp@{movegen.cpp}}
+\doxysubsubsection{\texorpdfstring{RookMoves()}{RookMoves()}}
+{\footnotesize\ttfamily void Rook\+Moves (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{movegen_8cpp_a9dc2e779d1f7d394b2e7a1a90b62cb40_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=231pt]{movegen_8cpp_a9dc2e779d1f7d394b2e7a1a90b62cb40_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{movegen_8cpp_a116a12a934ba3245cd1310299c9555e5}\label{movegen_8cpp_a116a12a934ba3245cd1310299c9555e5}} 
+\index{movegen.cpp@{movegen.cpp}!moveList@{moveList}}
+\index{moveList@{moveList}!movegen.cpp@{movegen.cpp}}
+\doxysubsubsection{\texorpdfstring{moveList}{moveList}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{structS__MOVE}{S\+\_\+\+MOVE}}$>$ move\+List}
+
