@@ -60,10 +60,11 @@ void PerftTest(int depth, Board& board)
         board.PrintBoard();
 
         Perft(depth - 1, board);
-        
+
         printf("Unmaking last move ");
         printf("%c%d -> ",SQ2FILE(m.fromSquare) + 'A' - 1, SQ2RANK(m.fromSquare));
         printf("%c%d \n" ,SQ2FILE(m.toSquare) + 'A' - 1, SQ2RANK(m.toSquare));
+        
         UnmakeMove(board);  
 
         long oldnodes = leafNodes - cumnodes;
