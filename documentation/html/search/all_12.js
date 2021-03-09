@@ -9,5 +9,6 @@ var searchData=
   ['unhashep_218',['UNHASHEP',['../makemove_8cpp.html#a641c6886e2627ab6856c3ced87a7f43e',1,'makemove.cpp']]],
   ['unhashpiece_219',['UNHASHPIECE',['../makemove_8cpp.html#a9f31884976dab106c200480712992741',1,'makemove.cpp']]],
   ['unhashside_220',['UNHASHSIDE',['../makemove_8cpp.html#a7bd35f2cf079da7f6735c6b3fab58428',1,'makemove.cpp']]],
-  ['unsetattributes_221',['unsetAttributes',['../structS__MOVE.html#aa67f4a960478d27523acbb9e6da63017',1,'S_MOVE']]]
+  ['unmakemove_221',['UnmakeMove',['../header_8h.html#aced1e4d16b0877fb7997a5a796b2a9de',1,'UnmakeMove(Board &amp;board):&#160;makemove.cpp'],['../makemove_8cpp.html#aced1e4d16b0877fb7997a5a796b2a9de',1,'UnmakeMove(Board &amp;board):&#160;makemove.cpp']]],
+  ['unsetattributes_222',['unsetAttributes',['../structS__MOVE.html#aa67f4a960478d27523acbb9e6da63017',1,'S_MOVE']]]
 ];

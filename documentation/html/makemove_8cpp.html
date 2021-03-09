@@ -118,6 +118,8 @@ Macros</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:a71e8d5d1c7294c56c3fa010e9fb8b7c7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="makemove_8cpp.html#a71e8d5d1c7294c56c3fa010e9fb8b7c7">MakeMove</a> (<a class="el" href="header_8h.html#a20c4d204abd959973f0ed35b620b9e16">Board</a> &amp;board, <a class="el" href="header_8h.html#a76150055ccfd0ca6aa84da3c19f80b5d">Move</a> move)</td></tr>
 <tr class="separator:a71e8d5d1c7294c56c3fa010e9fb8b7c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aced1e4d16b0877fb7997a5a796b2a9de"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="makemove_8cpp.html#aced1e4d16b0877fb7997a5a796b2a9de">UnmakeMove</a> (<a class="el" href="header_8h.html#a20c4d204abd959973f0ed35b620b9e16">Board</a> &amp;board)</td></tr>
+<tr class="separator:aced1e4d16b0877fb7997a5a796b2a9de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -389,6 +391,15 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Makes a move (if legal) and updates Board Data Structure accordingly.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">board</td><td>The current position </td></tr>
+    <tr><td class="paramname">move</td><td>The pseudo-legal move to make</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true iff the move is legal and succesfully made, false if King is in check after move made. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -401,6 +412,43 @@ Here is the call graph for this function:</div>
 <area shape="rect" href="structS__BOARD.html#a29121db43af4dc2c4fe32b937e184a7c" title=" " alt="" coords="147,157,360,184"/>
 <area shape="rect" href="structS__BOARD.html#a7e5f7cb1c01a86574964085d4500674c" title=" " alt="" coords="157,208,350,235"/>
 <area shape="rect" href="structS__MOVE.html#a4a209d5c679a2511f1c816a1f2f76dad" title=" " alt="" coords="172,259,335,285"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="aced1e4d16b0877fb7997a5a796b2a9de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aced1e4d16b0877fb7997a5a796b2a9de">&#9670;&nbsp;</a></span>UnmakeMove()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UnmakeMove </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="header_8h.html#a20c4d204abd959973f0ed35b620b9e16">Board</a> &amp;&#160;</td>
+          <td class="paramname"><em>board</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Undo the last move made and restore the Board Data Structure appropriately.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">board</td><td>The current position</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="makemove_8cpp_aced1e4d16b0877fb7997a5a796b2a9de_cgraph.png" border="0" usemap="#amakemove_8cpp_aced1e4d16b0877fb7997a5a796b2a9de_cgraph" alt=""/></div>
+<map name="amakemove_8cpp_aced1e4d16b0877fb7997a5a796b2a9de_cgraph" id="amakemove_8cpp_aced1e4d16b0877fb7997a5a796b2a9de_cgraph">
+<area shape="rect" title=" " alt="" coords="5,56,117,83"/>
+<area shape="rect" href="structS__BOARD.html#ac5d7a0310e6358447f9dd903c338b02d" title=" " alt="" coords="165,5,363,32"/>
+<area shape="rect" href="structS__BOARD.html#a7e5f7cb1c01a86574964085d4500674c" title=" " alt="" coords="167,56,361,83"/>
+<area shape="rect" href="structS__MOVE.html#a4a209d5c679a2511f1c816a1f2f76dad" title=" " alt="" coords="183,107,345,133"/>
 </map>
 </div>
 

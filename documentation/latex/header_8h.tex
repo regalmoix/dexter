@@ -276,6 +276,10 @@ bool \mbox{\hyperlink{header_8h_a4d4a9d9c508d6a745f6a655613ed8f12}{is\+King}} (\
 bool \mbox{\hyperlink{header_8h_a88aa285acc5ef45aff2b99bf409d6853}{is\+Knight}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board, \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} sq120)
 \item 
 bool \mbox{\hyperlink{header_8h_a1be156cd1196645fc9a63f2f1190e1a9}{is\+Pawn}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board, \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} sq120)
+\item 
+bool \mbox{\hyperlink{header_8h_a71e8d5d1c7294c56c3fa010e9fb8b7c7}{Make\+Move}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board, \mbox{\hyperlink{header_8h_a76150055ccfd0ca6aa84da3c19f80b5d}{Move}} move)
+\item 
+void \mbox{\hyperlink{header_8h_aced1e4d16b0877fb7997a5a796b2a9de}{Unmake\+Move}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board)
 \end{DoxyCompactItemize}
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
@@ -1198,6 +1202,32 @@ Here is the caller graph for this function\+:
 \includegraphics[width=237pt]{header_8h_a7429d7e3d5306cc91b18b44f5fdb9fb4_icgraph}
 \end{center}
 \end{figure}
+\mbox{\Hypertarget{header_8h_a71e8d5d1c7294c56c3fa010e9fb8b7c7}\label{header_8h_a71e8d5d1c7294c56c3fa010e9fb8b7c7}} 
+\index{header.h@{header.h}!MakeMove@{MakeMove}}
+\index{MakeMove@{MakeMove}!header.h@{header.h}}
+\doxysubsubsection{\texorpdfstring{MakeMove()}{MakeMove()}}
+{\footnotesize\ttfamily bool Make\+Move (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board,  }\item[{\mbox{\hyperlink{header_8h_a76150055ccfd0ca6aa84da3c19f80b5d}{Move}}}]{move }\end{DoxyParamCaption})}
+
+Makes a move (if legal) and updates Board Data Structure accordingly.
+
+
+\begin{DoxyParams}{Parameters}
+{\em board} & The current position \\
+\hline
+{\em move} & The pseudo-\/legal move to make\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true iff the move is legal and succesfully made, false if King is in check after move made. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=346pt]{header_8h_a71e8d5d1c7294c56c3fa010e9fb8b7c7_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{header_8h_a8f3f62c5e1376febc270b87876ef3a68}\label{header_8h_a8f3f62c5e1376febc270b87876ef3a68}} 
 \index{header.h@{header.h}!PawnMoves@{PawnMoves}}
 \index{PawnMoves@{PawnMoves}!header.h@{header.h}}
@@ -1284,6 +1314,30 @@ Here is the caller graph for this function\+:
 \begin{center}
 \leavevmode
 \includegraphics[width=231pt]{header_8h_a9dc2e779d1f7d394b2e7a1a90b62cb40_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{header_8h_aced1e4d16b0877fb7997a5a796b2a9de}\label{header_8h_aced1e4d16b0877fb7997a5a796b2a9de}} 
+\index{header.h@{header.h}!UnmakeMove@{UnmakeMove}}
+\index{UnmakeMove@{UnmakeMove}!header.h@{header.h}}
+\doxysubsubsection{\texorpdfstring{UnmakeMove()}{UnmakeMove()}}
+{\footnotesize\ttfamily void Unmake\+Move (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board }\end{DoxyParamCaption})}
+
+Undo the last move made and restore the Board Data Structure appropriately.
+
+
+\begin{DoxyParams}{Parameters}
+{\em board} & The current position\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+None 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=348pt]{header_8h_aced1e4d16b0877fb7997a5a796b2a9de_cgraph}
 \end{center}
 \end{figure}
 

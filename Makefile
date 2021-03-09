@@ -19,6 +19,8 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.cpp $(SRCDIR)/*.h
 	@rm -f ./build/dexter
 	$(CXX) -c -O3 $(CXX_FLAGS) $< -o $@
 
+doc: 
+	doxygen Doxyfile
 
 clean:
 	rm -rf $(OBJ) $(EXEC)

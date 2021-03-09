@@ -84,11 +84,11 @@ static U8 AddPiece (Board& board, U8 sq120, U8 pce)
 /** Move a Piece from the from square to the to square
  *  
  *  @param  board   The current position
- *  @param  to      The square the piece is on
- *  @param  from    The square the piece goes to
- *  @param  pce     The piece to be add.
+ *  @param  from    The square the piece is on
+ *  @param  to      The square the piece goes to
+ *  @param  pce     The piece to be added (optional)
  * 
- *  @return         The captured piece  
+ *  @return         The captured piece 
  * 
 **/
 static U8 MovePiece (Board& board, U8 from, U8 to, U8 pce = E_PIECE::OFFBOARD)
@@ -103,6 +103,13 @@ static U8 MovePiece (Board& board, U8 from, U8 to, U8 pce = E_PIECE::OFFBOARD)
 }
 
 
+/** Makes a move (if legal) and updates Board Data Structure accordingly.
+ *  
+ *  @param  board   The current position
+ *  @param  move    The pseudo-legal move to make
+ * 
+ *  @return true iff the move is legal and succesfully made, false if King is in check after move made.
+**/ 
 bool MakeMove (Board& board, Move move)
 {
     U8 from     = move.fromSquare;
@@ -268,10 +275,117 @@ bool MakeMove (Board& board, Move move)
     {
         if (isAttacked(board, board.GetSquareList(E_PIECE::bK)[0], E_COLOR::WHITE))
         {
-            // UnmakeMove();
+            UnmakeMove(board);
             return false;
         }
     }
 
     return true;
 }
+
+
+/** Undo the last move made and restore the Board Data Structure appropriately.
+ *  
+ *  @param  board   The current position
+ * 
+ *  @return None
+**/ 
+void UnmakeMove (Board& board)
+{
+    board.plys --;
+    History histData = board.moveHistory.back();
+
+    Move move   = histData.move;
+    U8 from     = move.fromSquare;
+    U8 to       = move.toSquare;
+
+    if (SQLEGAL(board.enPassantSquare))
+        UNHASHEP(board, board.enPassantSquare);
+    
+    UNHASHCASTLE(board, board.GetCastleRights());
+    UNHASHSIDE(board, board.GetSideToMove());
+
+    // Restore the data fields from history and flip back the side to move
+    board.castleRights          = histData.castlePermissions;
+    board.fiftyMoveRuleCount    = histData.fiftyCount;
+    board.enPassantSquare       = histData.enPassantSquare;
+    board.sideToMove            ^= 1;
+    // board.posHashKey            = histData.posHashKey;   // Possible to directly use the stored Hash Key instead of unhashing like we do now.
+
+    if (SQLEGAL(board.enPassantSquare))
+        HASHEP(board, board.enPassantSquare);
+    
+    HASHCASTLE(board, board.GetCastleRights());
+    HASHSIDE(board, board.GetSideToMove());
+
+
+    if (move.isEPCapture())
+    {
+        if (board.sideToMove == E_COLOR::WHITE)
+        {
+            AddPiece(board, to - 10, E_PIECE::bP);
+        }
+
+        else if (board.sideToMove == E_COLOR::BLACK)
+        {
+            AddPiece(board, to + 10, E_PIECE::wP);
+        }
+    }
+
+    switch(move.getCastle())
+    {
+        // No Castle
+        case 0 : break;
+
+        // Invalid. Should never be this
+        case 1 : break;
+
+        // KingSide Castle
+        case 2 :
+        {
+            if (to == E_SQUARE::G1)
+                MovePiece (board, E_SQUARE::F1, E_SQUARE::H1);            
+
+            else if (to == E_SQUARE::G8)
+                MovePiece (board, E_SQUARE::F8, E_SQUARE::H8);            
+
+            else
+                assert (false);
+
+            break;
+        }
+
+        // QueenSide Castle
+        case 3 :
+        {
+            if (to == E_SQUARE::C1)
+                MovePiece (board, E_SQUARE::D1, E_SQUARE::A1);
+
+            else if (to == E_SQUARE::C8)
+                MovePiece (board, E_SQUARE::D8, E_SQUARE::A8);                
+
+            else
+                assert (false);
+            
+            break;
+        } 
+    }
+    
+    // Move Back the piece from the 'to' square to the 'from' square.
+    MovePiece(board, to, from);
+
+    
+    // For normal captures we undo by putting the captured piece back on the 'to' square
+    if (move.isNormalCapture())
+    {
+        AddPiece(board, to, move.getCapturedPiece());
+    }
+    
+    if (move.isPromotion())
+    {
+        // MovePiece above move the promoted piece to the 'from' square so we clear the from square and update it with Pawn
+        RemovePiece(board, from);
+        AddPiece(board, from, (board.GetSideToMove() == E_COLOR::WHITE) ? E_PIECE::wP : E_PIECE::bP);
+    }
+}
+ 

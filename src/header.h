@@ -336,4 +336,7 @@ extern bool isKing(Board& board, U8 sq120);
 extern bool isKnight(Board& board, U8 sq120);
 extern bool isPawn(Board& board, U8 sq120);
 
+extern bool MakeMove (Board& board, Move move);
+extern void UnmakeMove (Board& board);
+
 #endif

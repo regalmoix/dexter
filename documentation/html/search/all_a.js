@@ -2,7 +2,7 @@ var searchData=
 [
   ['main_145',['main',['../main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main.cpp']]],
   ['main_2ecpp_146',['main.cpp',['../main_8cpp.html',1,'']]],
-  ['makemove_147',['MakeMove',['../makemove_8cpp.html#a71e8d5d1c7294c56c3fa010e9fb8b7c7',1,'makemove.cpp']]],
+  ['makemove_147',['MakeMove',['../header_8h.html#a71e8d5d1c7294c56c3fa010e9fb8b7c7',1,'MakeMove(Board &amp;board, Move move):&#160;makemove.cpp'],['../makemove_8cpp.html#a71e8d5d1c7294c56c3fa010e9fb8b7c7',1,'MakeMove(Board &amp;board, Move move):&#160;makemove.cpp']]],
   ['makemove_2ecpp_148',['makemove.cpp',['../makemove_8cpp.html',1,'']]],
   ['max_5fmoves_149',['MAX_MOVES',['../header_8h.html#afe0c4249f8b5f7d5be976a330a3117d1',1,'header.h']]],
   ['modifysquarelist_150',['ModifySquareList',['../structS__BOARD.html#a48c663dd36259f82bc5a76f287cab4db',1,'S_BOARD']]],

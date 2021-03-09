@@ -32,6 +32,8 @@ Include dependency graph for makemove.\+cpp\+:
 \begin{DoxyCompactItemize}
 \item 
 bool \mbox{\hyperlink{makemove_8cpp_a71e8d5d1c7294c56c3fa010e9fb8b7c7}{Make\+Move}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board, \mbox{\hyperlink{header_8h_a76150055ccfd0ca6aa84da3c19f80b5d}{Move}} move)
+\item 
+void \mbox{\hyperlink{makemove_8cpp_aced1e4d16b0877fb7997a5a796b2a9de}{Unmake\+Move}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board)
 \end{DoxyCompactItemize}
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
@@ -100,12 +102,48 @@ const int \mbox{\hyperlink{makemove_8cpp_a39da5875f12590c1733a0b0d61727197}{Cast
 \doxysubsubsection{\texorpdfstring{MakeMove()}{MakeMove()}}
 {\footnotesize\ttfamily bool Make\+Move (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board,  }\item[{\mbox{\hyperlink{header_8h_a76150055ccfd0ca6aa84da3c19f80b5d}{Move}}}]{move }\end{DoxyParamCaption})}
 
+Makes a move (if legal) and updates Board Data Structure accordingly.
+
+
+\begin{DoxyParams}{Parameters}
+{\em board} & The current position \\
+\hline
+{\em move} & The pseudo-\/legal move to make\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true iff the move is legal and succesfully made, false if King is in check after move made. 
+\end{DoxyReturn}
 Here is the call graph for this function\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=346pt]{makemove_8cpp_a71e8d5d1c7294c56c3fa010e9fb8b7c7_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{makemove_8cpp_aced1e4d16b0877fb7997a5a796b2a9de}\label{makemove_8cpp_aced1e4d16b0877fb7997a5a796b2a9de}} 
+\index{makemove.cpp@{makemove.cpp}!UnmakeMove@{UnmakeMove}}
+\index{UnmakeMove@{UnmakeMove}!makemove.cpp@{makemove.cpp}}
+\doxysubsubsection{\texorpdfstring{UnmakeMove()}{UnmakeMove()}}
+{\footnotesize\ttfamily void Unmake\+Move (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board }\end{DoxyParamCaption})}
+
+Undo the last move made and restore the Board Data Structure appropriately.
+
+
+\begin{DoxyParams}{Parameters}
+{\em board} & The current position\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+None 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=348pt]{makemove_8cpp_aced1e4d16b0877fb7997a5a796b2a9de_cgraph}
 \end{center}
 \end{figure}
 
