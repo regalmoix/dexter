@@ -29,7 +29,7 @@ typedef unsigned char           U8;
 typedef std::unordered_set<U8>  U8set;
 typedef short int               S16;
 typedef char                    S8;
-
+typedef struct S_BOARD          Board;
 
 
 
@@ -122,12 +122,76 @@ enum E_CASTLE_RIGHTS : U8
 
 /** STRUCTS | CLASSES **/
 
+typedef struct S_MOVE
+{
+    S16                     score;
+    U8                      fromSquare;
+    U8                      toSquare;
+    U8                      pieceInfo;                      // 4 bits each for moving/curr piece[3..0] and captured piece [7..4]
+    U8                      moveData;
+
+    /** NOTE
+     *
+     *  Bit representation format of moveKind.
+     *
+     *  isCheck : 1;
+     *  enPassant : 1;
+     *  doublePush : 1;
+     *  castle : 2;
+     *  promotion : 1
+     *  promoted piece : 2;
+     *
+     *  CHK | EP | DP | CA | CA | P | PP | PP
+     *
+     *  ((CHK) << 7 | (EP) << 6 | (DP) << 5 | (CA) << 3 | (P) << 2 | (PP))
+    **/
+
+    bool isNormalCapture();
+
+    bool isEPCapture();
+
+    bool isCheck();
+
+    bool isPawnDoublePush();
+
+    bool isPromotion();
+
+    E_PIECE getPromotedPiece();
+
+    void setAttributes (U8 moveInfo);
+
+    void unsetAttributes (U8 moveInfo);
+
+    U8 getMovingPiece();
+
+    U8 getCapturedPiece();
+
+    U8 getCastle();
+
+    S_MOVE (Board board, U8 from, U8 to);                                            // Assume QUIET Move
+
+    S_MOVE (Board board, U8 from, U8 to, U8 moveInfo);
+
+    S_MOVE (Board board, U8 from, U8 to, U8 moveInfo, U8 pieceInfo);
+
+} Move;
+
 typedef struct S_HISTORY
 {
-    U64                     move;                           // What move was played
+public:
+    Move                    move;                           // What move was played
     U64                     posHashKey;                     // Hashkey of position when(after??) the move was made
     U8                      enPassantSquare;                // En Passant Square
     U8                      castlePermissions;              // Castle Permissions when (after??) this move is made
+    U8                      fiftyCount;                     // Num moves since last capture / pawn push
+
+    S_HISTORY(Move move, U64 posHashKey, U8 enPassantSquare, U8 castlePermissions, U8 fiftyCount) : move(move)
+    {
+        this->posHashKey = posHashKey;
+        this->fiftyCount = fiftyCount;
+        this->enPassantSquare = enPassantSquare;
+        this->castlePermissions = castlePermissions;
+    }
 
 } History;
 
@@ -140,7 +204,7 @@ typedef struct S_BOARD
      *  Additionally, member functions to assist with D.S. manipulation are WIP
     **/
 
-private :
+public :
     U16                     plys;
     U8                      sideToMove;
     U8                      fiftyMoveRuleCount;             // Moves since last capture. If >50 then draw.
@@ -156,9 +220,9 @@ private :
      *  Using standard arrays for piece lists to save on memory
     **/
 
-    U8                      kingSq[2];
+    U8                      kingSq[2];                      // REDUNDANT ?   
     U8                      pieceList[12][10];              // pceList[pce] stores array of squares where Pce exists
-    std::array<U8, 13>      countPiece;                     // Count Pieces of each type and color.
+    std::array<U8, 13>      countPiece;                     // UNUSED ?
     std::bitset<480>        posBitBoard;                    // Color independant. 4bits per square * 120 squares
 
 public :
@@ -225,58 +289,6 @@ public :
     U8 GetCastleRights ();
 
 } Board;
-
-typedef struct S_MOVE
-{
-    S16                     score;
-    U8                      fromSquare;
-    U8                      toSquare;
-    U8                      pieceInfo;                      // 4 bits each for moving/curr piece[3..0] and captured piece [7..4]
-    U8                      moveData;
-
-    /** NOTE
-     *
-     *  Bit representation format of moveKind.
-     *
-     *  isCheck : 1;
-     *  enPassant : 1;
-     *  doublePush : 1;
-     *  castle : 2;
-     *  promotion : 1
-     *  promoted piece : 2;
-     *
-     *  CHK | EP | DP | CA | CA | P | PP | PP
-     *
-     *  ((CHK) << 7 | (EP) << 6 | (DP) << 5 | (CA) << 3 | (P) << 2 | (PP))
-    **/
-
-    bool isNormalCapture();
-
-    bool isEPCapture();
-
-    bool isCheck();
-
-    bool isPawnDoublePush();
-
-    bool isPromotion();
-
-    E_PIECE getPromotedPiece();
-
-    void setAttributes (U8 moveInfo);
-
-    void unsetAttributes (U8 moveInfo);
-
-    U8 getMovingPiece();
-
-    U8 getCapturedPiece();
-
-    S_MOVE (Board board, U8 from, U8 to);                                            // Assume QUIET Move
-
-    S_MOVE (Board board, U8 from, U8 to, U8 moveInfo);
-
-    S_MOVE (Board board, U8 from, U8 to, U8 moveInfo, U8 pieceInfo);
-
-} Move;
 
 typedef struct S_HASH
 {

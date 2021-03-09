@@ -85,6 +85,12 @@ U8 S_MOVE::getCapturedPiece()
 }
 
 
+U8 S_MOVE::getCastle()
+{
+    return (moveData >> 3) & 3;
+}
+
+
 S_MOVE::S_MOVE(Board board, U8 from, U8 to)                 // Assume Non Special Move
 {
     fromSquare      = from;

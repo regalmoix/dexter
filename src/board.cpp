@@ -642,7 +642,16 @@ std::vector<U8> S_BOARD::GetSquareList(U8 piece)
         return sqList;
     }
 
-    std::vector<U8> sqList(pieceList[piece - 1], pieceList[piece - 1] + 10);
+    std::vector<U8> sqList;         // (pieceList[piece - 1], pieceList[piece - 1] + 10);
+    
+    for (U8 i = 0; i < 10; i++)
+    {
+        U8 sq120 = pieceList[piece - 1][i];
+        
+        if (sq120 != E_SQUARE::Square_Invalid)
+            sqList.push_back(sq120);
+    }
+    
     return sqList;
 }
 
