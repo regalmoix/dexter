@@ -310,33 +310,36 @@ typedef struct S_HASH
 /** GLOBAL VARIABLES **/
 
 extern char sq120To64[];
-extern std::vector<S_MOVE> moveList;
+// extern std::vector<S_MOVE> moveList;
 extern S_HASH HASH;
 
 /** FUNCTION DECLARATIONS **/
-extern void PawnMoves(Board& board);
-extern void KnightMoves(Board& board);
-extern void BishopMoves(Board& board);
-extern void RookMoves(Board& board);
-extern void QueenMoves(Board& board);
-extern void KingMoves(Board& board);
+extern void PawnMoves   (Board& board, std::vector<S_MOVE>& moveList);
+extern void KnightMoves (Board& board, std::vector<S_MOVE>& moveList);
+extern void BishopMoves (Board& board, std::vector<S_MOVE>& moveList);
+extern void RookMoves   (Board& board, std::vector<S_MOVE>& moveList);
+extern void QueenMoves  (Board& board, std::vector<S_MOVE>& moveList);
+extern void KingMoves   (Board& board, std::vector<S_MOVE>& moveList);
+extern void AllMoves    (Board& board, std::vector<S_MOVE>& moveList);
 
-extern bool isAttacked(Board& board, U8 sq120, S8 attackingside = (S8)(-1));
+extern bool isAttacked  (Board& board, U8 sq120, S8 attackingside = (S8)(-1));
 
-extern void RookListGenerator(Board& board, U8 piece);
-extern void BishopListGenerator(Board& board, U8 piece);
+extern void RookListGenerator   (Board& board, U8 piece, std::vector<S_MOVE>& moveList);
+extern void BishopListGenerator (Board& board, U8 piece, std::vector<S_MOVE>& moveList);
 
-extern void addQuietMove(Board& board, Move& move);
-extern void addCaptureMove(Board& board, Move& move);
+extern void addQuietMove        (Board& board, Move& move, std::vector<S_MOVE>& moveList);
+extern void addCaptureMove      (Board& board, Move& move, std::vector<S_MOVE>& moveList);
 
-extern bool isRook(Board& board, U8 sq120);
-extern bool isBishop(Board& board, U8 sq120);
-extern bool isQueen(Board& board, U8 sq120);
-extern bool isKing(Board& board, U8 sq120);
-extern bool isKnight(Board& board, U8 sq120);
-extern bool isPawn(Board& board, U8 sq120);
+extern bool isRook      (Board& board, U8 sq120);
+extern bool isBishop    (Board& board, U8 sq120);
+extern bool isQueen     (Board& board, U8 sq120);
+extern bool isKing      (Board& board, U8 sq120);
+extern bool isKnight    (Board& board, U8 sq120);
+extern bool isPawn      (Board& board, U8 sq120);
 
-extern bool MakeMove (Board& board, Move move);
-extern void UnmakeMove (Board& board);
+extern bool MakeMove    (Board& board, Move move);
+extern void UnmakeMove  (Board& board);
 
+extern void PerftTest   (int depth, Board& board);
+extern void Perft       (int depth, Board& board);
 #endif

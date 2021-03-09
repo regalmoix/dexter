@@ -103,7 +103,7 @@ E_PIECE S_BOARD::SetPieceOnSquare (U8 sq120, E_PIECE piece, std::string mode)
     {
         if ((currPce >= E_PIECE::bP) == (piece >= E_PIECE::bP))         // For a non-empty square, disallow overwriting pieces of same color
         {
-            std::cerr << "[ERROR] Attempted overwriting " << piece << " on " << currPce << " of same color. Transaction incomplete.\n";
+            std::cerr << "[ERROR] Attempted overwriting " << (int)piece << " on " << (int)currPce << " of same color. Transaction incomplete.\n";
             return static_cast<E_PIECE>(currPce);
         }
     }

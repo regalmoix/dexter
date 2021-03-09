@@ -208,15 +208,15 @@ bool MakeMove (Board& board, Move move)
         {
             board.enPassantSquare = to - 10;
             assert (SQ2RANK(to - 10) == E_RANK::Rank_3);
+            HASHEP(board, to - 10);
         }
 
         else if (side == E_COLOR::BLACK)
         {
             board.enPassantSquare = to + 10;
-            assert (SQ2RANK(to - 10) == E_RANK::Rank_6);
+            assert (SQ2RANK(to + 10) == E_RANK::Rank_6);
+            HASHEP(board, to + 10);
         }
-
-        HASHEP(board, to - 10);
     }
 
     // If Capture remove captured piece. (reset 50cnt also)
@@ -266,7 +266,7 @@ bool MakeMove (Board& board, Move move)
     {
         if (isAttacked(board, board.GetSquareList(E_PIECE::wK)[0], E_COLOR::BLACK))
         {
-            // UnmakeMove();
+            UnmakeMove(board);
             return false;
         }
     }

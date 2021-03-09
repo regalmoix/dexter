@@ -1,6 +1,6 @@
 #include "header.h"
 
-std::vector<S_MOVE> moveList;
+// std::vector<S_MOVE> moveList;
 
 
 bool isRook(Board& board, U8 sq120)
@@ -47,7 +47,7 @@ bool isAttacked(Board& board, U8 sq120, S8 attackingside)
         side = board.GetSideToMove();
 
     else
-        side = ~attackingside;                  // Because side is the defending side
+        side = (attackingside == E_COLOR::WHITE) ? E_COLOR::BLACK : E_COLOR::WHITE;                  // Because side is the defending side
          
     S8 dir[4] = {-1, 10, 1, -10};
 
@@ -150,19 +150,19 @@ bool isAttacked(Board& board, U8 sq120, S8 attackingside)
 }
 
 
-void addQuietMove(Board& board, Move& move)       // Here means No Capture
+void addQuietMove(Board& board, Move& move, std::vector<S_MOVE>& moveList)       // Here means No Capture
 {
     moveList.push_back(move);
 }
 
 
-void addCaptureMove(Board& board, Move& move)
+void addCaptureMove(Board& board, Move& move, std::vector<S_MOVE>& moveList)
 {
     moveList.push_back(move);
 }
 
 
-void PawnMoves(Board& board)
+void PawnMoves(Board& board, std::vector<S_MOVE>& moveList)
 {
     if (board.GetSideToMove() == E_COLOR::WHITE)
     {
@@ -185,7 +185,7 @@ void PawnMoves(Board& board)
                     for (int x = E_PROMPIECE::Prom_N; x <= E_PROMPIECE::Prom_Q; ++x)
                     {
                         Move move(board, pawnSquare, pawnSquare + 10, PACKMOVE(0, 0, 0, 0, 1, x));
-                        addQuietMove(board, move);
+                        addQuietMove(board, move, moveList);
                     }
                 }
 
@@ -196,7 +196,7 @@ void PawnMoves(Board& board)
                     for (int x = E_PROMPIECE::Prom_N; x <= E_PROMPIECE::Prom_Q; ++x)
                     {
                         Move move(board, pawnSquare, pawnSquare + 9, PACKMOVE(0, 0, 0, 0, 1, x));
-                        addCaptureMove(board, move);
+                        addCaptureMove(board, move, moveList);
                     }
                 }
 
@@ -205,7 +205,7 @@ void PawnMoves(Board& board)
                     for (int x = E_PROMPIECE::Prom_N; x <= E_PROMPIECE::Prom_Q; ++x)
                     {
                         Move move(board, pawnSquare, pawnSquare + 11, PACKMOVE(0, 0, 0, 0, 1, x));
-                        addCaptureMove(board, move);
+                        addCaptureMove(board, move, moveList);
                     }
                 }
                 continue;
@@ -217,27 +217,27 @@ void PawnMoves(Board& board)
             {
                 //cout << "Test";
                 Move move(board, pawnSquare, pawnSquare + 10);
-                addQuietMove(board, move);
+                addQuietMove(board, move, moveList);
             }
 
             // Pawn not on Ranks 7 or 8, Double Push Move
             if ((SQ2RANK(pawnSquare) == E_RANK::Rank_2) && (board.GetPieceOnSquare(pawnSquare + 20) == E_PIECE::EMPTY) && (board.GetPieceOnSquare(pawnSquare + 10) == E_PIECE::EMPTY))
             {
                 Move move(board, pawnSquare, pawnSquare + 20, PACKMOVE(0,0,1,0,0,0));
-                addQuietMove(board, move);
+                addQuietMove(board, move, moveList);
             }
 
             // Pawn not on Ranks 7 or 8, Capture Moves
             if (SQLEGAL(pawnSquare + 9) && PIECECOLOR(board.GetPieceOnSquare(pawnSquare + 9)) == E_COLOR::BLACK)
             {
                     Move move(board, pawnSquare, pawnSquare + 9);
-                    addCaptureMove(board, move);
+                    addCaptureMove(board, move, moveList);
             }
 
             if (SQLEGAL(pawnSquare + 11) && PIECECOLOR(board.GetPieceOnSquare(pawnSquare + 11)) == E_COLOR::BLACK)
             {
                 Move move(board, pawnSquare, pawnSquare + 11);
-                addCaptureMove(board, move);
+                addCaptureMove(board, move, moveList);
             }
 
 
@@ -245,112 +245,112 @@ void PawnMoves(Board& board)
             if ((SQ2RANK(pawnSquare) == E_RANK::Rank_5) && SQLEGAL(pawnSquare + 9) && (board.GetEPSquare() == pawnSquare + 9))
             {
                 Move move(board, pawnSquare, pawnSquare + 9, PACKMOVE(0,1,0,0,0,0));
-                addCaptureMove(board, move);
+                addCaptureMove(board, move, moveList);
             }
 
             if ((SQ2RANK(pawnSquare) == E_RANK::Rank_5) && SQLEGAL(pawnSquare + 11) && (board.GetEPSquare() == pawnSquare + 11))
             {
                 Move move(board, pawnSquare, pawnSquare + 11, PACKMOVE(0,1,0,0,0,0));
-                addCaptureMove(board, move);
+                addCaptureMove(board, move, moveList);
             }
         }
     }
 
     else if (board.GetSideToMove() == E_COLOR::BLACK)
     {
-      auto pawnSqList = board.GetSquareList(E_PIECE::bP);
+        auto pawnSqList = board.GetSquareList(E_PIECE::bP);
 
-      for (U8 pawnSquare : pawnSqList)
-      {
-          // cout << (int)pawnSquare  << endl;
-          //assert (pawnSquare != E_SQUARE::Square_Invalid);
-          if (pawnSquare == E_SQUARE::Square_Invalid)
-              continue;
+        for (U8 pawnSquare : pawnSqList)
+        {
+            // cout << (int)pawnSquare  << endl;
+            //assert (pawnSquare != E_SQUARE::Square_Invalid);
+            if (pawnSquare == E_SQUARE::Square_Invalid)
+                continue;
 
-          assert (SQ2RANK(pawnSquare) != E_RANK::Rank_1);
+            assert (SQ2RANK(pawnSquare) != E_RANK::Rank_1);
 
-          if (SQ2RANK(pawnSquare) == E_RANK::Rank_2)  // These can not be quiet moves
-          {
-              // Rank 2 -> 1 Quiet Promotion
-              if (board.GetPieceOnSquare(pawnSquare - 10) == E_PIECE::EMPTY)
-              {
-                  for (int x = E_PROMPIECE::Prom_N; x <= E_PROMPIECE::Prom_Q; ++x)
-                  {
-                      Move move(board, pawnSquare, pawnSquare - 10, PACKMOVE(0, 0, 0, 0, 1, x));
-                      addQuietMove(board, move);
-                  }
-              }
-
-
-              // Rank 2 -> 1 Capture Promotions
-              if (SQLEGAL(pawnSquare - 9) && PIECECOLOR(board.GetPieceOnSquare(pawnSquare - 9)) == E_COLOR::WHITE)
-              {
-                  for (int x = E_PROMPIECE::Prom_N; x <= E_PROMPIECE::Prom_Q; ++x)
-                  {
-                      Move move(board, pawnSquare, pawnSquare - 9, PACKMOVE(0, 0, 0, 0, 1, x));
-                      addCaptureMove(board, move);
-                  }
-              }
-
-              if (SQLEGAL(pawnSquare - 11) && PIECECOLOR(board.GetPieceOnSquare(pawnSquare - 11)) == E_COLOR::WHITE)
-              {
-                  for (int x = E_PROMPIECE::Prom_N; x <= E_PROMPIECE::Prom_Q; ++x)
-                  {
-                      Move move(board, pawnSquare, pawnSquare - 11, PACKMOVE(0, 0, 0, 0, 1, x));
-                      addCaptureMove(board, move);
-                  }
-              }
-              continue;
-          }
-
-          // Pawn not on Ranks 7 or 8, Quiet Move
-          // cout << (int)pawnSquare << endl;
-          if (board.GetPieceOnSquare(pawnSquare - 10) == E_PIECE::EMPTY)
-          {
-              //cout << "Test";
-              Move move(board, pawnSquare, pawnSquare - 10);
-              addQuietMove(board, move);
-          }
-
-          // Pawn not on Ranks 7 or 8, Double Push Move
-          if ((SQ2RANK(pawnSquare) == E_RANK::Rank_7) && (board.GetPieceOnSquare(pawnSquare - 20) == E_PIECE::EMPTY) && (board.GetPieceOnSquare(pawnSquare - 10) == E_PIECE::EMPTY))
-          {
-              Move move(board, pawnSquare, pawnSquare - 20, PACKMOVE(0,0,1,0,0,0));
-              addQuietMove(board, move);
-          }
-
-          // Pawn not on Ranks 7 or 8, Capture Moves
-          if (SQLEGAL(pawnSquare - 9) && PIECECOLOR(board.GetPieceOnSquare(pawnSquare - 9)) == E_COLOR::WHITE)
-          {
-                  Move move(board, pawnSquare, pawnSquare - 9);
-                  addCaptureMove(board, move);
-          }
-
-          if (SQLEGAL(pawnSquare - 11) && PIECECOLOR(board.GetPieceOnSquare(pawnSquare - 11)) == E_COLOR::WHITE)
-          {
-              Move move(board, pawnSquare, pawnSquare - 11);
-              addCaptureMove(board, move);
-          }
+            if (SQ2RANK(pawnSquare) == E_RANK::Rank_2)  // These can not be quiet moves
+            {
+                // Rank 2 -> 1 Quiet Promotion
+                if (board.GetPieceOnSquare(pawnSquare - 10) == E_PIECE::EMPTY)
+                {
+                    for (int x = E_PROMPIECE::Prom_N; x <= E_PROMPIECE::Prom_Q; ++x)
+                    {
+                        Move move(board, pawnSquare, pawnSquare - 10, PACKMOVE(0, 0, 0, 0, 1, x));
+                        addQuietMove(board, move, moveList);
+                    }
+                }
 
 
-          // Pawn on Rank 5, En Passant Move
-          if ((SQ2RANK(pawnSquare) == E_RANK::Rank_4) && SQLEGAL(pawnSquare - 9) && (board.GetEPSquare() == pawnSquare - 9))
-          {
-              Move move(board, pawnSquare, pawnSquare - 9, PACKMOVE(0,1,0,0,0,0));
-              addCaptureMove(board, move);
-          }
+                // Rank 2 -> 1 Capture Promotions
+                if (SQLEGAL(pawnSquare - 9) && PIECECOLOR(board.GetPieceOnSquare(pawnSquare - 9)) == E_COLOR::WHITE)
+                {
+                    for (int x = E_PROMPIECE::Prom_N; x <= E_PROMPIECE::Prom_Q; ++x)
+                    {
+                        Move move(board, pawnSquare, pawnSquare - 9, PACKMOVE(0, 0, 0, 0, 1, x));
+                        addCaptureMove(board, move, moveList);
+                    }
+                }
 
-          if ((SQ2RANK(pawnSquare) == E_RANK::Rank_4) && SQLEGAL(pawnSquare - 11) && (board.GetEPSquare() == pawnSquare - 11))
-          {
-              Move move(board, pawnSquare, pawnSquare - 11, PACKMOVE(0,1,0,0,0,0));
-              addCaptureMove(board, move);
-          }
+                if (SQLEGAL(pawnSquare - 11) && PIECECOLOR(board.GetPieceOnSquare(pawnSquare - 11)) == E_COLOR::WHITE)
+                {
+                    for (int x = E_PROMPIECE::Prom_N; x <= E_PROMPIECE::Prom_Q; ++x)
+                    {
+                        Move move(board, pawnSquare, pawnSquare - 11, PACKMOVE(0, 0, 0, 0, 1, x));
+                        addCaptureMove(board, move, moveList);
+                    }
+                }
+                continue;
+            }
+
+            // Pawn not on Ranks 7 or 8, Quiet Move
+            // cout << (int)pawnSquare << endl;
+            if (board.GetPieceOnSquare(pawnSquare - 10) == E_PIECE::EMPTY)
+            {
+                //cout << "Test";
+                Move move(board, pawnSquare, pawnSquare - 10);
+                addQuietMove(board, move, moveList);
+            }
+
+            // Pawn not on Ranks 7 or 8, Double Push Move
+            if ((SQ2RANK(pawnSquare) == E_RANK::Rank_7) && (board.GetPieceOnSquare(pawnSquare - 20) == E_PIECE::EMPTY) && (board.GetPieceOnSquare(pawnSquare - 10) == E_PIECE::EMPTY))
+            {
+                Move move(board, pawnSquare, pawnSquare - 20, PACKMOVE(0,0,1,0,0,0));
+                addQuietMove(board, move, moveList);
+            }
+
+            // Pawn not on Ranks 7 or 8, Capture Moves
+            if (SQLEGAL(pawnSquare - 9) && PIECECOLOR(board.GetPieceOnSquare(pawnSquare - 9)) == E_COLOR::WHITE)
+            {
+                Move move(board, pawnSquare, pawnSquare - 9);
+                addCaptureMove(board, move, moveList);
+            }
+
+            if (SQLEGAL(pawnSquare - 11) && PIECECOLOR(board.GetPieceOnSquare(pawnSquare - 11)) == E_COLOR::WHITE)
+            {
+                Move move(board, pawnSquare, pawnSquare - 11);
+                addCaptureMove(board, move, moveList);
+            }
+
+
+            // Pawn on Rank 5, En Passant Move
+            if ((SQ2RANK(pawnSquare) == E_RANK::Rank_4) && SQLEGAL(pawnSquare - 9) && (board.GetEPSquare() == pawnSquare - 9))
+            {
+                Move move(board, pawnSquare, pawnSquare - 9, PACKMOVE(0,1,0,0,0,0));
+                addCaptureMove(board, move, moveList);
+            }
+
+            if ((SQ2RANK(pawnSquare) == E_RANK::Rank_4) && SQLEGAL(pawnSquare - 11) && (board.GetEPSquare() == pawnSquare - 11))
+            {
+                Move move(board, pawnSquare, pawnSquare - 11, PACKMOVE(0,1,0,0,0,0));
+                addCaptureMove(board, move, moveList);
+            }
       }
     }
 }
 
 
-void KnightMoves(Board& board)
+void KnightMoves(Board& board, std::vector<S_MOVE>& moveList)
 {
     S8 dirx[8] = {-2, -1, 1, 2, 2, 1, -1, -2};
     S8 diry[8] = {1, 2, 2, 1, -1, -2, -2, -1};
@@ -374,20 +374,20 @@ void KnightMoves(Board& board)
             if(SQLEGAL(toSquare) && board.GetPieceOnSquare(toSquare) == E_PIECE::EMPTY) //silent move
             {
                 Move move(board,knightSquare,toSquare,PACKMOVE(0,0,0,0,0,0));
-                addQuietMove(board,move);
+                addQuietMove(board, move, moveList);
             }
 
             else if(SQLEGAL(toSquare) && PIECECOLOR(board.GetPieceOnSquare(toSquare)) != board.GetSideToMove()) //capture move
             {
                 Move move(board,knightSquare,toSquare,PACKMOVE(0,0,0,0,0,0));
-                addCaptureMove(board,move);
+                addCaptureMove(board, move, moveList);
             }
         }
     }
 }
 
 
-void RookListGenerator(Board& board, U8 piece)
+void RookListGenerator(Board& board, U8 piece, std::vector<S_MOVE>& moveList)
 {
     S8 dir[4] = {-1, 10, 1, -10};
     auto rookList = board.GetSquareList(piece);
@@ -405,13 +405,13 @@ void RookListGenerator(Board& board, U8 piece)
                 if(SQLEGAL(toSquare) && board.GetPieceOnSquare(toSquare) == E_PIECE::EMPTY)//silent move
                 {
                     Move move(board,rookSquare,toSquare,PACKMOVE(0,0,0,0,0,0));
-                    addQuietMove(board,move);
+                    addQuietMove(board, move, moveList);
                 }
 
                 else if(SQLEGAL(toSquare) && PIECECOLOR(board.GetPieceOnSquare(toSquare)) != PIECECOLOR(piece))//capture move
                 {
                     Move move(board,rookSquare,toSquare,PACKMOVE(0,0,0,0,0,0));
-                    addCaptureMove(board,move);
+                    addCaptureMove(board, move, moveList);
                     break;
                 }
 
@@ -425,7 +425,7 @@ void RookListGenerator(Board& board, U8 piece)
 }
 
 
-void BishopListGenerator(Board& board, U8 piece)
+void BishopListGenerator(Board& board, U8 piece, std::vector<S_MOVE>& moveList)
 {
     S8 dir[4] = {9, 11, -11, -9};
 
@@ -444,13 +444,13 @@ void BishopListGenerator(Board& board, U8 piece)
                 if(SQLEGAL(toSquare) && board.GetPieceOnSquare(toSquare) == E_PIECE::EMPTY)//silent move
                 {
                     Move move(board,bishopSquare,toSquare,PACKMOVE(0,0,0,0,0,0));
-                    addQuietMove(board,move);
+                    addQuietMove(board, move, moveList);
                 }
 
                 else if(SQLEGAL(toSquare) && PIECECOLOR(board.GetPieceOnSquare(toSquare)) != PIECECOLOR(piece))//capture move
                 {
                     Move move(board,bishopSquare,toSquare,PACKMOVE(0,0,0,0,0,0));
-                    addCaptureMove(board,move);
+                    addCaptureMove(board, move, moveList);
                     break;
                 }
 
@@ -462,52 +462,52 @@ void BishopListGenerator(Board& board, U8 piece)
 }
 
 
-void BishopMoves(Board& board)
+void BishopMoves(Board& board, std::vector<S_MOVE>& moveList)
 {
     if(board.GetSideToMove() == E_COLOR::WHITE)
     {
-        BishopListGenerator(board, E_PIECE::wB);
+        BishopListGenerator(board, E_PIECE::wB, moveList);
     }
 
     else if(board.GetSideToMove() == E_COLOR::BLACK)
     {
-        BishopListGenerator(board, E_PIECE::bB);
+        BishopListGenerator(board, E_PIECE::bB, moveList);
     }
 
 }
 
 
-void RookMoves(Board& board)
+void RookMoves(Board& board, std::vector<S_MOVE>& moveList)
 {
     if(board.GetSideToMove() == E_COLOR::WHITE)
     {
-        RookListGenerator(board, E_PIECE::wR);
+        RookListGenerator(board, E_PIECE::wR, moveList);
     }
 
     else if(board.GetSideToMove() == E_COLOR::BLACK)
     {
-        RookListGenerator(board, E_PIECE::bR);
+        RookListGenerator(board, E_PIECE::bR, moveList);
     }
 }
 
 
-void QueenMoves(Board& board)
+void QueenMoves(Board& board, std::vector<S_MOVE>& moveList)
 {
     if(board.GetSideToMove() == E_COLOR::WHITE)
     {
-        BishopListGenerator(board, E_PIECE::wQ);
-        RookListGenerator(board, E_PIECE::wQ);
+        BishopListGenerator(board, E_PIECE::wQ, moveList);
+        RookListGenerator(board, E_PIECE::wQ, moveList);
     }
 
     else if(board.GetSideToMove() == E_COLOR::BLACK)
     {
-        BishopListGenerator(board, E_PIECE::bQ);
-        RookListGenerator(board, E_PIECE::bQ);
+        BishopListGenerator(board, E_PIECE::bQ, moveList);
+        RookListGenerator(board, E_PIECE::bQ, moveList);
     }
 }
 
 
-void KingMoves(Board& board)
+void KingMoves(Board& board, std::vector<S_MOVE>& moveList)
 {
     S8 dir[8] = {-1, 10, 1, -10, 9, 11, -11, -9};
 
@@ -536,13 +536,13 @@ void KingMoves(Board& board)
         if (SQLEGAL(toSquare) && board.GetPieceOnSquare(toSquare) == E_PIECE::EMPTY) //silent move
         {
             Move move(board, kingSq, toSquare, PACKMOVE(0,0,0,0,0,0));
-            addQuietMove(board, move);
+            addQuietMove(board, move, moveList);
         }
 
         else if(SQLEGAL(toSquare) && PIECECOLOR(board.GetPieceOnSquare(toSquare)) != PIECECOLOR(pce)) //capture move
         {
             Move move(board, kingSq, toSquare, PACKMOVE(0,0,0,0,0,0));
-            addCaptureMove(board, move);
+            addCaptureMove(board, move, moveList);
         }
     }
 
@@ -556,7 +556,7 @@ void KingMoves(Board& board)
                 if (!isAttacked(board, E_SQUARE::E1) && !isAttacked(board, E_SQUARE::F1) && !isAttacked(board, E_SQUARE::G1))
                 {
                     Move move(board, E_SQUARE::E1, E_SQUARE::G1, PACKMOVE(0,0,0,2,0,0));
-                    addQuietMove(board, move);
+                    addQuietMove(board, move, moveList);
                 }
             }
         }
@@ -568,7 +568,7 @@ void KingMoves(Board& board)
                 if (!isAttacked(board, E_SQUARE::E1) && !isAttacked(board, E_SQUARE::D1) && !isAttacked(board, E_SQUARE::C1))
                 {
                     Move move(board, E_SQUARE::E1, E_SQUARE::C1, PACKMOVE(0,0,0,3,0,0));
-                    addQuietMove(board, move);
+                    addQuietMove(board, move, moveList);
                 }
             }
         }
@@ -583,7 +583,7 @@ void KingMoves(Board& board)
                 if (!isAttacked(board, E_SQUARE::E8) && !isAttacked(board, E_SQUARE::F8) && !isAttacked(board, E_SQUARE::G8))
                 {
                     Move move(board, E_SQUARE::E8, E_SQUARE::G8, PACKMOVE(0,0,0,2,0,0));
-                    addQuietMove(board, move);
+                    addQuietMove(board, move, moveList);
                 }
             }           
         }
@@ -595,10 +595,21 @@ void KingMoves(Board& board)
                 if (!isAttacked(board, E_SQUARE::E8) && !isAttacked(board, E_SQUARE::D8) && !isAttacked(board, E_SQUARE::C8))
                 {
                     Move move(board, E_SQUARE::E8, E_SQUARE::C8, PACKMOVE(0,0,0,3,0,0));
-                    addQuietMove(board, move);
+                    addQuietMove(board, move, moveList);
                 }
             }
         }
     }
     
+}
+
+
+void AllMoves (Board& board, std::vector<S_MOVE>& moveList)
+{
+    PawnMoves(board, moveList);
+    KnightMoves(board, moveList);
+    BishopMoves(board, moveList);
+    RookMoves(board, moveList);
+    QueenMoves(board, moveList);
+    KingMoves(board, moveList);
 }
