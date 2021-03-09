@@ -50,13 +50,15 @@ int main()
     // std::string FEN = "r2qkb1r/p1pb2pp/2n3n1/1pPppp1P/1Pb1P3/1r1K1N2/P2P1PPb/R3B2R w KQkq b6 0 9";
     // std::string FEN = "r4rk1/p2nbp1p/1qp1bpp1/3p4/3P4/2NBPN2/PPQ2PPP/R4RK1 w - - 0 1";
     //getline(std::cin, FEN);
-    std::string FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";    
+    std::string STARTFEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";    
+
+    std::string FEN = "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1 ";    
     Board b(FEN);
     HASH.GenerateHash(b);
 
     std::vector<S_MOVE> mvList;
     
-    int d ;
+    int d = 3;
     cin >> d;
 
     PerftTest(d, b);

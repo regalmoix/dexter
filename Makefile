@@ -1,6 +1,6 @@
 CXX = g++
-CXXFLAGS = -Wall -Werror -Wextra -pedantic -std=c++17 -g -fsanitize=address -O3
-LDFLAGS =  -fsanitize=address -O3
+CXXFLAGS = -Wall -Werror -Wextra -pedantic -std=c++17 -g -fsanitize=address -O0
+LDFLAGS =  -fsanitize=address -O0
 
 SRCDIR = ./src
 SRC = $(wildcard $(SRCDIR)/*.cpp)
@@ -27,4 +27,4 @@ clean:
 
 .PHONY: run
 run:
-	make && ./build/dexter
+	make -j8 && ./build/dexter

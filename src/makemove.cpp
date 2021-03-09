@@ -112,6 +112,12 @@ static U8 MovePiece (Board& board, U8 from, U8 to, U8 pce = E_PIECE::OFFBOARD)
 **/ 
 bool MakeMove (Board& board, Move move)
 {
+    printf("hi %p\n", &board);
+    fflush(stdout);
+    assert(sizeof(board) != 0);
+    assert(sizeof(move) != 0);
+
+    
     U8 from     = move.fromSquare;
     U8 to       = move.toSquare;
     U8 side     = board.GetSideToMove();
@@ -119,10 +125,15 @@ bool MakeMove (Board& board, Move move)
     U8 castPerm = board.GetCastleRights();
     U8 cnt50    = board.fiftyMoveRuleCount;
 
+    printf("hi2\n");
+    fflush(stdout);
 
     History histData(move, board.posHashKey, epSq, castPerm, cnt50);
+    assert(sizeof(histData) != 0);
     board.moveHistory.push_back(histData);
 
+    printf("hi3\n");
+    fflush(stdout);
     // Unhash current position parameters and later hash in their updated values
     if (SQLEGAL(epSq))
         UNHASHEP(board, epSq);
@@ -149,6 +160,8 @@ bool MakeMove (Board& board, Move move)
         }
     }
 
+    printf("hi EP\n");
+    fflush(stdout);
     // If Castle Move Rook since this is only move where 2 pieces move together.
     switch(move.getCastle())
     {
@@ -219,6 +232,9 @@ bool MakeMove (Board& board, Move move)
         }
     }
 
+    printf("hi CA DP\n");
+    fflush(stdout);
+
     // If Capture remove captured piece. (reset 50cnt also)
     if (move.getCapturedPiece() != E_PIECE::EMPTY)
     {
@@ -251,6 +267,8 @@ bool MakeMove (Board& board, Move move)
         AddPiece(board, to, move.getPromotedPiece());
     }
 
+    printf("hi5\n");
+    fflush(stdout);
     // Update the castle perms based on which pieces moved
     board.castleRights &= CastlePerm[from];
     board.castleRights &= CastlePerm[to];
@@ -261,10 +279,39 @@ bool MakeMove (Board& board, Move move)
     board.plys ++;
     HASHSIDE(board, board.GetSideToMove());
 
+    if (board.GetSquareList(E_PIECE::wK).empty())
+        board.PrintBoard();
+    assert(!board.GetSquareList(E_PIECE::wK).empty());
+    assert(!board.GetSquareList(E_PIECE::bK).empty());
+
+    U8 wkingSq;
+    U8 bkingSq;
+
+    for  (U8 x : board.GetSquareList(E_PIECE::wK))
+    {
+        if (SQLEGAL(x))
+            wkingSq =  x;
+    }
+
+    for  (U8 x : board.GetSquareList(E_PIECE::bK))
+    {
+        if (SQLEGAL(x))
+            bkingSq =  x;
+    }
+    
     // Check King in check at last
     if (side == E_COLOR::WHITE)
     {
-        if (isAttacked(board, board.GetSquareList(E_PIECE::wK)[0], E_COLOR::BLACK))
+        printf("hi6\n");         
+        
+        
+        // printf("KIng Sq is %d\n", board.GetSquareList(E_PIECE::wK)[0]);
+
+        fflush(stdout);
+
+    
+
+        if (isAttacked(board, wkingSq, E_COLOR::BLACK))
         {
             UnmakeMove(board);
             return false;
@@ -273,13 +320,16 @@ bool MakeMove (Board& board, Move move)
 
     else if (side == E_COLOR::BLACK)
     {
-        if (isAttacked(board, board.GetSquareList(E_PIECE::bK)[0], E_COLOR::WHITE))
+        printf("hi7\n");
+        fflush(stdout);
+        if (isAttacked(board, bkingSq, E_COLOR::WHITE))
         {
             UnmakeMove(board);
             return false;
         }
     }
 
+    
     return true;
 }
 
@@ -294,6 +344,7 @@ void UnmakeMove (Board& board)
 {
     board.plys --;
     History histData = board.moveHistory.back();
+    board.moveHistory.pop_back();
 
     Move move   = histData.move;
     U8 from     = move.fromSquare;
@@ -376,7 +427,7 @@ void UnmakeMove (Board& board)
 
     
     // For normal captures we undo by putting the captured piece back on the 'to' square
-    if (move.isNormalCapture())
+    if (move.isNormalCapture() && !move.isEPCapture())
     {
         AddPiece(board, to, move.getCapturedPiece());
     }

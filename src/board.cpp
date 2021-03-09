@@ -57,6 +57,9 @@ S_BOARD::S_BOARD()
 **/
 U8 S_BOARD::GetPieceOnSquare (U8 sq120)
 {
+    if (sq120 >= 120) printf("inval sq %d\n", sq120);
+    fflush(stdout);
+
     std::bitset<480> temp = 0;
 
     temp.set(sq120 * 4, 1);
@@ -103,7 +106,7 @@ E_PIECE S_BOARD::SetPieceOnSquare (U8 sq120, E_PIECE piece, std::string mode)
     {
         if ((currPce >= E_PIECE::bP) == (piece >= E_PIECE::bP))         // For a non-empty square, disallow overwriting pieces of same color
         {
-            std::cerr << "[ERROR] Attempted overwriting " << (int)piece << " on " << (int)currPce << " of same color. Transaction incomplete.\n";
+            std::cerr << "[ERROR] Attempted overwriting " << (int)piece << " on " << (int)currPce << " of same color on sq "<< (int)sq120 << ". Transaction incomplete.\n";
             return static_cast<E_PIECE>(currPce);
         }
     }
@@ -455,9 +458,9 @@ void S_BOARD::PrintBoard ()
     printf("\n\n");
 
     printf("Side To Move : %c\n", sideToMove == E_COLOR::WHITE ? 'W' : 'B');
-    printf("Castle       : %d\n", castleRights);
-    printf("Plys         : %d\n", plys);
-    printf("50 move cnt  : %d\n", fiftyMoveRuleCount);
+    // printf("Castle       : %d\n", castleRights);
+    // printf("Plys         : %d\n", plys);
+    // printf("50 move cnt  : %d\n", fiftyMoveRuleCount);
     printf("En Passant   : %c%d\n", SQ2FILE(enPassantSquare) ? (SQ2FILE(enPassantSquare) + 'a' - 1) : '0', SQ2RANK(enPassantSquare));
 }
 
@@ -642,15 +645,15 @@ std::vector<U8> S_BOARD::GetSquareList(U8 piece)
         return sqList;
     }
 
-    std::vector<U8> sqList;         // (pieceList[piece - 1], pieceList[piece - 1] + 10);
+    std::vector<U8> sqList (pieceList[piece - 1], pieceList[piece - 1] + 10);
     
-    for (U8 i = 0; i < 10; i++)
-    {
-        U8 sq120 = pieceList[piece - 1][i];
+    // for (U8 i = 0; i < 10; i++)
+    // {
+    //     U8 sq120 = pieceList[piece - 1][i];
         
-        if (sq120 != E_SQUARE::Square_Invalid)
-            sqList.push_back(sq120);
-    }
+    //     if (sq120 != E_SQUARE::Square_Invalid)
+    //         sqList.push_back(sq120);
+    // }
     
     return sqList;
 }

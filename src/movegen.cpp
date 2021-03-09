@@ -41,6 +41,9 @@ bool isPawn(Board& board, U8 sq120)
 
 bool isAttacked(Board& board, U8 sq120, S8 attackingside)
 {
+    printf("Entered  here  \n");
+    fflush(stdout);
+
     S8 side;
 
     if (attackingside == -1)
