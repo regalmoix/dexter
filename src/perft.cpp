@@ -53,7 +53,7 @@ int PerftTest(int depth, Board& board)
         if (!MakeMove(board, m))  
             continue;
 
-        long cumnodes = leafNodes;
+        // long cumnodes = leafNodes;
         
 
         // printf("%c%d -> ",SQ2FILE(m.fromSquare) + 'A' - 1, SQ2RANK(m.fromSquare));
@@ -68,13 +68,13 @@ int PerftTest(int depth, Board& board)
         
         UnmakeMove(board);  
 
-        long oldnodes = leafNodes - cumnodes;
-        printf("Move %d : ",count);
-        printf(": INT of Move%d %d : ", m.fromSquare, m.toSquare);
-        printf("%c%d -> ",SQ2FILE(m.fromSquare) + 'A' - 1, SQ2RANK(m.fromSquare));
-        printf("%c%d" ,SQ2FILE(m.toSquare) + 'A' - 1, SQ2RANK(m.toSquare));
-        printf(" : move %ld", oldnodes);
-        printf("\n");
+        // long oldnodes = leafNodes - cumnodes;
+        // printf("Move %d : ",count);
+        // printf(": INT of Move%d %d : ", m.fromSquare, m.toSquare);
+        // printf("%c%d -> ",SQ2FILE(m.fromSquare) + 'A' - 1, SQ2RANK(m.fromSquare));
+        // printf("%c%d" ,SQ2FILE(m.toSquare) + 'A' - 1, SQ2RANK(m.toSquare));
+        // printf(" : move %ld", oldnodes);
+        // printf("\n");
         count++;
         // std::cout << std::endl;
             

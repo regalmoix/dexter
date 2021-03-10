@@ -1,6 +1,6 @@
 CXX = g++
 CXXFLAGS = -Wall -Werror -Wextra -pedantic -std=c++17 -g -O0
-LDFLAGS = -O0 -g
+LDFLAGS =-O0 -g
 
 SRCDIR = ./src
 SRC = $(wildcard $(SRCDIR)/*.cpp)
@@ -17,7 +17,7 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.cpp $(SRCDIR)/*.h
 	@mkdir -p ./build
 	@mkdir -p ./obj
 	@rm -f ./build/dexter
-	$(CXX) -c -O3 $(CXX_FLAGS) $< -o $@
+	$(CXX) -c -Wall -Werror -Wextra -pedantic -std=c++17 -g -O0 $< -o $@
 
 doc: 
 	doxygen Doxyfile

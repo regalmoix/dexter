@@ -146,7 +146,7 @@ S_MOVE::S_MOVE (Board board, U8 from, U8 to, U8 moveInfo)
 }
 
 
-S_MOVE::S_MOVE (Board board, U8 from, U8 to, U8 moveInfo, U8 pieceInfo)
+S_MOVE::S_MOVE (U8 from, U8 to, U8 moveInfo, U8 pieceInfo)
 {
     fromSquare              = from;
     toSquare                = to;

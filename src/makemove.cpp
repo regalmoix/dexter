@@ -259,6 +259,9 @@ bool MakeMove (Board& board, Move move)
     // Move the piece
     MovePiece(board, from, to);
 
+    assert(SQLEGAL(from));
+    assert(SQLEGAL(to));
+
     // If Promotion, remove the pawn add the promoted piece
     if (move.isPromotion())
     {
@@ -302,18 +305,24 @@ bool MakeMove (Board& board, Move move)
         if (SQLEGAL(x))
             bkingSq =  x;
     }
+
+    for (int i = 0; i < 120; i++)
+    {
+        if (board.GetPieceOnSquare(i) == wK)
+            wkingSq = i;
+        if (board.GetPieceOnSquare(i) == bK)
+            bkingSq = i;
+    }
+
+    assert(SQLEGAL(wkingSq));
+    assert(SQLEGAL(bkingSq));
     
     // Check King in check at last
     if (side == E_COLOR::WHITE)
     {
-        // printf("hi6\n");         
-        
-        
+        // printf("hi6\n");        
         // printf("KIng Sq is %d\n", board.GetSquareList(E_PIECE::wK)[0]);
-
-        fflush(stdout);
-
-    
+        // fflush(stdout);
 
         if (isAttacked(board, wkingSq, E_COLOR::BLACK))
         {

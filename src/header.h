@@ -25,10 +25,10 @@ using std::cin;
 typedef unsigned long int       U64;
 typedef unsigned int            U32;
 typedef unsigned short int      U16;
-typedef  int           U8;
+typedef int                     U8;
 typedef std::unordered_set<U8>  U8set;
 typedef short int               S16;
-typedef char                    S8;
+typedef int                     S8;
 typedef struct S_BOARD          Board;
 
 
@@ -39,12 +39,15 @@ typedef struct S_BOARD          Board;
 #define BOARD_SIZE              (120)
 #define MAX_MOVES               (2048)
 #define FR2SQ(f, r)             (10 + ((r) * 10) + (f))                             // Convert File, Rank to 120 based Square indexing
-#define SQ2FILE(sq120)          ((sq120 % 10)*(sq120 != Square_Invalid))            // Given square in 120 indexing, find corresponding file
-#define SQ2RANK(sq120)          ((((sq120) / 10) - 1)*(sq120 != Square_Invalid))    // Given square in 120 indexing, find corresponding rank
+// #define SQ2FILE(sq120)          ((sq120 % 10)*(sq120 != Square_Invalid))            // Given square in 120 indexing, find corresponding file
+// #define SQ2RANK(sq120)          ((((sq120) / 10) - 1)*(sq120 != Square_Invalid))    // Given square in 120 indexing, find corresponding rank
 #define SQ120(sq64)             (10 + ((sq64 / 8 + 1) * 10) + (sq64 % 8 + 1))       // Given Square in 64  based indexing convert to 120 based indexing
 #define SQ64(sq120)             (sq120To64[sq120])                                  // Given Square in 120 based indexing convert to 64  based indexing
 #define SQLEGAL(sq120)          (sq120To64[sq120] != Square_Invalid)
 #define PIECECOLOR(pce)         ((wP <= pce && pce <= wK) ? WHITE : ((bP <= pce && pce <= bK) ? BLACK : BOTH))
+
+#define SQ2FILE(sq120)          ((sq120 != Square_Invalid) ? (sq120 % 10) : 0)            // Given square in 120 indexing, find corresponding file
+#define SQ2RANK(sq120)          ((sq120 != Square_Invalid) ? (((sq120) / 10) - 1) : 0)    // Given square in 120 indexing, find corresponding rank
 
 
 // Pack info (check, enPassant, pawnDoublePush, CastleType, promotion, promotedPiece) to U8
@@ -172,7 +175,7 @@ typedef struct S_MOVE
 
     S_MOVE (Board board, U8 from, U8 to, U8 moveInfo);
 
-    S_MOVE (Board board, U8 from, U8 to, U8 moveInfo, U8 pieceInfo);
+    S_MOVE (U8 from, U8 to, U8 moveInfo, U8 pieceInfo);
 
 } Move;
 
