@@ -41,8 +41,10 @@ bool isPawn(Board& board, U8 sq120)
 
 bool isAttacked(Board& board, U8 sq120, S8 attackingside)
 {
-    printf("Entered  here  \n");
-    fflush(stdout);
+    // 
+    // printf("Entered  here  \n");
+    // printf("%d\n",sq120);
+    // fflush(stdout);
 
     S8 side;
 
@@ -53,7 +55,8 @@ bool isAttacked(Board& board, U8 sq120, S8 attackingside)
         side = (attackingside == E_COLOR::WHITE) ? E_COLOR::BLACK : E_COLOR::WHITE;                  // Because side is the defending side
          
     S8 dir[4] = {-1, 10, 1, -10};
-
+    
+    
     for (S8 i = 0; i < 4; i++)
     {
         for(S8 j = 1; j < 8; j++)
@@ -63,11 +66,12 @@ bool isAttacked(Board& board, U8 sq120, S8 attackingside)
             if (SQLEGAL(checkSquare) && board.GetPieceOnSquare(checkSquare) == E_PIECE::EMPTY)
                 continue;
 
-            if (i == 1)
+            if (j == 1)
             {
                 if (SQLEGAL(checkSquare) && PIECECOLOR(board.GetPieceOnSquare(checkSquare)) != side && 
                    (isRook(board,checkSquare) || isQueen(board,checkSquare) || isKing(board,checkSquare)))
                 {
+                    // printf("yo1\n");
                     return true;
                 }
             }
@@ -75,6 +79,7 @@ bool isAttacked(Board& board, U8 sq120, S8 attackingside)
             if (SQLEGAL(checkSquare) && PIECECOLOR(board.GetPieceOnSquare(checkSquare)) != side && 
                (isRook(board,checkSquare) || isQueen(board,checkSquare)))
             {
+                // printf("yo2\n");
                 return true;
             }
 
@@ -96,11 +101,12 @@ bool isAttacked(Board& board, U8 sq120, S8 attackingside)
             if(SQLEGAL(checkSquare) && board.GetPieceOnSquare(checkSquare) == E_PIECE::EMPTY)
                 continue;
             
-            if(i == 1)
+            if(j == 1)
             {
                 if(SQLEGAL(checkSquare) && PIECECOLOR(board.GetPieceOnSquare(checkSquare)) != side && 
                   (isBishop(board,checkSquare) || isQueen(board,checkSquare) || isKing(board,checkSquare)))
                 {
+                    // printf("yo3\n");
                     return true;
                 }
             }
@@ -108,6 +114,7 @@ bool isAttacked(Board& board, U8 sq120, S8 attackingside)
             if(SQLEGAL(checkSquare) && PIECECOLOR(board.GetPieceOnSquare(checkSquare)) != side
             && (isBishop(board,checkSquare) || isQueen(board,checkSquare)))
             {
+                // printf("yo4\n");
                 return true;
             }
 
@@ -126,28 +133,37 @@ bool isAttacked(Board& board, U8 sq120, S8 attackingside)
 
         if(SQLEGAL(checkSquare) && PIECECOLOR(board.GetPieceOnSquare(checkSquare)) != side && isKnight(board,checkSquare))
         {
+            // printf("yo5\n");
             return true;
         }
     }
 
     // pawn checking
-    S8 pawnDir[2] = {1, -1};
-
+    S8 pawnDir[2] = {9, 11};
     for(S8 i = 0; i < 2; i++)
     {
-        int checkSquare = sq120 + i * 11;
+        int checkSquare;
+        if(side==E_COLOR::WHITE){
+            checkSquare = sq120 + pawnDir[i];
+        }
+
+        else{
+            checkSquare = sq120 - pawnDir[i];
+        }
 
         if(SQLEGAL(checkSquare) && PIECECOLOR(board.GetPieceOnSquare(checkSquare)) != side && isPawn(board,checkSquare))
         {
+            // printf("yo6\n");
             return true;
         }
 
-        checkSquare = sq120 + i * 9;
+        // checkSquare = sq120 + i * 9;
 
-        if(SQLEGAL(checkSquare) && PIECECOLOR(board.GetPieceOnSquare(checkSquare)) != side && isPawn(board,checkSquare))
-        {
-            return true;
-        }
+        // if(SQLEGAL(checkSquare) && PIECECOLOR(board.GetPieceOnSquare(checkSquare)) != side && isPawn(board,checkSquare))
+        // {
+        //     printf("yo7\n");
+        //     return true;
+        // }
     }
     return false;
 }
@@ -615,4 +631,5 @@ void AllMoves (Board& board, std::vector<S_MOVE>& moveList)
     RookMoves(board, moveList);
     QueenMoves(board, moveList);
     KingMoves(board, moveList);
+
 }

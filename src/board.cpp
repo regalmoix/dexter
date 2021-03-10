@@ -60,6 +60,10 @@ U8 S_BOARD::GetPieceOnSquare (U8 sq120)
     if (sq120 >= 120) printf("inval sq %d\n", sq120);
     fflush(stdout);
 
+    assert (sq120 <= 119);
+    assert (sq120 >= 0);
+
+
     std::bitset<480> temp = 0;
 
     temp.set(sq120 * 4, 1);
@@ -479,6 +483,7 @@ void S_BOARD::ResetBoard()
      *  Reset pieceLists also. and count piece etc etc.
     **/
 
+    
     posBitBoard = 0;
     sideToMove = E_COLOR::BOTH;
     fiftyMoveRuleCount = 0;
@@ -486,6 +491,11 @@ void S_BOARD::ResetBoard()
     castleRights = 0;
     enPassantSquare = E_SQUARE::Square_Invalid;
     plys = 0;
+
+    for (int i = 0; i < 13; i++)
+    {
+        countPiece[i] = 0;
+    }
 
     for(int i = 0; i < 12; i++)
     {
@@ -642,6 +652,7 @@ std::vector<U8> S_BOARD::GetSquareList(U8 piece)
             }
         }
 
+        assert  (!sqList.empty());
         return sqList;
     }
 
@@ -655,6 +666,7 @@ std::vector<U8> S_BOARD::GetSquareList(U8 piece)
     //         sqList.push_back(sq120);
     // }
     
+    assert  (!sqList.empty());
     return sqList;
 }
 

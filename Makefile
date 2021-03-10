@@ -1,6 +1,6 @@
 CXX = g++
-CXXFLAGS = -Wall -Werror -Wextra -pedantic -std=c++17 -g -fsanitize=address -O0
-LDFLAGS =  -fsanitize=address -O0
+CXXFLAGS = -Wall -Werror -Wextra -pedantic -std=c++17 -g -O0
+LDFLAGS = -O0 -g
 
 SRCDIR = ./src
 SRC = $(wildcard $(SRCDIR)/*.cpp)

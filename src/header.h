@@ -25,7 +25,7 @@ using std::cin;
 typedef unsigned long int       U64;
 typedef unsigned int            U32;
 typedef unsigned short int      U16;
-typedef unsigned char           U8;
+typedef  int           U8;
 typedef std::unordered_set<U8>  U8set;
 typedef short int               S16;
 typedef char                    S8;
@@ -220,7 +220,7 @@ public :
      *  Using standard arrays for piece lists to save on memory
     **/
 
-    U8                      kingSq[2];                      // REDUNDANT ?   
+    // U8                      kingSq[2];                      // REDUNDANT ?   
     U8                      pieceList[12][10];              // pceList[pce] stores array of squares where Pce exists
     std::array<U8, 13>      countPiece;                     // UNUSED ?
     std::bitset<480>        posBitBoard;                    // Color independant. 4bits per square * 120 squares
@@ -340,6 +340,6 @@ extern bool isPawn      (Board& board, U8 sq120);
 extern bool MakeMove    (Board& board, Move move);
 extern void UnmakeMove  (Board& board);
 
-extern void PerftTest   (int depth, Board& board);
+extern int PerftTest   (int depth, Board& board);
 extern void Perft       (int depth, Board& board);
 #endif
