@@ -11,13 +11,13 @@ EXEC = build/dexter
 all: $(EXEC)
 
 $(EXEC): $(OBJ)
-	$(CXX) $(LDFLAGS) -o $@ $(OBJ) $(LBLIBS)
+	$(CXX) -O3 -o $@ $(OBJ) $(LBLIBS)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp $(SRCDIR)/*.h
 	@mkdir -p ./build
 	@mkdir -p ./obj
 	@rm -f ./build/dexter
-	$(CXX) -c -Wall -Werror -Wextra -pedantic -std=c++17 -g -O0 $< -o $@
+	$(CXX) -c -Wall -Werror -Wextra -pedantic -std=c++17 -O3 $< -o $@
 
 doc: 
 	doxygen Doxyfile

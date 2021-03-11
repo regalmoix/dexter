@@ -550,14 +550,14 @@ void KingMoves(Board& board, std::vector<S_MOVE>& moveList)
         }
     }
     
-    for (int i = 0; i < 120; i++)
-    {
-        if (board.GetPieceOnSquare(i) == pce)
-        {
-            kingSq = i;
-            break;
-        }
-    }
+    // for (int i = 0; i < 120; i++)
+    // {
+    //     if (board.GetPieceOnSquare(i) == pce)
+    //     {
+    //         kingSq = i;
+    //         break;
+    //     }
+    // }
 
     assert(SQLEGAL(kingSq));
 

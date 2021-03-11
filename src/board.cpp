@@ -361,7 +361,7 @@ void S_BOARD::PrintBoard ()
 
             int pce = GetPieceOnSquare(sq);
 
-            char x;
+            char x = 'x';
 
             switch (pce)
             {
@@ -533,7 +533,7 @@ void S_BOARD::PrintBoard120 ()
         E_SQUARE sq = static_cast<E_SQUARE> ((i));
 
         int pce = GetPieceOnSquare(sq);
-        char x;
+        char x = 'x';
 
         switch (pce)
         {
@@ -710,7 +710,8 @@ U8 S_BOARD::ModifySquareList(U8 piece, U8 sq120, std::string operation)
             i++;
         }
 
-        pieceList[piece-1][i] = Square_Invalid;
+        if (i < 10)
+            pieceList[piece-1][i] = Square_Invalid;
 
         for(int j = i; j < 9; j++)
         {

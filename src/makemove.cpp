@@ -291,28 +291,34 @@ bool MakeMove (Board& board, Move move)
     assert(!board.GetSquareList(E_PIECE::wK).empty());
     assert(!board.GetSquareList(E_PIECE::bK).empty());
 
-    U8 wkingSq;
-    U8 bkingSq;
+    U8 wkingSq = E_SQUARE::Square_Invalid;
+    U8 bkingSq = E_SQUARE::Square_Invalid;
 
     for  (U8 x : board.GetSquareList(E_PIECE::wK))
     {
         if (SQLEGAL(x))
+        {
             wkingSq =  x;
+            break;
+        }
     }
 
     for  (U8 x : board.GetSquareList(E_PIECE::bK))
     {
         if (SQLEGAL(x))
+        {
             bkingSq =  x;
+            break;
+        }
     }
 
-    for (int i = 0; i < 120; i++)
-    {
-        if (board.GetPieceOnSquare(i) == wK)
-            wkingSq = i;
-        if (board.GetPieceOnSquare(i) == bK)
-            bkingSq = i;
-    }
+    // for (int i = 0; i < 120; i++)
+    // {
+    //     if (board.GetPieceOnSquare(i) == wK)
+    //         wkingSq = i;
+    //     if (board.GetPieceOnSquare(i) == bK)
+    //         bkingSq = i;
+    // }
 
     assert(SQLEGAL(wkingSq));
     assert(SQLEGAL(bkingSq));
