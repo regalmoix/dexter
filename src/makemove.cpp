@@ -44,7 +44,7 @@ static U8 RemovePiece (Board& board, U8 sq120)
     
     U8 pce = board.GetPieceOnSquare(sq120);
     
-    assert(board.GetPieceOnSquare(sq120) == pce);
+    // assert(board.GetPieceOnSquare(sq120) == pce);
 
     board.ModifySquareList(pce, sq120, "del");
     board.SetPieceOnSquare(sq120, E_PIECE::EMPTY);
@@ -113,7 +113,7 @@ static U8 MovePiece (Board& board, U8 from, U8 to)
 bool MakeMove (Board& board, Move move)
 {
     // printf("hi %p\n", &board);
-    fflush(stdout);
+    // fflush(stdout);
     assert(sizeof(board) != 0);
     assert(sizeof(move) != 0);
 
@@ -125,19 +125,19 @@ bool MakeMove (Board& board, Move move)
     U8 castPerm = board.GetCastleRights();
     U8 cnt50    = board.fiftyMoveRuleCount;
 
-    if(!SQLEGAL(from))
-        printf("assertion failed here%d\n",from);
+    // if(!SQLEGAL(from))
+    //     printf("assertion failed here%d\n",from);
     assert(SQLEGAL(from));
     assert(SQLEGAL(to));
     // printf("hi2\n");
-    fflush(stdout);
+    // fflush(stdout);
 
     History histData(move, board.posHashKey, epSq, castPerm, cnt50);
     assert(sizeof(histData) != 0);
     board.moveHistory.push_back(histData);
 
     // printf("hi3\n");
-    fflush(stdout);
+    // fflush(stdout);
     // Unhash current position parameters and later hash in their updated values
     if (SQLEGAL(epSq))
         UNHASHEP(board, epSq);
@@ -165,7 +165,7 @@ bool MakeMove (Board& board, Move move)
     }
 
     // printf("hi EP\n");
-    fflush(stdout);
+    // fflush(stdout);
     // If Castle Move Rook since this is only move where 2 pieces move together.
     switch(move.getCastle())
     {
@@ -237,7 +237,7 @@ bool MakeMove (Board& board, Move move)
     }
 
     // printf("hi CA DP\n");
-    fflush(stdout);
+    // fflush(stdout);
 
     // If Capture remove captured piece. (reset 50cnt also)
     if (move.getCapturedPiece() != E_PIECE::EMPTY)
@@ -275,7 +275,7 @@ bool MakeMove (Board& board, Move move)
     }
 
     // printf("hi5\n");
-    fflush(stdout);
+    // fflush(stdout);
     // Update the castle perms based on which pieces moved
     board.castleRights &= CastlePerm[from];
     board.castleRights &= CastlePerm[to];
@@ -286,10 +286,10 @@ bool MakeMove (Board& board, Move move)
     board.plys ++;
     HASHSIDE(board, board.GetSideToMove());
 
-    if (board.GetSquareList(E_PIECE::wK).empty())
-        board.PrintBoard();
-    assert(!board.GetSquareList(E_PIECE::wK).empty());
-    assert(!board.GetSquareList(E_PIECE::bK).empty());
+    // if (board.GetSquareList(E_PIECE::wK).empty())
+    //     board.PrintBoard();
+    // assert(!board.GetSquareList(E_PIECE::wK).empty());
+    // assert(!board.GetSquareList(E_PIECE::bK).empty());
 
     U8 wkingSq = E_SQUARE::Square_Invalid;
     U8 bkingSq = E_SQUARE::Square_Invalid;
@@ -340,7 +340,7 @@ bool MakeMove (Board& board, Move move)
     else if (side == E_COLOR::BLACK)
     {
         // printf("hi7\n");
-        fflush(stdout);
+        // fflush(stdout);
         if (isAttacked(board, bkingSq, E_COLOR::WHITE))
         {
             UnmakeMove(board);
@@ -420,7 +420,11 @@ void UnmakeMove (Board& board)
                 MovePiece (board, E_SQUARE::F8, E_SQUARE::H8);            
 
             else
+            {
+                board.PrintPieceList();
+                board.PrintPieceList2();
                 assert (false);
+            }
 
             break;
         }

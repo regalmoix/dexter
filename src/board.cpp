@@ -57,21 +57,8 @@ S_BOARD::S_BOARD()
 **/
 U8 S_BOARD::GetPieceOnSquare (U8 sq120)
 {
-    if (sq120 >= 120) printf("inval sq %d\n", sq120);
-    fflush(stdout);
-
-    assert (sq120 <= 119);
-    assert (sq120 >= 0);
-
-
-    std::bitset<480> temp = 0;
-
-    temp.set(sq120 * 4, 1);
-    temp.set(sq120 * 4 + 1, 1);
-    temp.set(sq120 * 4 + 2, 1);
-    temp.set(sq120 * 4 + 3, 1);
-
-    return ((temp & posBitBoard)>>(sq120 * 4)).to_ulong();
+    return brd_array[sq120];
+    // return (brd_array[sq120/2] & (0x0F + 0xE1*(sq120 & 1))) >> (4*(sq120 & 1));
 }
 
 
@@ -86,46 +73,10 @@ U8 S_BOARD::GetPieceOnSquare (U8 sq120)
  *  @todo       Remove useless error checking and move it to a useful place.
  * 
 **/
-E_PIECE S_BOARD::SetPieceOnSquare (U8 sq120, E_PIECE piece, std::string mode)
+E_PIECE S_BOARD::SetPieceOnSquare (U8 sq120, E_PIECE piece)
 {
     U8 currPce = GetPieceOnSquare(sq120);
-
-    if (currPce == E_PIECE::OFFBOARD && mode != "reset")     // 2nd condition allows re-setting offboard to offboard. 1st condition doesnt allow overwriting 'offboard'
-    {
-        if (piece != E_PIECE::OFFBOARD)
-        {
-            std::cerr << "[ERROR] Setting onboard piece " << (int)piece << " to offboard square. Transaction incomplete.\n";
-        }
-
-        else
-        {
-            // Means currPiece and piece both are offboard.
-            // No over writing needed.
-        }
-
-        return static_cast<E_PIECE>(currPce);
-    }
-
-    else if (currPce != E_PIECE::EMPTY && piece != E_PIECE::EMPTY && mode != "reset")
-    {
-        if ((currPce >= E_PIECE::bP) == (piece >= E_PIECE::bP))         // For a non-empty square, disallow overwriting pieces of same color
-        {
-            std::cerr << "[ERROR] Attempted overwriting " << (int)piece << " on " << (int)currPce << " of same color on sq "<< (int)sq120 << ". Transaction incomplete.\n";
-            return static_cast<E_PIECE>(currPce);
-        }
-    }
-
-    // Set pieceLists appropriately.
-    // [To Do] Using ModifySquareList() to add sq120 for 'piece' and del sq120 for 'currPce'. Check validity of both ops.
-
-
-    // Set posBitBoard appropriately.
-    posBitBoard[4 * sq120 + 0]  = piece & 1;
-    posBitBoard[4 * sq120 + 1]  = piece & 2;
-    posBitBoard[4 * sq120 + 2]  = piece & 4;
-    posBitBoard[4 * sq120 + 3]  = piece & 8;
-
-
+    brd_array[sq120] = piece;    
     return static_cast<E_PIECE>(currPce);
 }
 
@@ -478,12 +429,6 @@ void S_BOARD::PrintBoard ()
 **/
 void S_BOARD::ResetBoard()
 {
-    /** NOTE
-     *
-     *  Reset pieceLists also. and count piece etc etc.
-    **/
-
-    
     posBitBoard = 0;
     sideToMove = E_COLOR::BOTH;
     fiftyMoveRuleCount = 0;
@@ -505,16 +450,25 @@ void S_BOARD::ResetBoard()
         }
     }
 
-
     for (int i = 0; i < 120; i++)
     {
-        SetPieceOnSquare(i, E_PIECE::OFFBOARD, "reset");
+        SetPieceOnSquare(i, E_PIECE::OFFBOARD);
     }
 
     for (int i = 0; i < 64; i++)
     {
-        SetPieceOnSquare(SQ120(i), E_PIECE::EMPTY, "reset");
+        SetPieceOnSquare(SQ120(i), E_PIECE::EMPTY);
     }
+
+
+    // ALT PCELIST 
+    for (int i = 0; i < 12; i++)
+    {
+        alt_pieceList[i].push_back(E_SQUARE::Square_Invalid);
+    }
+
+    for (int i = 0; i < BOARD_SIZE; i++)
+        brd_array[i] = 0;
 }
 
 
@@ -638,36 +592,39 @@ void S_BOARD::PrintBoard120 ()
  * 
  *  @todo       Remove all E_SQUARE::Square_Invalid from the returned
 **/
+// std::vector<U8> S_BOARD::GetSquareList(U8 piece)
+// {
+//     if (piece == E_PIECE::EMPTY)
+//     {
+//         return {};
+//         printf("empty pc list requested");
+//         std::vector<U8> sqList;
+//         for (int i = 0; i < 64; i++)
+//         {
+//             if (GetPieceOnSquare(static_cast<E_SQUARE>(SQ120(i))) == E_PIECE::EMPTY)
+//             {
+//                 sqList.push_back(SQ120(i));
+//             }
+//         }
+//         assert  (!sqList.empty());
+//         return sqList;
+//     }
+//     std::vector<U8> sqList (pieceList[piece - 1], pieceList[piece - 1] + 10);
+//     assert  (!sqList.empty());
+//     return sqList;
+// }
 std::vector<U8> S_BOARD::GetSquareList(U8 piece)
 {
     if (piece == E_PIECE::EMPTY)
-    {
-        std::vector<U8> sqList;
-
-        for (int i = 0; i < 64; i++)
-        {
-            if (GetPieceOnSquare(static_cast<E_SQUARE>(SQ120(i))) == E_PIECE::EMPTY)
-            {
-                sqList.push_back(SQ120(i));
-            }
-        }
-
-        assert  (!sqList.empty());
-        return sqList;
-    }
-
-    std::vector<U8> sqList (pieceList[piece - 1], pieceList[piece - 1] + 10);
+        return {};
     
-    // for (U8 i = 0; i < 10; i++)
-    // {
-    //     U8 sq120 = pieceList[piece - 1][i];
-        
-    //     if (sq120 != E_SQUARE::Square_Invalid)
-    //         sqList.push_back(sq120);
-    // }
+    else if (alt_pieceList[piece-1].empty())
+        assert(false);
     
-    assert  (!sqList.empty());
-    return sqList;
+    else 
+        return alt_pieceList[piece-1];
+    
+    return {};
 }
 
 
@@ -687,40 +644,49 @@ std::vector<U8> S_BOARD::GetSquareList(U8 piece)
  *              piece EMPTY [piece 0] is not associated with any list
  *              piece wK or bK are associated with kingSq[] indexed by color.
 **/
+// U8 S_BOARD::ModifySquareList(U8 piece, U8 sq120, std::string operation)
+// {
+//     if (operation == "add")
+//     {
+//         for (int i = 0; i < 10; i++)
+//         {
+//             if (pieceList[piece - 1][i] == E_SQUARE::Square_Invalid)
+//             {
+//                 pieceList[piece - 1][i] = sq120;
+//                 break;
+//             }
+//         }
+//         // pieceList[piece - 1].push_back(sq120);
+//     }
+//     else if (operation == "del")
+//     {
+//         int i = 0;
+//         while(i < 10 && pieceList[piece-1][i] != sq120)
+//         {
+//             i++;
+//         }
+//         if (i < 10)
+//             pieceList[piece-1][i] = Square_Invalid;
+//         for(int j = i; j < 9; j++)
+//         {
+//             if(pieceList[piece-1][j] == Square_Invalid)
+//                 break;            
+//             pieceList[piece-1][j] = pieceList[piece-1][j+1];
+//         }
+//         // pieceList[piece - 1].erase(std::remove(pieceList[piece - 1].begin(), pieceList[piece - 1].end(), sq120), pieceList[piece - 1].end());
+//     }
+//     return 0;
+// }
 U8 S_BOARD::ModifySquareList(U8 piece, U8 sq120, std::string operation)
 {
     if (operation == "add")
     {
-        for (int i = 0; i < 10; i++)
-        {
-            if (pieceList[piece - 1][i] == E_SQUARE::Square_Invalid)
-            {
-                pieceList[piece - 1][i] = sq120;
-                break;
-            }
-        }
+        alt_pieceList[piece - 1].push_back(sq120);
     }
 
     else if (operation == "del")
     {
-        int i = 0;
-
-        while(i < 10 && pieceList[piece-1][i] != sq120)
-        {
-            i++;
-        }
-
-        if (i < 10)
-            pieceList[piece-1][i] = Square_Invalid;
-
-        for(int j = i; j < 9; j++)
-        {
-
-            if(pieceList[piece-1][j] == Square_Invalid)
-                break;
-            
-            pieceList[piece-1][j] = pieceList[piece-1][j+1];
-        }
+        alt_pieceList[piece - 1].erase(std::remove(alt_pieceList[piece - 1].begin(), alt_pieceList[piece - 1].end(), sq120), alt_pieceList[piece - 1].end());
     }
     return 0;
 }
@@ -736,10 +702,10 @@ void S_BOARD::PrintPieceList()
     for (int i = 0; i < 12; i++)
     {
         printf("Piece[%d] : ", i + 1);
-        for(int j = 0; j < 10; j++)
+
+        for (U8 sq : alt_pieceList[i])
         {
-            printf("%c%d ",SQ2FILE(pieceList[i][j]) + 'A' - 1, SQ2RANK(pieceList[i][j]));
-            
+             printf("%c%d ",SQ2FILE(sq) + 'A' - 1, SQ2RANK(sq));
         }
         printf("\n");
     }

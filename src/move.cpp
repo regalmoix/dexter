@@ -91,7 +91,7 @@ U8 S_MOVE::getCastle()
 }
 
 
-S_MOVE::S_MOVE(Board board, U8 from, U8 to)                 // Assume Non Special Move
+S_MOVE::S_MOVE(Board& board, U8 from, U8 to)                 // Assume Non Special Move
 {
     fromSquare      = from;
     toSquare        = to;
@@ -118,7 +118,7 @@ S_MOVE::S_MOVE(Board board, U8 from, U8 to)                 // Assume Non Specia
 }
 
 
-S_MOVE::S_MOVE (Board board, U8 from, U8 to, U8 moveInfo)
+S_MOVE::S_MOVE (Board& board, U8 from, U8 to, U8 moveInfo)
 {
     fromSquare      = from;
     toSquare        = to;

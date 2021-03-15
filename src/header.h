@@ -1,6 +1,6 @@
 #ifndef HEADERS_H   
 #define HEADERS_H
-
+//#define NDEBUG
 /** INCLUDES **/
 
 #include <iostream>
@@ -10,8 +10,9 @@
 #include <bitset>
 #include <cstdio>
 #include <sstream>
-#include <cassert>
+#include <assert.h>
 #include <unordered_set>
+#include <algorithm>
 
 using std::vector;
 using std::array;
@@ -25,10 +26,10 @@ using std::cin;
 typedef unsigned long int       U64;
 typedef unsigned int            U32;
 typedef unsigned short int      U16;
-typedef int                     U8;
+typedef unsigned char           U8;
 typedef std::unordered_set<U8>  U8set;
 typedef short int               S16;
-typedef int                     S8;
+typedef char                    S8;
 typedef struct S_BOARD          Board;
 
 
@@ -171,9 +172,9 @@ typedef struct S_MOVE
 
     U8 getCastle();
 
-    S_MOVE (Board board, U8 from, U8 to);                                            // Assume QUIET Move
+    S_MOVE (Board& board, U8 from, U8 to);                                            // Assume QUIET Move
 
-    S_MOVE (Board board, U8 from, U8 to, U8 moveInfo);
+    S_MOVE (Board& board, U8 from, U8 to, U8 moveInfo);
 
     S_MOVE (U8 from, U8 to, U8 moveInfo, U8 pieceInfo);
 
@@ -223,13 +224,14 @@ public :
      *  Using standard arrays for piece lists to save on memory
     **/
 
-    // U8                      kingSq[2];                      // REDUNDANT ?   
-    U8                      pieceList[12][10];              // pceList[pce] stores array of squares where Pce exists
-    std::array<U8, 13>      countPiece;                     // UNUSED ?
-    std::bitset<480>        posBitBoard;                    // Color independant. 4bits per square * 120 squares
-
+    // U8                               kingSq[2];                      // REDUNDANT ?   
+    U8                                  pieceList[12][10];              // pceList[pce] stores array of squares where Pce exists
+    std::array<std::vector<U8>, 12>     alt_pieceList;    
+    std::array<U8, 13>                  countPiece;                     // UNUSED ?
+    std::bitset<480>                    posBitBoard;                    // Color independant. 4bits per square * 120 squares
+    U8                                  brd_array[BOARD_SIZE];
 public :
-    U64                     posHashKey;
+    U64                                 posHashKey;
 
     /** NOTE
      *
@@ -267,7 +269,7 @@ public :
 
     U8 GetPieceOnSquare (U8 sq120);
 
-    E_PIECE SetPieceOnSquare (U8 sq120, E_PIECE piece, std::string mode = "normal");
+    E_PIECE SetPieceOnSquare (U8 sq120, E_PIECE piece);
 
     void ParseFen (std::string fenString);
 
@@ -343,6 +345,6 @@ extern bool isPawn      (Board& board, U8 sq120);
 extern bool MakeMove    (Board& board, Move move);
 extern void UnmakeMove  (Board& board);
 
-extern int PerftTest   (int depth, Board& board);
+extern int  PerftTest   (int depth, Board& board);
 extern void Perft       (int depth, Board& board);
 #endif

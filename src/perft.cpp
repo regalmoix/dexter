@@ -84,7 +84,7 @@ int PerftTest(int depth, Board& board)
     std::chrono::duration<double> elapsed = end - start;
 
 
-	printf("\nTest Complete : %ld nodes visited in %fs\n",leafNodes, elapsed.count());
+	printf("\nTest Complete : %ld \t[%fs]\t @ %lfKN/s\n",leafNodes, elapsed.count(), leafNodes/(1000*elapsed.count()));
 
 
     return leafNodes;

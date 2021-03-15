@@ -11,19 +11,22 @@ EXEC = build/dexter
 all: $(EXEC)
 
 $(EXEC): $(OBJ)
-	$(CXX) -O3 -o $@ $(OBJ) $(LBLIBS)
+	$(CXX) -O3 -march=native -g -o $@ $(OBJ) $(LBLIBS)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp $(SRCDIR)/*.h
 	@mkdir -p ./build
 	@mkdir -p ./obj
 	@rm -f ./build/dexter
-	$(CXX) -c -Wall -Werror -Wextra -pedantic -std=c++17 -O3 $< -o $@
+	$(CXX) -c -march=native -Wall -Werror -Wno-char-subscripts -Wextra -pedantic -g -std=c++17 -O3 $< -o $@
 
 doc: 
 	doxygen Doxyfile
 
 clean:
 	rm -rf $(OBJ) $(EXEC)
+
+rebuild:
+	make clean && make -j8
 
 .PHONY: run
 run:

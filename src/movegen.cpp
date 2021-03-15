@@ -640,27 +640,27 @@ void KingMoves(Board& board, std::vector<S_MOVE>& moveList)
 void AllMoves (Board& board, std::vector<S_MOVE>& moveList)
 {
     PawnMoves(board, moveList);
-    for (auto m : moveList)
-        assert(SQLEGAL(m.fromSquare) && SQLEGAL(m.fromSquare));
+    // for (auto m : moveList)
+    //     assert(SQLEGAL(m.fromSquare) && SQLEGAL(m.fromSquare));
 
     KnightMoves(board, moveList);
-    for (auto m : moveList)
-        assert(SQLEGAL(m.fromSquare) && SQLEGAL(m.fromSquare));
+    // for (auto m : moveList)
+    //     assert(SQLEGAL(m.fromSquare) && SQLEGAL(m.fromSquare));
        
     BishopMoves(board, moveList);
-    for (auto m : moveList)
-        assert(SQLEGAL(m.fromSquare) && SQLEGAL(m.fromSquare));
+    // for (auto m : moveList)
+    //     assert(SQLEGAL(m.fromSquare) && SQLEGAL(m.fromSquare));
        
     RookMoves(board, moveList);
-    for (auto m : moveList)
-        assert(SQLEGAL(m.fromSquare) && SQLEGAL(m.fromSquare));
+    // for (auto m : moveList)
+    //     assert(SQLEGAL(m.fromSquare) && SQLEGAL(m.fromSquare));
        
     QueenMoves(board, moveList);
-    for (auto m : moveList)
-        assert(SQLEGAL(m.fromSquare) && SQLEGAL(m.fromSquare));
+    // for (auto m : moveList)
+    //     assert(SQLEGAL(m.fromSquare) && SQLEGAL(m.fromSquare));
        
     KingMoves(board, moveList);
-    for (auto m : moveList)
-        assert(SQLEGAL(m.fromSquare) && SQLEGAL(m.fromSquare));
+    // for (auto m : moveList)
+    //     assert(SQLEGAL(m.fromSquare) && SQLEGAL(m.fromSquare));
        
 }

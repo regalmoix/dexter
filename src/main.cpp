@@ -47,102 +47,100 @@ int main()
 
     // std::string FEN = "1r1q2k1/1r1n1p1p/3Pp1p1/R7/5P2/1PQ2B2/2P4P/1K1R4 b - h7 4 30";
     //std::string FEN = "R7/8/8/8/8/8/8/8 w KQkq - 0 1";
-
     // std::string FEN = "r2qkb1r/p1pb2pp/2n3n1/1pPppp1P/1Pb1P3/1r1K1N2/P2P1PPb/R3B2R w KQkq b6 0 9";
     // std::string FEN = "r4rk1/p2nbp1p/1qp1bpp1/3p4/3P4/2NBPN2/PPQ2PPP/R4RK1 w - - 0 1";
     //getline(std::cin, FEN);
     std::string STARTFEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";    
 
-    std::string FEN = "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1";    
-    std::string FEN1 = "r3k2r/p1ppqpb1/bn2pnp1/3PN3/Pp2P3/2N2Q1p/1PPBBPPP/R3K2R b KQkq a3 0 1";    
-
+    std::string FEN =   "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1";    
+    std::string FEN1 =  "r3k2r/p1ppqpb1/bn2pnp1/3PN3/Pp2P3/2N2Q1p/1PPBBPPP/R3K2R b KQkq a3 0 1";    
+    std::string f =     "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1";
     // std::string FEN2 = "4k3/8/8/8/8/8/8/R3K3 w Q - 0 1";
-    Board b(STARTFEN);
+    Board b(FEN);
     HASH.GenerateHash(b);
 
     std::vector<S_MOVE> mvList;
     // cout<<isAttacked(b,E_SQUARE::E2)<<"\n";
-    int d = 6;
+    // int d = 4;
     // cin >> d;
     // cout<<"\n";
     // cout<<isAttacked(b,E_SQUARE::F6)<<"\n";
 
     
-    PerftTest(d,b);
+    // PerftTest(5,b);
+    // return 0;
 
+    vector<string> fens;
 
-    // vector<string> fens;
+    string item_name;
+    ifstream nameFileout;
+    nameFileout.open("perftsuite.txt");
+    string temp;
+    vector<string> lines;
+    while(std::getline(nameFileout, temp))
+    {
+        lines.push_back(temp);
+        // TODO: assign item_name based on line (or if the entire line is 
+        // the item name, replace line with item_name in the code above)
+    }
 
-    // string item_name;
-    // ifstream nameFileout;
-    // nameFileout.open("perftsuite.txt");
-    // string temp;
-    // vector<string> lines;
-    // while(std::getline(nameFileout, temp))
-    // {
-    //     lines.push_back(temp);
-    //     // TODO: assign item_name based on line (or if the entire line is 
-    //     // the item name, replace line with item_name in the code above)
-    // }
+    for(std::size_t i = 0; i < lines.size();i++){
+        string word = "";
+        for(auto x : lines[i]){
+            if(x==';'){
+                fens.push_back(word);
+                word = "";
+                break;
+            }
+            else{
+                word+=x;
+            }
+        }
+    }
 
-    // for(std::size_t i = 0; i < lines.size();i++){
-    //     string word = "";
-    //     for(auto x : lines[i]){
-    //         if(x==';'){
-    //             fens.push_back(word);
-    //             word = "";
-    //             break;
-    //         }
-    //         else{
-    //             word+=x;
-    //         }
-    //     }
-    // }
+    vector<int> myDepths;
 
-    // vector<int> myDepths;
-
-    // for(std::size_t i = 0; i < fens.size(); i++){
-    //     Board b(fens[i]);
-    //     HASH.GenerateHash(b);
-    //     int x = PerftTest(5, b);
-    //     myDepths.push_back(x);
-    // }
+    for(std::size_t i = 0; i < fens.size(); i++){
+        Board b(fens[i]);
+        HASH.GenerateHash(b);
+        int x = PerftTest(5, b);
+        myDepths.push_back(x);
+    }
     
 
-    // fstream file; 
-    // string word, t, q, filename; 
+    fstream file; 
+    string word, t, q, filename; 
   
-    // // filename of the file 
-    // filename = "perftsuite.txt"; 
+    // filename of the file 
+    filename = "perftsuite.txt"; 
   
-    // // opening file 
-    // file.open(filename.c_str()); 
+    // opening file 
+    file.open(filename.c_str()); 
   
-    // // extracting words from the file 
-    // vector<int> depths;
-    // bool flag = false;
-    // while (file >> word) 
-    // { 
-    //     if(flag){
-    //         int val = stoi(word);
-    //         depths.push_back(val);
-    //         flag = false;
-    //     }
-    //     if(word==";D5"){
-    //         flag = true;
-    //     }
+    // extracting words from the file 
+    vector<int> depths;
+    bool flag = false;
+    while (file >> word) 
+    { 
+        if(flag){
+            int val = stoi(word);
+            depths.push_back(val);
+            flag = false;
+        }
+        if(word==";D5"){
+            flag = true;
+        }
         
-    // } 
+    } 
 
 
-    // cout<<"\n\n";
-    // for(std::size_t i = 0; i < myDepths.size(); i++){
-    //     if(myDepths[i]!=depths[i]){
-    //         cout<<i+1<<"\n";
-    //     }
-    // }
+    cout<<"\n\n";
+    for(std::size_t i = 0; i < myDepths.size(); i++){
+        if(myDepths[i]!=depths[i]){
+            cout<<i+1<<"\n";
+        }
+    }
 
-    
     // AllMoves(b, mvList);
     // cout << (int)b.GetSquareList(E_PIECE::bK)[0] << endl;
     // cout << (int)b.GetSquareList(E_PIECE::wK)[0] << endl;

@@ -1,0 +1,256 @@
+Test Complete : 119060324       [178.194888s]    @ 668.146686KN/s
+
+Test Complete : 8031647685      [12138.237968s]  @ 661.681515KN/s
+
+Test Complete : 764643  [1.318411s]      @ 579.973181KN/s
+
+Test Complete : 846648  [1.430427s]      @ 591.884764KN/s
+
+Test Complete : 899442  [1.204402s]      @ 746.795545KN/s
+
+Test Complete : 1001523         [1.376933s]      @ 727.357889KN/s
+
+Test Complete : 2788982         [5.116311s]      @ 545.115763KN/s
+
+Test Complete : 3517770         [4.666228s]      @ 753.878669KN/s
+
+Test Complete : 185867  [0.376385s]      @ 493.822016KN/s
+
+Test Complete : 413018  [0.793635s]      @ 520.413171KN/s
+
+Test Complete : 179869  [0.250214s]      @ 718.860960KN/s
+
+Test Complete : 367724  [0.504633s]      @ 728.695689KN/s
+
+Test Complete : 179862938       [260.446125s]    @ 690.595561KN/s
+
+Test Complete : 195629489       [283.641233s]    @ 689.707512KN/s
+
+Test Complete : 184411439       [268.724246s]    @ 686.247861KN/s
+
+Test Complete : 189224276       [275.808265s]    @ 686.071811KN/s
+
+Test Complete : 198328929       [284.970775s]    @ 695.962345KN/s
+
+Test Complete : 185959088       [267.339121s]    @ 695.592502KN/s
+
+Test Complete : 190755813       [274.263321s]    @ 695.520687KN/s
+
+Test Complete : 899442  [1.189087s]      @ 756.414266KN/s
+
+Test Complete : 1001523         [1.320427s]      @ 758.484155KN/s
+
+Test Complete : 764643  [1.338593s]      @ 571.228694KN/s
+
+Test Complete : 846648  [1.443834s]      @ 586.388608KN/s
+
+Test Complete : 3517770         [4.546883s]      @ 773.666307KN/s
+
+Test Complete : 2788982         [5.189292s]      @ 537.449451KN/s
+
+Test Complete : 179869  [0.251974s]      @ 713.840852KN/s
+
+Test Complete : 367724  [0.509130s]      @ 722.259471KN/s
+
+Test Complete : 185867  [0.382864s]      @ 485.465005KN/s
+
+Test Complete : 413018  [0.804213s]      @ 513.567921KN/s
+
+Test Complete : 179862938       [258.803472s]    @ 694.978846KN/s
+
+Test Complete : 198328929       [283.091368s]    @ 700.582750KN/s
+
+Test Complete : 185959088       [265.053556s]    @ 701.590618KN/s
+
+Test Complete : 190755813       [272.312826s]    @ 700.502491KN/s
+
+Test Complete : 195629489       [281.844053s]    @ 694.105434KN/s
+
+Test Complete : 184411439       [267.224506s]    @ 690.099279KN/s
+
+Test Complete : 189224276       [274.743811s]    @ 688.729893KN/s
+
+Test Complete : 8107539         [13.833299s]     @ 586.088605KN/s
+
+Test Complete : 2594412         [3.704520s]      @ 700.336955KN/s
+
+Test Complete : 19870403        [36.515682s]     @ 544.160804KN/s
+
+Test Complete : 588695  [0.732903s]      @ 803.237657KN/s
+
+Test Complete : 688780  [1.137504s]      @ 605.518832KN/s
+
+Test Complete : 8503277         [14.895579s]     @ 570.859099KN/s
+
+Test Complete : 3147566         [4.727543s]      @ 665.793163KN/s
+
+Test Complete : 4405103         [8.339216s]      @ 528.239440KN/s
+
+Test Complete : 688780  [1.137817s]      @ 605.351928KN/s
+
+Test Complete : 588695  [0.745187s]      @ 789.996315KN/s
+
+Test Complete : 22823890        [37.366625s]     @ 610.809505KN/s
+
+Test Complete : 28861171        [43.142870s]     @ 668.967333KN/s
+
+Test Complete : 7881673         [12.055581s]     @ 653.777959KN/s
+
+Test Complete : 7382896         [8.549745s]      @ 863.522346KN/s
+
+Test Complete : 9250746         [14.956889s]     @ 618.493990KN/s
+
+Test Complete : 29027891        [37.967426s]     @ 764.547248KN/s
+
+Test Complete : 7382896         [8.688072s]      @ 849.773768KN/s
+
+Test Complete : 7881673         [12.146924s]     @ 648.861658KN/s
+
+Test Complete : 44956585        [60.397792s]     @ 744.341538KN/s
+
+Test Complete : 525169084       [841.796501s]    @ 623.867031KN/s
+
+Test Complete : 44956585        [61.183235s]     @ 734.786010KN/s
+
+Test Complete : 524966748       [843.192276s]    @ 622.594352KN/s
+
+Test Complete : 391507  [0.492539s]      @ 794.874549KN/s
+
+Test Complete : 391507  [0.464145s]      @ 843.502184KN/s
+
+Test Complete : 3370175         [4.712397s]      @ 715.172187KN/s
+
+Test Complete : 419369  [0.830388s]      @ 505.027534KN/s
+
+Test Complete : 391507  [0.463018s]      @ 845.554255KN/s
+
+Test Complete : 3370175         [4.699040s]      @ 717.204937KN/s
+
+Test Complete : 6249    [0.012001s]      @ 520.716153KN/s
+
+Test Complete : 6249    [0.016323s]      @ 382.822522KN/s
+
+Test Complete : 2343    [0.004970s]      @ 471.381244KN/s
+
+Test Complete : 2343    [0.005151s]      @ 454.869315KN/s
+
+Test Complete : 34834   [0.070715s]      @ 492.596000KN/s
+
+Test Complete : 2343    [0.004089s]      @ 572.955755KN/s
+
+Test Complete : 2343    [0.004136s]      @ 566.505250KN/s
+
+Test Complete : 6249    [0.011941s]      @ 523.317614KN/s
+
+Test Complete : 6249    [0.015528s]      @ 402.443331KN/s
+
+Test Complete : 34822   [0.066509s]      @ 523.568735KN/s
+
+Test Complete : 11848   [0.025412s]      @ 466.239066KN/s
+
+Test Complete : 11848   [0.025742s]      @ 460.255422KN/s
+
+Test Complete : 10724   [0.021738s]      @ 493.338731KN/s
+
+Test Complete : 10724   [0.022424s]      @ 478.232740KN/s
+
+Test Complete : 53138   [0.096804s]      @ 548.922651KN/s
+
+Test Complete : 157093  [0.264246s]      @ 594.495056KN/s
+
+Test Complete : 158065  [0.267443s]      @ 591.022889KN/s
+
+Test Complete : 20960   [0.038203s]      @ 548.653225KN/s
+
+Test Complete : 10724   [0.021116s]      @ 507.871920KN/s
+
+Test Complete : 10724   [0.022805s]      @ 470.238371KN/s
+
+Test Complete : 53138   [0.095272s]      @ 557.749001KN/s
+
+Test Complete : 158065  [0.262679s]      @ 601.741429KN/s
+
+Test Complete : 157093  [0.262278s]      @ 598.955355KN/s
+
+Test Complete : 21104   [0.034944s]      @ 603.932250KN/s
+
+Test Complete : 32191   [0.051861s]      @ 620.718006KN/s
+
+Test Complete : 30980   [0.049428s]      @ 626.766993KN/s
+
+Test Complete : 41874   [0.065346s]      @ 640.808737KN/s
+
+Test Complete : 29679   [0.047304s]      @ 627.416152KN/s
+
+Test Complete : 41874   [0.065330s]      @ 640.959910KN/s
+
+Test Complete : 29679   [0.047270s]      @ 627.866921KN/s
+
+Test Complete : 22886   [0.035833s]      @ 638.692533KN/s
+
+Test Complete : 28662   [0.045692s]      @ 627.280435KN/s
+
+Test Complete : 32167   [0.051111s]      @ 629.361072KN/s
+
+Test Complete : 30749   [0.049514s]      @ 621.017495KN/s
+
+Test Complete : 41874   [0.065493s]      @ 639.364985KN/s
+
+Test Complete : 29679   [0.047066s]      @ 630.585226KN/s
+
+Test Complete : 41874   [0.065398s]      @ 640.299079KN/s
+
+Test Complete : 29679   [0.047161s]      @ 629.309273KN/s
+
+Test Complete : 22579   [0.041033s]      @ 550.270201KN/s
+
+Test Complete : 28662   [0.045274s]      @ 633.081007KN/s
+
+Test Complete : 41874   [0.064961s]      @ 644.606333KN/s
+
+Test Complete : 29679   [0.046696s]      @ 635.576873KN/s
+
+Test Complete : 41874   [0.065141s]      @ 642.820967KN/s
+
+Test Complete : 29679   [0.048127s]      @ 616.676470KN/s
+
+Test Complete : 55338   [0.084506s]      @ 654.837520KN/s
+
+Test Complete : 55338   [0.083828s]      @ 660.134424KN/s
+
+Test Complete : 199002  [0.301084s]      @ 660.951102KN/s
+
+Test Complete : 41874   [0.065567s]      @ 638.643856KN/s
+
+Test Complete : 29679   [0.047358s]      @ 626.695889KN/s
+
+Test Complete : 41874   [0.065576s]      @ 638.558318KN/s
+
+Test Complete : 29679   [0.046822s]      @ 633.868938KN/s
+
+Test Complete : 55338   [0.083466s]      @ 662.997318KN/s
+
+Test Complete : 55338   [0.083513s]      @ 662.626645KN/s
+
+Test Complete : 199002  [0.293161s]      @ 678.815352KN/s
+
+Test Complete : 1030499         [1.722825s]      @ 598.144935KN/s
+
+Test Complete : 37665329        [64.937306s]     @ 580.026052KN/s
+
+Test Complete : 28859283        [54.985272s]     @ 524.854785KN/s
+
+Test Complete : 71179139        [131.794354s]    @ 540.077301KN/s
+
+Test Complete : 1030499         [1.766101s]      @ 583.488230KN/s
+
+Test Complete : 37665329        [64.788634s]     @ 581.357047KN/s
+
+Test Complete : 28859283        [57.130710s]     @ 505.144835KN/s
+
+Test Complete : 71179139        [133.847570s]    @ 531.792538KN/s
+terminate called after throwing an instance of 'std::out_of_range'
+  what():  stoi
+[1]    26230 abort (core dumped)  ./build/dexter
+
+5h 12m 43s
