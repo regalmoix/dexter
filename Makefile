@@ -1,6 +1,6 @@
 CXX = g++
-CXXFLAGS = -Wall -Werror -Wextra -pedantic -std=c++17 -g -O0
-LDFLAGS =-O0 -g
+CXXFLAGS += -march=native -Wall -Werror -Wno-char-subscripts -Wextra -pedantic -g -std=c++17 -O3
+LDFLAGS += -O3 -march=native -g
 
 SRCDIR = ./src
 SRC = $(wildcard $(SRCDIR)/*.cpp)
@@ -11,13 +11,13 @@ EXEC = build/dexter
 all: $(EXEC)
 
 $(EXEC): $(OBJ)
-	$(CXX) -O3 -march=native -g -o $@ $(OBJ) $(LBLIBS)
+	$(CXX) $(LDFLAGS) -o $@ $(OBJ) $(LBLIBS)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp $(SRCDIR)/*.h
 	@mkdir -p ./build
 	@mkdir -p ./obj
 	@rm -f ./build/dexter
-	$(CXX) -c -march=native -Wall -Werror -Wno-char-subscripts -Wextra -pedantic -g -std=c++17 -O3 $< -o $@
+	$(CXX) -c $(CXXFLAGS) $< -o $@
 
 doc: 
 	doxygen Doxyfile

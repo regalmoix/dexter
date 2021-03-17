@@ -67,8 +67,8 @@ int main()
     // cout<<isAttacked(b,E_SQUARE::F6)<<"\n";
 
     
-    // PerftTest(5,b);
-    // return 0;
+    PerftTest(5,b);
+    return 0;
 
     vector<string> fens;
 
