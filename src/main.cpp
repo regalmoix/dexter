@@ -13,6 +13,8 @@
 using namespace std;
 int main()
 {
+
+   
     /*
     int sq120 = A4;
     int file = SQ2FILE(sq120);
@@ -59,7 +61,19 @@ int main()
     Board b(FEN);
     HASH.GenerateHash(b);
 
-    std::vector<S_MOVE> mvList;
+    // for (U8 sq120 = 0; sq120 < BOARD_SIZE; ++sq120)
+    // {
+    //     for (U8 pce = E_PIECE::EMPTY; pce <= E_PIECE::bK; ++pce)
+    //     {            
+    //         printf("%lX   ", HASH.pieceSquarePairHash[pce][sq120]);
+    //     }
+    //     printf("\n");
+    // }
+
+    // cout << endl << endl;
+
+
+    // std::vector<S_MOVE> mvList;
     // cout<<isAttacked(b,E_SQUARE::E2)<<"\n";
     // int d = 4;
     // cin >> d;
@@ -214,14 +228,7 @@ int main()
     //     printf("%c%d \n" ,SQ2FILE(moves.toSquare) + 'A' - 1, SQ2RANK(moves.toSquare));
     // }
     // cout<<moveList.size()<<"\n";
-    // for (U8 sq120 = 0; sq120 < BOARD_SIZE; ++sq120)
-    // {
-    //     for (U8 pce = E_PIECE::EMPTY; pce <= E_PIECE::bK; ++pce)
-    //     {            
-    //         printf("%X   ", Hash.pieceSquarePairHash[pce][sq120]);
-    //     }
-    //     printf("\n");
-    // }
+    
     
     return 0;
 }

@@ -1,6 +1,6 @@
 #ifndef HEADERS_H   
 #define HEADERS_H
-#define NDEBUG
+// #define NDEBUG
 /** INCLUDES **/
 
 #include <iostream>

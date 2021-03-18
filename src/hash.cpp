@@ -20,8 +20,8 @@ void S_HASH::InitHash()
         }
     }
 
-    for (U8 i = 0; i < 8; i++)
-        epHash[i] = randomGenerator();
+    for (U8 i = 0; i < 9; i++)
+        epHash[i] = 0; //randomGenerator();
     
     for (U8 i = 0; i < 16; i++)
         castleHash[i] = randomGenerator();
@@ -66,7 +66,7 @@ U64 S_HASH::GenerateHash(Board& board)
     {
         U8 pce = board.GetPieceOnSquare(sq120);
 
-        if (pce != E_PIECE::OFFBOARD && pce != E_PIECE::EMPTY)      // pce not empty ensured because we don't want to (un)hash EMPTY whenever we add/remove a piece
+        if (SQLEGAL(sq120) && pce != E_PIECE::OFFBOARD && pce != E_PIECE::EMPTY)      // pce not empty ensured because we don't want to (un)hash EMPTY whenever we add/remove a piece
         {
             hashKey ^= pieceSquarePairHash[pce][sq120];
         }

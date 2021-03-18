@@ -18,15 +18,17 @@ const int CastlePerm[120] =
     15, 15, 15, 15, 15, 15, 15, 15, 15, 15
 };
 
-#define HASHPIECE(board, pce, sq120)      (board.posHashKey ^= HASH.pieceSquarePairHash[pce][sq120])   
-#define HASHCASTLE(board, castlePerm)     (board.posHashKey ^= HASH.castleHash[castlePerm])
-#define HASHEP(board, epSq)               (board.posHashKey ^= HASH.epHash[SQ2FILE(epSq)])
-#define HASHSIDE(board, side)             (board.posHashKey ^= (HASH.sideToMoveHash & side))
+#define HASHPIECE(board, pce, sq120)        (board.posHashKey ^= HASH.pieceSquarePairHash[pce][sq120])   
+#define HASHCASTLE(board, castlePerm)       (board.posHashKey ^= HASH.castleHash[castlePerm])
+#define HASHEP(board, epSq)                 (board.posHashKey ^= HASH.epHash[SQ2FILE(epSq)])
+#define HASHSIDE(board, side)               (board.posHashKey ^= ((side == 1) ? HASH.sideToMoveHash : 0))
 
-#define UNHASHPIECE(board, pce, sq120)    (board.posHashKey ^= HASH.pieceSquarePairHash[pce][sq120])   
-#define UNHASHCASTLE(board, castlePerm)   (board.posHashKey ^= HASH.castleHash[castlePerm])
-#define UNHASHEP(board, epSq)             (board.posHashKey ^= HASH.epHash[SQ2FILE(epSq)])
-#define UNHASHSIDE(board, side)           (board.posHashKey ^= (HASH.sideToMoveHash & side))
+#define UNHASHPIECE(board, pce, sq120)      (board.posHashKey ^= HASH.pieceSquarePairHash[pce][sq120])   
+#define UNHASHCASTLE(board, castlePerm)     (board.posHashKey ^= HASH.castleHash[castlePerm])
+#define UNHASHEP(board, epSq)               (board.posHashKey ^= HASH.epHash[SQ2FILE(epSq)])
+#define UNHASHSIDE(board, side)             (board.posHashKey ^= ((side == 1) ? HASH.sideToMoveHash : 0))
+
+#define BUG_UNHASHSIDE(board, side)         (board.posHashKey ^= (HASH.sideToMoveHash & side))
 
 
 /** Removes a piece from Piecelist, Board and Updates Count
@@ -39,12 +41,11 @@ const int CastlePerm[120] =
  * 
 **/
 static U8 RemovePiece (Board& board, U8 sq120)
-{
-    // If piece to remove has not been explicitly specified then get piece on square.
-    
+{    
     U8 pce = board.GetPieceOnSquare(sq120);
-    
-    // assert(board.GetPieceOnSquare(sq120) == pce);
+    assert (SQLEGAL(sq120));
+    assert (pce != E_PIECE::OFFBOARD);
+    assert (pce != E_PIECE::EMPTY);
 
     board.ModifySquareList(pce, sq120, "del");
     board.SetPieceOnSquare(sq120, E_PIECE::EMPTY);
@@ -72,6 +73,9 @@ static U8 AddPiece (Board& board, U8 sq120, U8 pce)
 
     board.ModifySquareList(pce, sq120, "add");
     U8 capPiece = board.SetPieceOnSquare(sq120, static_cast<E_PIECE>(pce));
+
+    assert(pce != E_PIECE::EMPTY);
+    assert(pce != E_PIECE::OFFBOARD);
 
     HASHPIECE(board, pce, sq120);
 
@@ -112,8 +116,6 @@ static U8 MovePiece (Board& board, U8 from, U8 to)
 **/ 
 bool MakeMove (Board& board, Move move)
 {
-    // printf("hi %p\n", &board);
-    // fflush(stdout);
     assert(sizeof(board) != 0);
     assert(sizeof(move) != 0);
 
@@ -125,19 +127,15 @@ bool MakeMove (Board& board, Move move)
     U8 castPerm = board.GetCastleRights();
     U8 cnt50    = board.fiftyMoveRuleCount;
 
-    // if(!SQLEGAL(from))
-    //     printf("assertion failed here%d\n",from);
+
     assert(SQLEGAL(from));
     assert(SQLEGAL(to));
-    // printf("hi2\n");
-    // fflush(stdout);
+
 
     History histData(move, board.posHashKey, epSq, castPerm, cnt50);
     assert(sizeof(histData) != 0);
     board.moveHistory.push_back(histData);
 
-    // printf("hi3\n");
-    // fflush(stdout);
     // Unhash current position parameters and later hash in their updated values
     if (SQLEGAL(epSq))
         UNHASHEP(board, epSq);
@@ -164,8 +162,6 @@ bool MakeMove (Board& board, Move move)
         }
     }
 
-    // printf("hi EP\n");
-    // fflush(stdout);
     // If Castle Move Rook since this is only move where 2 pieces move together.
     switch(move.getCastle())
     {
@@ -236,14 +232,12 @@ bool MakeMove (Board& board, Move move)
         }
     }
 
-    // printf("hi CA DP\n");
-    // fflush(stdout);
 
     // If Capture remove captured piece. (reset 50cnt also)
     if (move.getCapturedPiece() != E_PIECE::EMPTY)
     {
         // En Passant captures have already been handled previously
-        if (move.isNormalCapture())
+        if (move.isNormalCapture() && !move.isEPCapture())
         {
             RemovePiece(board, to);
         }
@@ -274,9 +268,6 @@ bool MakeMove (Board& board, Move move)
         AddPiece(board, to, move.getPromotedPiece());
     }
 
-    // printf("hi5\n");
-    // fflush(stdout);
-    // Update the castle perms based on which pieces moved
     board.castleRights &= CastlePerm[from];
     board.castleRights &= CastlePerm[to];
     HASHCASTLE(board, board.castleRights);
@@ -285,11 +276,6 @@ bool MakeMove (Board& board, Move move)
     board.sideToMove ^= 1;
     board.plys ++;
     HASHSIDE(board, board.GetSideToMove());
-
-    // if (board.GetSquareList(E_PIECE::wK).empty())
-    //     board.PrintBoard();
-    // assert(!board.GetSquareList(E_PIECE::wK).empty());
-    // assert(!board.GetSquareList(E_PIECE::bK).empty());
 
     U8 wkingSq = E_SQUARE::Square_Invalid;
     U8 bkingSq = E_SQUARE::Square_Invalid;
@@ -312,23 +298,12 @@ bool MakeMove (Board& board, Move move)
         }
     }
 
-    // for (int i = 0; i < 120; i++)
-    // {
-    //     if (board.GetPieceOnSquare(i) == wK)
-    //         wkingSq = i;
-    //     if (board.GetPieceOnSquare(i) == bK)
-    //         bkingSq = i;
-    // }
-
     assert(SQLEGAL(wkingSq));
     assert(SQLEGAL(bkingSq));
     
     // Check King in check at last
     if (side == E_COLOR::WHITE)
     {
-        // printf("hi6\n");        
-        // printf("KIng Sq is %d\n", board.GetSquareList(E_PIECE::wK)[0]);
-        // fflush(stdout);
 
         if (isAttacked(board, wkingSq, E_COLOR::BLACK))
         {
@@ -339,14 +314,15 @@ bool MakeMove (Board& board, Move move)
 
     else if (side == E_COLOR::BLACK)
     {
-        // printf("hi7\n");
-        // fflush(stdout);
         if (isAttacked(board, bkingSq, E_COLOR::WHITE))
         {
             UnmakeMove(board);
             return false;
         }
     }
+
+    
+    // assert (tmp == HASH.GenerateHash(board));
 
     
     return true;
@@ -421,8 +397,6 @@ void UnmakeMove (Board& board)
 
             else
             {
-                board.PrintPieceList();
-                board.PrintPieceList2();
                 assert (false);
             }
 
@@ -461,5 +435,11 @@ void UnmakeMove (Board& board)
         RemovePiece(board, from);
         AddPiece(board, from, (board.GetSideToMove() == E_COLOR::WHITE) ? E_PIECE::wP : E_PIECE::bP);
     }
+    
+
+    assert (board.posHashKey == histData.posHashKey);
 }
+
+
+
  
