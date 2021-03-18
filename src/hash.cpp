@@ -21,7 +21,7 @@ void S_HASH::InitHash()
     }
 
     for (U8 i = 0; i < 9; i++)
-        epHash[i] = 0; //randomGenerator();
+        epHash[i] = randomGenerator();
     
     for (U8 i = 0; i < 16; i++)
         castleHash[i] = randomGenerator();
@@ -77,8 +77,9 @@ U64 S_HASH::GenerateHash(Board& board)
 
     U8 epSq = board.GetEPSquare();
 
-    if (epSq != E_SQUARE::Square_Invalid)
-        hashKey ^= epHash[SQ2FILE(epSq)];
+    // if (epSq != E_SQUARE::Square_Invalid)
+    // Always hash EP even if eqSq illegal. (since we have 9 possible hashes.)
+    hashKey ^= epHash[SQ2FILE(epSq)];
     
     hashKey ^= castleHash[board.GetCastleRights()];
 

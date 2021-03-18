@@ -137,9 +137,8 @@ bool MakeMove (Board& board, Move move)
     board.moveHistory.push_back(histData);
 
     // Unhash current position parameters and later hash in their updated values
-    if (SQLEGAL(epSq))
-        UNHASHEP(board, epSq);
-    
+    // if (SQLEGAL(epSq))
+    UNHASHEP(board, epSq);
     UNHASHCASTLE(board, castPerm);
     UNHASHSIDE  (board, side);
 
@@ -221,14 +220,14 @@ bool MakeMove (Board& board, Move move)
         {
             board.enPassantSquare = to - 10;
             assert (SQ2RANK(to - 10) == E_RANK::Rank_3);
-            HASHEP(board, to - 10);
+            // HASHEP(board, to - 10);
         }
 
         else if (side == E_COLOR::BLACK)
         {
             board.enPassantSquare = to + 10;
             assert (SQ2RANK(to + 10) == E_RANK::Rank_6);
-            HASHEP(board, to + 10);
+            // HASHEP(board, to + 10);
         }
     }
 
@@ -277,6 +276,9 @@ bool MakeMove (Board& board, Move move)
     board.plys ++;
     HASHSIDE(board, board.GetSideToMove());
 
+    // Re Hash new EP Square (irrespective of legal or not)
+    HASHEP(board, board.GetEPSquare());
+
     U8 wkingSq = E_SQUARE::Square_Invalid;
     U8 bkingSq = E_SQUARE::Square_Invalid;
 
@@ -321,9 +323,7 @@ bool MakeMove (Board& board, Move move)
         }
     }
 
-    
-    // assert (tmp == HASH.GenerateHash(board));
-
+    assert (board.posHashKey == HASH.GenerateHash(board));
     
     return true;
 }
@@ -345,9 +345,8 @@ void UnmakeMove (Board& board)
     U8 from     = move.fromSquare;
     U8 to       = move.toSquare;
 
-    if (SQLEGAL(board.enPassantSquare))
-        UNHASHEP(board, board.enPassantSquare);
-    
+    // if (SQLEGAL(board.enPassantSquare))
+    UNHASHEP(board, board.enPassantSquare);
     UNHASHCASTLE(board, board.GetCastleRights());
     UNHASHSIDE(board, board.GetSideToMove());
 
@@ -358,9 +357,8 @@ void UnmakeMove (Board& board)
     board.sideToMove            ^= 1;
     // board.posHashKey            = histData.posHashKey;   // Possible to directly use the stored Hash Key instead of unhashing like we do now.
 
-    if (SQLEGAL(board.enPassantSquare))
-        HASHEP(board, board.enPassantSquare);
-    
+    // if (SQLEGAL(board.enPassantSquare))
+    HASHEP(board, board.enPassantSquare);
     HASHCASTLE(board, board.GetCastleRights());
     HASHSIDE(board, board.GetSideToMove());
 
@@ -438,6 +436,7 @@ void UnmakeMove (Board& board)
     
 
     assert (board.posHashKey == histData.posHashKey);
+    assert (board.posHashKey == HASH.GenerateHash(board));
 }
 
 
