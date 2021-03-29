@@ -2,7 +2,7 @@
 
 /** NOTE
  *  
- *  Bit representation format of moveKind.
+ *  Bit representation format of moveData.
  *  
  *  isCheck : 1; 
  *  enPassant : 1;
@@ -16,36 +16,66 @@
  *  ((CHK) << 7 | (EP) << 6 | (DP) << 5 | (CA) << 3 | (P) << 2 | (PP))
 **/
 
-bool S_MOVE::isNormalCapture()
+/** Is the move a Capture (Normal / EP)
+ *  
+ *  @return     true iff move is a capture
+ * 
+**/
+bool S_MOVE::isCapture()
 {
     return (((pieceInfo & 0xF0) >> 4) != E_PIECE::EMPTY);
 }
 
 
+/** Is the move a EP Capture
+ *  
+ *  @return     true iff move is an EPcapture
+ * 
+**/
 bool S_MOVE::isEPCapture()
 {
     return (moveData >> 6) & 1;
 }
 
 
+/** Is the move a checking move
+ *  
+ *  @return     true iff move results in a check
+ * 
+**/
 bool S_MOVE::isCheck()
 {
     return (moveData >> 7) & 1;
 }
 
 
+/** Is the move a pawn double push [can be first move for that pawn only]
+ *  
+ *  @return     true iff move is a pawn double push
+ * 
+**/
 bool S_MOVE::isPawnDoublePush()
 {
     return (moveData >> 5) & 1;
 }
 
 
+/** Is the move a Pawn Promotion
+ *  
+ *  @return     true iff move is a pawn promotion
+ * 
+**/
 bool S_MOVE::isPromotion()
 {
     return (moveData >> 2) & 1;
 }
 
 
+/** Get the promoted piece after the pawn promotion
+ *  
+ *  @return     Promoted piece if pawn promoted, else EMPTY
+ * 
+**/
 E_PIECE S_MOVE::getPromotedPiece()
 {
     if (!isPromotion())
@@ -59,6 +89,11 @@ E_PIECE S_MOVE::getPromotedPiece()
 }
 
 
+/** Set additional attributes (like checks) to the move metadata
+ *  
+ *  @return     None
+ * 
+**/
 void S_MOVE::setAttributes (U8 moveInfo)
 {
     // Simply PACKMOVE all attributes to make moveInfo and here we bitwise OR with existing moveData to set those attributes
@@ -66,6 +101,11 @@ void S_MOVE::setAttributes (U8 moveInfo)
 }
 
 
+/** Un-Set attributes previously set in the move metadata
+ *  
+ *  @return     None
+ * 
+**/
 void S_MOVE::unsetAttributes (U8 moveInfo)
 {
     // Simply PACKMOVE all attributes to make moveInfo and here we bitwise AND the complement moveInfo with existing moveData to unset those attributes
@@ -73,24 +113,47 @@ void S_MOVE::unsetAttributes (U8 moveInfo)
 }
 
 
+/** Get the moving piece.
+ *  
+ *  @return     The Moving Piece
+ * 
+**/
 U8 S_MOVE::getMovingPiece()
 {
     return pieceInfo & 0x0F;
 }
 
 
+/** Get the captured piece.
+ *  
+ *  @return     The Captured Piece
+ * 
+**/
 U8 S_MOVE::getCapturedPiece()
 {
     return (pieceInfo & 0xF0) >> 4;
 }
 
 
+/** Get the castle type.
+ *  
+ *  @return     The castle type [0-0, 0-0-0, No Castle]
+ * 
+**/
 U8 S_MOVE::getCastle()
 {
     return (moveData >> 3) & 3;
 }
 
 
+/** Constructor to make quiet non-special move object
+ *  
+ *  @param      board   The current board
+ *  @param      from    The from square
+ *  @param      to      The to square
+ *  @return     None
+ * 
+**/
 S_MOVE::S_MOVE(Board& board, U8 from, U8 to)                 // Assume Non Special Move
 {
     fromSquare      = from;
@@ -118,6 +181,15 @@ S_MOVE::S_MOVE(Board& board, U8 from, U8 to)                 // Assume Non Speci
 }
 
 
+/** Constructor to make quiet special move object with supplied moveInfo metadata
+ *  
+ *  @param      board       The current board
+ *  @param      from        The from square
+ *  @param      to          The to square
+ *  @param      moveInfo    The supplied move metadata for special moves like EP, Promotion, Castle etc.
+ *  @return     None
+ * 
+**/
 S_MOVE::S_MOVE (Board& board, U8 from, U8 to, U8 moveInfo)
 {
     fromSquare      = from;
@@ -143,14 +215,4 @@ S_MOVE::S_MOVE (Board& board, U8 from, U8 to, U8 moveInfo)
     pieceInfo       = 0;
     pieceInfo       |= t_capPiece << 4;
     pieceInfo       |= t_currPiece;
-}
-
-
-S_MOVE::S_MOVE (U8 from, U8 to, U8 moveInfo, U8 pieceInfo)
-{
-    fromSquare              = from;
-    toSquare                = to;
-    
-    this->moveData          = moveInfo;        
-    this->pieceInfo         = pieceInfo;
 }

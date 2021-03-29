@@ -1,0 +1,586 @@
+\hypertarget{movegen_8cpp}{}\doxysection{src/movegen.cpp File Reference}
+\label{movegen_8cpp}\index{src/movegen.cpp@{src/movegen.cpp}}
+{\ttfamily \#include \char`\"{}header.\+h\char`\"{}}\newline
+Include dependency graph for movegen.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/de9/movegen_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static bool \mbox{\hyperlink{movegen_8cpp_a81dd316bd340c8ec94f8ede40aa6b968}{is\+Rook}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board, \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} sq120)
+\item 
+static bool \mbox{\hyperlink{movegen_8cpp_af0d05c15d875f87c09e1947c14891325}{is\+Bishop}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board, \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} sq120)
+\item 
+static bool \mbox{\hyperlink{movegen_8cpp_a65ebbdc9bc6fa91128275ba2c355c246}{is\+Queen}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board, \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} sq120)
+\item 
+static bool \mbox{\hyperlink{movegen_8cpp_a01c722a5afa51264bf96372156355752}{is\+King}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board, \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} sq120)
+\item 
+static bool \mbox{\hyperlink{movegen_8cpp_a9fd7046b18116200cab4ed2a011214b2}{is\+Knight}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board, \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} sq120)
+\item 
+static bool \mbox{\hyperlink{movegen_8cpp_a2db0b3aa9057926357b05fde183fb7db}{is\+Pawn}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board, \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} sq120)
+\item 
+bool \mbox{\hyperlink{movegen_8cpp_a6afc66dbc7b0d06a515ec783631780f0}{is\+Attacked}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board, \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} sq120, \mbox{\hyperlink{header_8h_ade097623aa363c75bbb5a87a30e08d16}{S8}} attackingside)
+\item 
+void \mbox{\hyperlink{movegen_8cpp_a488c7be9776be334275c32aad5e9b7ef}{add\+Quiet\+Move}} (\mbox{\hyperlink{header_8h_a76150055ccfd0ca6aa84da3c19f80b5d}{Move}} \&move, std\+::vector$<$ \mbox{\hyperlink{structS__MOVE}{S\+\_\+\+MOVE}} $>$ \&move\+List)
+\item 
+void \mbox{\hyperlink{movegen_8cpp_a0b104cc34a428f06f0cccfbf41f793ad}{add\+Capture\+Move}} (\mbox{\hyperlink{header_8h_a76150055ccfd0ca6aa84da3c19f80b5d}{Move}} \&move, std\+::vector$<$ \mbox{\hyperlink{structS__MOVE}{S\+\_\+\+MOVE}} $>$ \&move\+List)
+\item 
+static void \mbox{\hyperlink{movegen_8cpp_a5e5ad0fdf42a8088729a76d4a076957e}{Pawn\+Moves}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board, std\+::vector$<$ \mbox{\hyperlink{structS__MOVE}{S\+\_\+\+MOVE}} $>$ \&move\+List)
+\item 
+static void \mbox{\hyperlink{movegen_8cpp_a92188a470671780369a23379d568152c}{Knight\+Moves}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board, std\+::vector$<$ \mbox{\hyperlink{structS__MOVE}{S\+\_\+\+MOVE}} $>$ \&move\+List)
+\item 
+static void \mbox{\hyperlink{movegen_8cpp_a774ebf8e0cdc93fc5a340cae9622404a}{Rook\+List\+Generator}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board, \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} piece, std\+::vector$<$ \mbox{\hyperlink{structS__MOVE}{S\+\_\+\+MOVE}} $>$ \&move\+List)
+\item 
+static void \mbox{\hyperlink{movegen_8cpp_a53dc758907f5c34beb956df44cae3394}{Bishop\+List\+Generator}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board, \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} piece, std\+::vector$<$ \mbox{\hyperlink{structS__MOVE}{S\+\_\+\+MOVE}} $>$ \&move\+List)
+\item 
+static void \mbox{\hyperlink{movegen_8cpp_aa2f86c4f64cfd6c2da11556df9ea6264}{Bishop\+Moves}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board, std\+::vector$<$ \mbox{\hyperlink{structS__MOVE}{S\+\_\+\+MOVE}} $>$ \&move\+List)
+\item 
+static void \mbox{\hyperlink{movegen_8cpp_afeec7941ca328cdbcb2d641706379a80}{Rook\+Moves}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board, std\+::vector$<$ \mbox{\hyperlink{structS__MOVE}{S\+\_\+\+MOVE}} $>$ \&move\+List)
+\item 
+static void \mbox{\hyperlink{movegen_8cpp_ab229607cff028caa700912c2aa0c70af}{Queen\+Moves}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board, std\+::vector$<$ \mbox{\hyperlink{structS__MOVE}{S\+\_\+\+MOVE}} $>$ \&move\+List)
+\item 
+static void \mbox{\hyperlink{movegen_8cpp_a176f927bc19e6992d631c59e86287c1f}{King\+Moves}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board, std\+::vector$<$ \mbox{\hyperlink{structS__MOVE}{S\+\_\+\+MOVE}} $>$ \&move\+List)
+\item 
+void \mbox{\hyperlink{movegen_8cpp_a9ec2f6d6ed49649cebd589cb303642c4}{All\+Moves}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board, std\+::vector$<$ \mbox{\hyperlink{structS__MOVE}{S\+\_\+\+MOVE}} $>$ \&move\+List)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{movegen_8cpp_a0b104cc34a428f06f0cccfbf41f793ad}\label{movegen_8cpp_a0b104cc34a428f06f0cccfbf41f793ad}} 
+\index{movegen.cpp@{movegen.cpp}!addCaptureMove@{addCaptureMove}}
+\index{addCaptureMove@{addCaptureMove}!movegen.cpp@{movegen.cpp}}
+\doxysubsubsection{\texorpdfstring{addCaptureMove()}{addCaptureMove()}}
+{\footnotesize\ttfamily void add\+Capture\+Move (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a76150055ccfd0ca6aa84da3c19f80b5d}{Move}} \&}]{move,  }\item[{std\+::vector$<$ \mbox{\hyperlink{structS__MOVE}{S\+\_\+\+MOVE}} $>$ \&}]{move\+List }\end{DoxyParamCaption})}
+
+Adds a capture move to the move list 
+\begin{DoxyParams}{Parameters}
+{\em move} & The move object containing the data and metadata of the move \\
+\hline
+{\em move\+List} & List of pseudo-\/\+Legal Moves \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d6a/movegen_8cpp_a0b104cc34a428f06f0cccfbf41f793ad_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{movegen_8cpp_a488c7be9776be334275c32aad5e9b7ef}\label{movegen_8cpp_a488c7be9776be334275c32aad5e9b7ef}} 
+\index{movegen.cpp@{movegen.cpp}!addQuietMove@{addQuietMove}}
+\index{addQuietMove@{addQuietMove}!movegen.cpp@{movegen.cpp}}
+\doxysubsubsection{\texorpdfstring{addQuietMove()}{addQuietMove()}}
+{\footnotesize\ttfamily void add\+Quiet\+Move (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a76150055ccfd0ca6aa84da3c19f80b5d}{Move}} \&}]{move,  }\item[{std\+::vector$<$ \mbox{\hyperlink{structS__MOVE}{S\+\_\+\+MOVE}} $>$ \&}]{move\+List }\end{DoxyParamCaption})}
+
+Adds a non-\/capture move to the move list 
+\begin{DoxyParams}{Parameters}
+{\em move} & The move object containing the data and metadata of the move \\
+\hline
+{\em move\+List} & List of pseudo-\/\+Legal Moves \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d6a/movegen_8cpp_a488c7be9776be334275c32aad5e9b7ef_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{movegen_8cpp_a9ec2f6d6ed49649cebd589cb303642c4}\label{movegen_8cpp_a9ec2f6d6ed49649cebd589cb303642c4}} 
+\index{movegen.cpp@{movegen.cpp}!AllMoves@{AllMoves}}
+\index{AllMoves@{AllMoves}!movegen.cpp@{movegen.cpp}}
+\doxysubsubsection{\texorpdfstring{AllMoves()}{AllMoves()}}
+{\footnotesize\ttfamily void All\+Moves (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board,  }\item[{std\+::vector$<$ \mbox{\hyperlink{structS__MOVE}{S\+\_\+\+MOVE}} $>$ \&}]{move\+List }\end{DoxyParamCaption})}
+
+Generates all possible psuedo-\/legal moves for the current side 
+\begin{DoxyParams}{Parameters}
+{\em board} & The current board \\
+\hline
+{\em move\+List} & List of pseudo-\/\+Legal Moves \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d6a/movegen_8cpp_a9ec2f6d6ed49649cebd589cb303642c4_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d6a/movegen_8cpp_a9ec2f6d6ed49649cebd589cb303642c4_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{movegen_8cpp_a53dc758907f5c34beb956df44cae3394}\label{movegen_8cpp_a53dc758907f5c34beb956df44cae3394}} 
+\index{movegen.cpp@{movegen.cpp}!BishopListGenerator@{BishopListGenerator}}
+\index{BishopListGenerator@{BishopListGenerator}!movegen.cpp@{movegen.cpp}}
+\doxysubsubsection{\texorpdfstring{BishopListGenerator()}{BishopListGenerator()}}
+{\footnotesize\ttfamily static void Bishop\+List\+Generator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board,  }\item[{\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}}}]{piece,  }\item[{std\+::vector$<$ \mbox{\hyperlink{structS__MOVE}{S\+\_\+\+MOVE}} $>$ \&}]{move\+List }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Generates all possible bishop-\/like moves for the current side. Used by Bishop and Queen Move generator 
+\begin{DoxyParams}{Parameters}
+{\em board} & The current board \\
+\hline
+{\em piece} & The piece to generate moves for (B or Q) \\
+\hline
+{\em move\+List} & List of pseudo-\/\+Legal Moves \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d6a/movegen_8cpp_a53dc758907f5c34beb956df44cae3394_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d6a/movegen_8cpp_a53dc758907f5c34beb956df44cae3394_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{movegen_8cpp_aa2f86c4f64cfd6c2da11556df9ea6264}\label{movegen_8cpp_aa2f86c4f64cfd6c2da11556df9ea6264}} 
+\index{movegen.cpp@{movegen.cpp}!BishopMoves@{BishopMoves}}
+\index{BishopMoves@{BishopMoves}!movegen.cpp@{movegen.cpp}}
+\doxysubsubsection{\texorpdfstring{BishopMoves()}{BishopMoves()}}
+{\footnotesize\ttfamily static void Bishop\+Moves (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board,  }\item[{std\+::vector$<$ \mbox{\hyperlink{structS__MOVE}{S\+\_\+\+MOVE}} $>$ \&}]{move\+List }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Generates all possible Bishop moves for the current side 
+\begin{DoxyParams}{Parameters}
+{\em board} & The current board \\
+\hline
+{\em move\+List} & List of pseudo-\/\+Legal Moves \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d6a/movegen_8cpp_aa2f86c4f64cfd6c2da11556df9ea6264_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d6a/movegen_8cpp_aa2f86c4f64cfd6c2da11556df9ea6264_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{movegen_8cpp_a6afc66dbc7b0d06a515ec783631780f0}\label{movegen_8cpp_a6afc66dbc7b0d06a515ec783631780f0}} 
+\index{movegen.cpp@{movegen.cpp}!isAttacked@{isAttacked}}
+\index{isAttacked@{isAttacked}!movegen.cpp@{movegen.cpp}}
+\doxysubsubsection{\texorpdfstring{isAttacked()}{isAttacked()}}
+{\footnotesize\ttfamily bool is\+Attacked (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board,  }\item[{\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}}}]{sq120,  }\item[{\mbox{\hyperlink{header_8h_ade097623aa363c75bbb5a87a30e08d16}{S8}}}]{attackingside }\end{DoxyParamCaption})}
+
+Is the square on the board being attacked 
+\begin{DoxyParams}{Parameters}
+{\em board} & The board to search on \\
+\hline
+{\em sq120} & The square to query \\
+\hline
+{\em attackingside} & The side which is attacking\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true iff the square is under attack by the attacking side 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d6a/movegen_8cpp_a6afc66dbc7b0d06a515ec783631780f0_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d6a/movegen_8cpp_a6afc66dbc7b0d06a515ec783631780f0_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{movegen_8cpp_af0d05c15d875f87c09e1947c14891325}\label{movegen_8cpp_af0d05c15d875f87c09e1947c14891325}} 
+\index{movegen.cpp@{movegen.cpp}!isBishop@{isBishop}}
+\index{isBishop@{isBishop}!movegen.cpp@{movegen.cpp}}
+\doxysubsubsection{\texorpdfstring{isBishop()}{isBishop()}}
+{\footnotesize\ttfamily static bool is\+Bishop (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board,  }\item[{\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}}}]{sq120 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Is the piece on square a Bishop 
+\begin{DoxyParams}{Parameters}
+{\em board} & The board to search on \\
+\hline
+{\em sq120} & The square to query\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true iff the piece on the square sq120 is a Bishop 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{da/d6a/movegen_8cpp_af0d05c15d875f87c09e1947c14891325_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d6a/movegen_8cpp_af0d05c15d875f87c09e1947c14891325_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{movegen_8cpp_a01c722a5afa51264bf96372156355752}\label{movegen_8cpp_a01c722a5afa51264bf96372156355752}} 
+\index{movegen.cpp@{movegen.cpp}!isKing@{isKing}}
+\index{isKing@{isKing}!movegen.cpp@{movegen.cpp}}
+\doxysubsubsection{\texorpdfstring{isKing()}{isKing()}}
+{\footnotesize\ttfamily static bool is\+King (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board,  }\item[{\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}}}]{sq120 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Is the piece on square a King 
+\begin{DoxyParams}{Parameters}
+{\em board} & The board to search on \\
+\hline
+{\em sq120} & The square to query\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true iff the piece on the square sq120 is a King 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=323pt]{da/d6a/movegen_8cpp_a01c722a5afa51264bf96372156355752_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d6a/movegen_8cpp_a01c722a5afa51264bf96372156355752_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{movegen_8cpp_a9fd7046b18116200cab4ed2a011214b2}\label{movegen_8cpp_a9fd7046b18116200cab4ed2a011214b2}} 
+\index{movegen.cpp@{movegen.cpp}!isKnight@{isKnight}}
+\index{isKnight@{isKnight}!movegen.cpp@{movegen.cpp}}
+\doxysubsubsection{\texorpdfstring{isKnight()}{isKnight()}}
+{\footnotesize\ttfamily static bool is\+Knight (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board,  }\item[{\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}}}]{sq120 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Is the piece on square a Knight 
+\begin{DoxyParams}{Parameters}
+{\em board} & The board to search on \\
+\hline
+{\em sq120} & The square to query\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true iff the piece on the square sq120 is a Knight 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=332pt]{da/d6a/movegen_8cpp_a9fd7046b18116200cab4ed2a011214b2_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d6a/movegen_8cpp_a9fd7046b18116200cab4ed2a011214b2_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{movegen_8cpp_a2db0b3aa9057926357b05fde183fb7db}\label{movegen_8cpp_a2db0b3aa9057926357b05fde183fb7db}} 
+\index{movegen.cpp@{movegen.cpp}!isPawn@{isPawn}}
+\index{isPawn@{isPawn}!movegen.cpp@{movegen.cpp}}
+\doxysubsubsection{\texorpdfstring{isPawn()}{isPawn()}}
+{\footnotesize\ttfamily static bool is\+Pawn (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board,  }\item[{\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}}}]{sq120 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Is the piece on square a Pawn 
+\begin{DoxyParams}{Parameters}
+{\em board} & The board to search on \\
+\hline
+{\em sq120} & The square to query\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true iff the piece on the square sq120 is a Pawn 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=326pt]{da/d6a/movegen_8cpp_a2db0b3aa9057926357b05fde183fb7db_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d6a/movegen_8cpp_a2db0b3aa9057926357b05fde183fb7db_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{movegen_8cpp_a65ebbdc9bc6fa91128275ba2c355c246}\label{movegen_8cpp_a65ebbdc9bc6fa91128275ba2c355c246}} 
+\index{movegen.cpp@{movegen.cpp}!isQueen@{isQueen}}
+\index{isQueen@{isQueen}!movegen.cpp@{movegen.cpp}}
+\doxysubsubsection{\texorpdfstring{isQueen()}{isQueen()}}
+{\footnotesize\ttfamily static bool is\+Queen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board,  }\item[{\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}}}]{sq120 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Is the piece on square a Queen 
+\begin{DoxyParams}{Parameters}
+{\em board} & The board to search on \\
+\hline
+{\em sq120} & The square to query\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true iff the piece on the square sq120 is a Queen 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=332pt]{da/d6a/movegen_8cpp_a65ebbdc9bc6fa91128275ba2c355c246_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d6a/movegen_8cpp_a65ebbdc9bc6fa91128275ba2c355c246_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{movegen_8cpp_a81dd316bd340c8ec94f8ede40aa6b968}\label{movegen_8cpp_a81dd316bd340c8ec94f8ede40aa6b968}} 
+\index{movegen.cpp@{movegen.cpp}!isRook@{isRook}}
+\index{isRook@{isRook}!movegen.cpp@{movegen.cpp}}
+\doxysubsubsection{\texorpdfstring{isRook()}{isRook()}}
+{\footnotesize\ttfamily static bool is\+Rook (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board,  }\item[{\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}}}]{sq120 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Is the piece on square a Rook 
+\begin{DoxyParams}{Parameters}
+{\em board} & The board to search on \\
+\hline
+{\em sq120} & The square to query\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true iff the piece on the square sq120 is a Rook 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=326pt]{da/d6a/movegen_8cpp_a81dd316bd340c8ec94f8ede40aa6b968_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d6a/movegen_8cpp_a81dd316bd340c8ec94f8ede40aa6b968_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{movegen_8cpp_a176f927bc19e6992d631c59e86287c1f}\label{movegen_8cpp_a176f927bc19e6992d631c59e86287c1f}} 
+\index{movegen.cpp@{movegen.cpp}!KingMoves@{KingMoves}}
+\index{KingMoves@{KingMoves}!movegen.cpp@{movegen.cpp}}
+\doxysubsubsection{\texorpdfstring{KingMoves()}{KingMoves()}}
+{\footnotesize\ttfamily static void King\+Moves (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board,  }\item[{std\+::vector$<$ \mbox{\hyperlink{structS__MOVE}{S\+\_\+\+MOVE}} $>$ \&}]{move\+List }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Generates all possible King moves for the current side 
+\begin{DoxyParams}{Parameters}
+{\em board} & The current board \\
+\hline
+{\em move\+List} & List of pseudo-\/\+Legal Moves \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d6a/movegen_8cpp_a176f927bc19e6992d631c59e86287c1f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d6a/movegen_8cpp_a176f927bc19e6992d631c59e86287c1f_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{movegen_8cpp_a92188a470671780369a23379d568152c}\label{movegen_8cpp_a92188a470671780369a23379d568152c}} 
+\index{movegen.cpp@{movegen.cpp}!KnightMoves@{KnightMoves}}
+\index{KnightMoves@{KnightMoves}!movegen.cpp@{movegen.cpp}}
+\doxysubsubsection{\texorpdfstring{KnightMoves()}{KnightMoves()}}
+{\footnotesize\ttfamily static void Knight\+Moves (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board,  }\item[{std\+::vector$<$ \mbox{\hyperlink{structS__MOVE}{S\+\_\+\+MOVE}} $>$ \&}]{move\+List }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Generates all possible Knight moves for the current side 
+\begin{DoxyParams}{Parameters}
+{\em board} & The current board \\
+\hline
+{\em move\+List} & List of pseudo-\/\+Legal Moves \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d6a/movegen_8cpp_a92188a470671780369a23379d568152c_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d6a/movegen_8cpp_a92188a470671780369a23379d568152c_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{movegen_8cpp_a5e5ad0fdf42a8088729a76d4a076957e}\label{movegen_8cpp_a5e5ad0fdf42a8088729a76d4a076957e}} 
+\index{movegen.cpp@{movegen.cpp}!PawnMoves@{PawnMoves}}
+\index{PawnMoves@{PawnMoves}!movegen.cpp@{movegen.cpp}}
+\doxysubsubsection{\texorpdfstring{PawnMoves()}{PawnMoves()}}
+{\footnotesize\ttfamily static void Pawn\+Moves (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board,  }\item[{std\+::vector$<$ \mbox{\hyperlink{structS__MOVE}{S\+\_\+\+MOVE}} $>$ \&}]{move\+List }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Generates all possible Pawn moves for the current side 
+\begin{DoxyParams}{Parameters}
+{\em board} & The current board \\
+\hline
+{\em move\+List} & List of pseudo-\/\+Legal Moves \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d6a/movegen_8cpp_a5e5ad0fdf42a8088729a76d4a076957e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d6a/movegen_8cpp_a5e5ad0fdf42a8088729a76d4a076957e_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{movegen_8cpp_ab229607cff028caa700912c2aa0c70af}\label{movegen_8cpp_ab229607cff028caa700912c2aa0c70af}} 
+\index{movegen.cpp@{movegen.cpp}!QueenMoves@{QueenMoves}}
+\index{QueenMoves@{QueenMoves}!movegen.cpp@{movegen.cpp}}
+\doxysubsubsection{\texorpdfstring{QueenMoves()}{QueenMoves()}}
+{\footnotesize\ttfamily static void Queen\+Moves (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board,  }\item[{std\+::vector$<$ \mbox{\hyperlink{structS__MOVE}{S\+\_\+\+MOVE}} $>$ \&}]{move\+List }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Generates all possible Queen moves for the current side 
+\begin{DoxyParams}{Parameters}
+{\em board} & The current board \\
+\hline
+{\em move\+List} & List of pseudo-\/\+Legal Moves \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d6a/movegen_8cpp_ab229607cff028caa700912c2aa0c70af_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d6a/movegen_8cpp_ab229607cff028caa700912c2aa0c70af_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{movegen_8cpp_a774ebf8e0cdc93fc5a340cae9622404a}\label{movegen_8cpp_a774ebf8e0cdc93fc5a340cae9622404a}} 
+\index{movegen.cpp@{movegen.cpp}!RookListGenerator@{RookListGenerator}}
+\index{RookListGenerator@{RookListGenerator}!movegen.cpp@{movegen.cpp}}
+\doxysubsubsection{\texorpdfstring{RookListGenerator()}{RookListGenerator()}}
+{\footnotesize\ttfamily static void Rook\+List\+Generator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board,  }\item[{\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}}}]{piece,  }\item[{std\+::vector$<$ \mbox{\hyperlink{structS__MOVE}{S\+\_\+\+MOVE}} $>$ \&}]{move\+List }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Generates all possible rook-\/like moves for the current side. Used by Rook and Queen Move generator 
+\begin{DoxyParams}{Parameters}
+{\em board} & The current board \\
+\hline
+{\em piece} & The piece to generate moves for (R or Q) \\
+\hline
+{\em move\+List} & List of pseudo-\/\+Legal Moves \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d6a/movegen_8cpp_a774ebf8e0cdc93fc5a340cae9622404a_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d6a/movegen_8cpp_a774ebf8e0cdc93fc5a340cae9622404a_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{movegen_8cpp_afeec7941ca328cdbcb2d641706379a80}\label{movegen_8cpp_afeec7941ca328cdbcb2d641706379a80}} 
+\index{movegen.cpp@{movegen.cpp}!RookMoves@{RookMoves}}
+\index{RookMoves@{RookMoves}!movegen.cpp@{movegen.cpp}}
+\doxysubsubsection{\texorpdfstring{RookMoves()}{RookMoves()}}
+{\footnotesize\ttfamily static void Rook\+Moves (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board,  }\item[{std\+::vector$<$ \mbox{\hyperlink{structS__MOVE}{S\+\_\+\+MOVE}} $>$ \&}]{move\+List }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Generates all possible Rook moves for the current side 
+\begin{DoxyParams}{Parameters}
+{\em board} & The current board \\
+\hline
+{\em move\+List} & List of pseudo-\/\+Legal Moves \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d6a/movegen_8cpp_afeec7941ca328cdbcb2d641706379a80_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{da/d6a/movegen_8cpp_afeec7941ca328cdbcb2d641706379a80_icgraph}
+\end{center}
+\end{figure}

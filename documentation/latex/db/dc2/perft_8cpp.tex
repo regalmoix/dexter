@@ -1,0 +1,101 @@
+\hypertarget{perft_8cpp}{}\doxysection{src/perft.cpp File Reference}
+\label{perft_8cpp}\index{src/perft.cpp@{src/perft.cpp}}
+{\ttfamily \#include \char`\"{}header.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$chrono$>$}\newline
+Include dependency graph for perft.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d82/perft_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{perft_8cpp_adba324dbca59c6c4f8be00571b9046d9}{Perft}} (int depth, \mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board)
+\item 
+int \mbox{\hyperlink{perft_8cpp_a7de35fded3abec63f2efc022ca839982}{Perft\+Test}} (int depth, \mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+long \mbox{\hyperlink{perft_8cpp_ad24c58317cf924b00d49ef408dbc5825}{leaf\+Nodes}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{perft_8cpp_adba324dbca59c6c4f8be00571b9046d9}\label{perft_8cpp_adba324dbca59c6c4f8be00571b9046d9}} 
+\index{perft.cpp@{perft.cpp}!Perft@{Perft}}
+\index{Perft@{Perft}!perft.cpp@{perft.cpp}}
+\doxysubsubsection{\texorpdfstring{Perft()}{Perft()}}
+{\footnotesize\ttfamily void Perft (\begin{DoxyParamCaption}\item[{int}]{depth,  }\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board }\end{DoxyParamCaption})}
+
+Perf Testing Helper for a certain depth on the Board.
+
+
+\begin{DoxyParams}{Parameters}
+{\em depth} & The depth to search till \\
+\hline
+{\em board} & The board to search on \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/dc2/perft_8cpp_adba324dbca59c6c4f8be00571b9046d9_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/dc2/perft_8cpp_adba324dbca59c6c4f8be00571b9046d9_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{perft_8cpp_a7de35fded3abec63f2efc022ca839982}\label{perft_8cpp_a7de35fded3abec63f2efc022ca839982}} 
+\index{perft.cpp@{perft.cpp}!PerftTest@{PerftTest}}
+\index{PerftTest@{PerftTest}!perft.cpp@{perft.cpp}}
+\doxysubsubsection{\texorpdfstring{PerftTest()}{PerftTest()}}
+{\footnotesize\ttfamily int Perft\+Test (\begin{DoxyParamCaption}\item[{int}]{depth,  }\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board }\end{DoxyParamCaption})}
+
+Perf Testing for a certain depth on the Board. Prints breakdown of number of moves for each legal move in current position.
+
+
+\begin{DoxyParams}{Parameters}
+{\em depth} & The depth to search till \\
+\hline
+{\em board} & The board to search on\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The number of leafnodes at the given depth in complete search tree 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/dc2/perft_8cpp_a7de35fded3abec63f2efc022ca839982_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=216pt]{db/dc2/perft_8cpp_a7de35fded3abec63f2efc022ca839982_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{perft_8cpp_ad24c58317cf924b00d49ef408dbc5825}\label{perft_8cpp_ad24c58317cf924b00d49ef408dbc5825}} 
+\index{perft.cpp@{perft.cpp}!leafNodes@{leafNodes}}
+\index{leafNodes@{leafNodes}!perft.cpp@{perft.cpp}}
+\doxysubsubsection{\texorpdfstring{leafNodes}{leafNodes}}
+{\footnotesize\ttfamily long leaf\+Nodes}
+

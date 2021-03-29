@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['b1_13',['B1',['../df/dcb/header_8h.html#a3d1a9f09478aa733a1838a0c87de8c61ad90c5e7444630b8d170b08d0853aae21',1,'header.h']]],
+  ['b2_14',['B2',['../df/dcb/header_8h.html#a3d1a9f09478aa733a1838a0c87de8c61a9bfbe74b27169e5bd5bd5dc020fdd00b',1,'header.h']]],
+  ['b3_15',['B3',['../df/dcb/header_8h.html#a3d1a9f09478aa733a1838a0c87de8c61a008e5845e069ecd71e49f3d18ec21130',1,'header.h']]],
+  ['b4_16',['B4',['../df/dcb/header_8h.html#a3d1a9f09478aa733a1838a0c87de8c61a6e242c85f0b91e8879200ec3004a4cab',1,'header.h']]],
+  ['b5_17',['B5',['../df/dcb/header_8h.html#a3d1a9f09478aa733a1838a0c87de8c61af238f32976f4a2c27a517bd1ad47be36',1,'header.h']]],
+  ['b6_18',['B6',['../df/dcb/header_8h.html#a3d1a9f09478aa733a1838a0c87de8c61a0eb7e951c71ad8f7ea59d513e8d57747',1,'header.h']]],
+  ['b7_19',['B7',['../df/dcb/header_8h.html#a3d1a9f09478aa733a1838a0c87de8c61a561ae7a12dd8bf549f1b7e647354297e',1,'header.h']]],
+  ['b8_20',['B8',['../df/dcb/header_8h.html#a3d1a9f09478aa733a1838a0c87de8c61a36820f60b2f0bee85a682e3f0b6e0fea',1,'header.h']]],
+  ['bb_21',['bB',['../df/dcb/header_8h.html#a6cf299ea7ef1ad876e1f0751259aa8f2ab0c70cf58d95ae054b33676333c16b41',1,'header.h']]],
+  ['bishoplistgenerator_22',['BishopListGenerator',['../da/d6a/movegen_8cpp.html#a53dc758907f5c34beb956df44cae3394',1,'movegen.cpp']]],
+  ['bishopmoves_23',['BishopMoves',['../da/d6a/movegen_8cpp.html#aa2f86c4f64cfd6c2da11556df9ea6264',1,'movegen.cpp']]],
+  ['bk_24',['bK',['../df/dcb/header_8h.html#a6cf299ea7ef1ad876e1f0751259aa8f2ae563898f2eb35891b28311f1bdd6d74b',1,'header.h']]],
+  ['bk_5fcastle_25',['bK_castle',['../df/dcb/header_8h.html#ae4c289a506219a7fbba260e22c4cffb0a7d820a4afd854ae3878446284e1c5b21',1,'header.h']]],
+  ['black_26',['BLACK',['../df/dcb/header_8h.html#a4658df2d7fd523f65ef739e45cc46db4af77fb67151d0c18d397069ad8c271ba3',1,'header.h']]],
+  ['bn_27',['bN',['../df/dcb/header_8h.html#a6cf299ea7ef1ad876e1f0751259aa8f2a3d5b44ec8710049da801e4f0ad74e8c2',1,'header.h']]],
+  ['board_28',['Board',['../df/dcb/header_8h.html#a20c4d204abd959973f0ed35b620b9e16',1,'header.h']]],
+  ['board_2ecpp_29',['board.cpp',['../df/d6e/board_8cpp.html',1,'']]],
+  ['board_5fsize_30',['BOARD_SIZE',['../df/dcb/header_8h.html#a1db39eb31d1315ce982608fe25587b6d',1,'header.h']]],
+  ['both_31',['BOTH',['../df/dcb/header_8h.html#a4658df2d7fd523f65ef739e45cc46db4a627abe5a430420baf29ebe1940a7f2fb',1,'header.h']]],
+  ['bp_32',['bP',['../df/dcb/header_8h.html#a6cf299ea7ef1ad876e1f0751259aa8f2a79c461c3a23d04c94cc7718d38b938cb',1,'header.h']]],
+  ['bq_33',['bQ',['../df/dcb/header_8h.html#a6cf299ea7ef1ad876e1f0751259aa8f2a0c7e8e5d9e9597075a4aec0af5c9033f',1,'header.h']]],
+  ['bq_5fcastle_34',['bQ_castle',['../df/dcb/header_8h.html#ae4c289a506219a7fbba260e22c4cffb0ad49fccfc11514aa7fcef040249557cab',1,'header.h']]],
+  ['br_35',['bR',['../df/dcb/header_8h.html#a6cf299ea7ef1ad876e1f0751259aa8f2a8b6736d91dfcadd8e1dc5d72e729e370',1,'header.h']]],
+  ['brd_5farray_36',['brd_array',['../db/d82/structS__BOARD.html#a83570f2feb3ba4b6cb1b0575edf7e070',1,'S_BOARD']]]
+];

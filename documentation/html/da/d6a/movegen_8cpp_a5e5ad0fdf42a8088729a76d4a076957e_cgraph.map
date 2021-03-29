@@ -1,0 +1,9 @@
+<map id="PawnMoves" name="PawnMoves">
+<area shape="rect" id="node1" title=" " alt="" coords="5,132,104,159"/>
+<area shape="rect" id="node2" href="$da/d6a/movegen_8cpp.html#a0b104cc34a428f06f0cccfbf41f793ad" title=" " alt="" coords="192,5,325,32"/>
+<area shape="rect" id="node3" href="$da/d6a/movegen_8cpp.html#a488c7be9776be334275c32aad5e9b7ef" title=" " alt="" coords="200,56,317,83"/>
+<area shape="rect" id="node4" href="$db/d82/structS__BOARD.html#af00d3d82ead21490d58a29597fc85649" title=" " alt="" coords="171,107,347,133"/>
+<area shape="rect" id="node5" href="$db/d82/structS__BOARD.html#a29121db43af4dc2c4fe32b937e184a7c" title=" " alt="" coords="152,157,365,184"/>
+<area shape="rect" id="node6" href="$db/d82/structS__BOARD.html#a7e5f7cb1c01a86574964085d4500674c" title=" " alt="" coords="162,208,355,235"/>
+<area shape="rect" id="node7" href="$db/d82/structS__BOARD.html#aee4e1de800c7deabd26e1d650e455744" title=" " alt="" coords="167,259,350,285"/>
+</map>

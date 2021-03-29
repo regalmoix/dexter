@@ -1,10 +1,15 @@
-// perft.c
-
 #include "header.h"
 #include <chrono>
 
 long leafNodes;
 
+/** Perf Testing Helper for a certain depth on the Board.
+ *  
+ *  @param      depth   The depth to search till
+ *  @param      board   The board to search on
+ *
+ * 
+**/
 void Perft(int depth, Board& board) 
 {
 	if(depth == 0) 
@@ -34,10 +39,16 @@ void Perft(int depth, Board& board)
 }
 
 
+/** Perf Testing for a certain depth on the Board. Prints breakdown of number of moves for each legal move in current position.
+ *  
+ *  @param      depth   The depth to search till
+ *  @param      board   The board to search on
+ *
+ *  @return     The number of leafnodes at the given depth in complete search tree
+ * 
+**/
 int PerftTest(int depth, Board& board) 
 {
-	// board.PrintBoard();
-	// printf("\nStarting Test To Depth:%d\n",depth);	
 	leafNodes = 0;
 
 	auto start = std::chrono::high_resolution_clock::now();
@@ -46,46 +57,28 @@ int PerftTest(int depth, Board& board)
     
     AllMoves(board, moveList);
     
-    // cout<<moveList.size()<<"\n";
-    int count = 1;
 	for(auto m : moveList)
     {
         if (!MakeMove(board, m))  
             continue;
 
-        // long cumnodes = leafNodes;
+        long cumnodes = leafNodes;
         
-
-        // printf("%c%d -> ",SQ2FILE(m.fromSquare) + 'A' - 1, SQ2RANK(m.fromSquare));
-        // printf("%c%d \n" ,SQ2FILE(m.toSquare) + 'A' - 1, SQ2RANK(m.toSquare));
-        // board.PrintBoard();
-
         Perft(depth - 1, board);
 
-        // printf("Unmaking last move ");
-        // printf("%c%d -> ",SQ2FILE(m.fromSquare) + 'A' - 1, SQ2RANK(m.fromSquare));
-        // printf("%c%d \n" ,SQ2FILE(m.toSquare) + 'A' - 1, SQ2RANK(m.toSquare));
-        
         UnmakeMove(board);  
 
-        // long oldnodes = leafNodes - cumnodes;
-        // printf("Move %d : ",count);
-        // printf(": INT of Move%d %d : ", m.fromSquare, m.toSquare);
-        // printf("%c%d -> ",SQ2FILE(m.fromSquare) + 'A' - 1, SQ2RANK(m.fromSquare));
-        // printf("%c%d" ,SQ2FILE(m.toSquare) + 'A' - 1, SQ2RANK(m.toSquare));
-        // printf(" : move %ld", oldnodes);
-        // printf("\n");
-        count++;
-        // std::cout << std::endl;
-            
+        long oldnodes = leafNodes - cumnodes;
+        printf("%c%d -> ",SQ2FILE(m.fromSquare) + 'A' - 1, SQ2RANK(m.fromSquare));
+        printf("%c%d" ,SQ2FILE(m.toSquare) + 'A' - 1, SQ2RANK(m.toSquare));
+        printf(" : %ld\n", oldnodes);
     }
+
 	auto end = std::chrono::high_resolution_clock::now();
 
     std::chrono::duration<double> elapsed = end - start;
 
-
-	printf("\nTest Complete : %ld \t[%fs]\t @ %lfKN/s\n",leafNodes, elapsed.count(), leafNodes/(1000*elapsed.count()));
-
+	printf("\nPerft Complete : %ld Nodes\t[%fs]\t@ %lfKN/s\n",leafNodes, elapsed.count(), leafNodes/(1000*elapsed.count()));
 
     return leafNodes;
 }

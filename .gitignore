@@ -5,4 +5,5 @@ test
 *.o
 build/dexter
 obj/*.o
-documentation/
+analysis/
+analysis

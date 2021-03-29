@@ -1,0 +1,9 @@
+<map id="RookMoves" name="RookMoves">
+<area shape="rect" id="node1" title=" " alt="" coords="5,56,104,83"/>
+<area shape="rect" id="node2" href="$db/d82/structS__BOARD.html#a7e5f7cb1c01a86574964085d4500674c" title=" " alt="" coords="152,31,345,57"/>
+<area shape="rect" id="node3" href="$da/d6a/movegen_8cpp.html#a774ebf8e0cdc93fc5a340cae9622404a" title=" " alt="" coords="177,81,320,108"/>
+<area shape="rect" id="node4" href="$da/d6a/movegen_8cpp.html#a0b104cc34a428f06f0cccfbf41f793ad" title=" " alt="" coords="433,5,567,32"/>
+<area shape="rect" id="node5" href="$da/d6a/movegen_8cpp.html#a488c7be9776be334275c32aad5e9b7ef" title=" " alt="" coords="441,56,559,83"/>
+<area shape="rect" id="node6" href="$db/d82/structS__BOARD.html#a29121db43af4dc2c4fe32b937e184a7c" title=" " alt="" coords="393,107,607,133"/>
+<area shape="rect" id="node7" href="$db/d82/structS__BOARD.html#aee4e1de800c7deabd26e1d650e455744" title=" " alt="" coords="409,157,591,184"/>
+</map>

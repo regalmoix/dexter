@@ -419,6 +419,7 @@ void S_BOARD::PrintBoard ()
     printf("En Passant   : %c%d\n", SQ2FILE(enPassantSquare) ? (SQ2FILE(enPassantSquare) + 'a' - 1) : '0', SQ2RANK(enPassantSquare));
 }
 
+
 /** Reset all data structure fields in an appropriate fashion.
  * 
  *  @param  None
@@ -592,27 +593,6 @@ void S_BOARD::PrintBoard120 ()
  * 
  *  @todo       Remove all E_SQUARE::Square_Invalid from the returned
 **/
-// std::vector<U8> S_BOARD::GetSquareList(U8 piece)
-// {
-//     if (piece == E_PIECE::EMPTY)
-//     {
-//         return {};
-//         printf("empty pc list requested");
-//         std::vector<U8> sqList;
-//         for (int i = 0; i < 64; i++)
-//         {
-//             if (GetPieceOnSquare(static_cast<E_SQUARE>(SQ120(i))) == E_PIECE::EMPTY)
-//             {
-//                 sqList.push_back(SQ120(i));
-//             }
-//         }
-//         assert  (!sqList.empty());
-//         return sqList;
-//     }
-//     std::vector<U8> sqList (pieceList[piece - 1], pieceList[piece - 1] + 10);
-//     assert  (!sqList.empty());
-//     return sqList;
-// }
 std::vector<U8> S_BOARD::GetSquareList(U8 piece)
 {
     if (piece == E_PIECE::EMPTY)
@@ -644,39 +624,6 @@ std::vector<U8> S_BOARD::GetSquareList(U8 piece)
  *              piece EMPTY [piece 0] is not associated with any list
  *              piece wK or bK are associated with kingSq[] indexed by color.
 **/
-// U8 S_BOARD::ModifySquareList(U8 piece, U8 sq120, std::string operation)
-// {
-//     if (operation == "add")
-//     {
-//         for (int i = 0; i < 10; i++)
-//         {
-//             if (pieceList[piece - 1][i] == E_SQUARE::Square_Invalid)
-//             {
-//                 pieceList[piece - 1][i] = sq120;
-//                 break;
-//             }
-//         }
-//         // pieceList[piece - 1].push_back(sq120);
-//     }
-//     else if (operation == "del")
-//     {
-//         int i = 0;
-//         while(i < 10 && pieceList[piece-1][i] != sq120)
-//         {
-//             i++;
-//         }
-//         if (i < 10)
-//             pieceList[piece-1][i] = Square_Invalid;
-//         for(int j = i; j < 9; j++)
-//         {
-//             if(pieceList[piece-1][j] == Square_Invalid)
-//                 break;            
-//             pieceList[piece-1][j] = pieceList[piece-1][j+1];
-//         }
-//         // pieceList[piece - 1].erase(std::remove(pieceList[piece - 1].begin(), pieceList[piece - 1].end(), sq120), pieceList[piece - 1].end());
-//     }
-//     return 0;
-// }
 U8 S_BOARD::ModifySquareList(U8 piece, U8 sq120, std::string operation)
 {
     if (operation == "add")

@@ -28,14 +28,11 @@ const int CastlePerm[120] =
 #define UNHASHEP(board, epSq)               (board.posHashKey ^= HASH.epHash[SQ2FILE(epSq)])
 #define UNHASHSIDE(board, side)             (board.posHashKey ^= ((side == 1) ? HASH.sideToMoveHash : 0))
 
-#define BUG_UNHASHSIDE(board, side)         (board.posHashKey ^= (HASH.sideToMoveHash & side))
-
 
 /** Removes a piece from Piecelist, Board and Updates Count
  *  
  *  @param  board   The current position
  *  @param  sq120   The square to remove piece on
- *  @param  pce     The piece to be removed (optional).
  * 
  *  @return         Removed piece (passed explicitly as a parameter / gets piece on square)  
  * 
@@ -90,7 +87,6 @@ static U8 AddPiece (Board& board, U8 sq120, U8 pce)
  *  @param  board   The current position
  *  @param  from    The square the piece is on
  *  @param  to      The square the piece goes to
- *  @param  pce     The piece to be added (optional)
  * 
  *  @return         The captured piece 
  * 
@@ -236,7 +232,7 @@ bool MakeMove (Board& board, Move move)
     if (move.getCapturedPiece() != E_PIECE::EMPTY)
     {
         // En Passant captures have already been handled previously
-        if (move.isNormalCapture() && !move.isEPCapture())
+        if (move.isCapture() && !move.isEPCapture())
         {
             RemovePiece(board, to);
         }
@@ -422,7 +418,7 @@ void UnmakeMove (Board& board)
 
     
     // For normal captures we undo by putting the captured piece back on the 'to' square
-    if (move.isNormalCapture() && !move.isEPCapture())
+    if (move.isCapture() && !move.isEPCapture())
     {
         AddPiece(board, to, move.getCapturedPiece());
     }

@@ -1,0 +1,8 @@
+<map id="KnightMoves" name="KnightMoves">
+<area shape="rect" id="node1" title=" " alt="" coords="5,107,112,133"/>
+<area shape="rect" id="node2" href="$da/d6a/movegen_8cpp.html#a0b104cc34a428f06f0cccfbf41f793ad" title=" " alt="" coords="200,5,333,32"/>
+<area shape="rect" id="node3" href="$da/d6a/movegen_8cpp.html#a488c7be9776be334275c32aad5e9b7ef" title=" " alt="" coords="208,56,325,83"/>
+<area shape="rect" id="node4" href="$db/d82/structS__BOARD.html#a29121db43af4dc2c4fe32b937e184a7c" title=" " alt="" coords="160,107,373,133"/>
+<area shape="rect" id="node5" href="$db/d82/structS__BOARD.html#a7e5f7cb1c01a86574964085d4500674c" title=" " alt="" coords="170,157,363,184"/>
+<area shape="rect" id="node6" href="$db/d82/structS__BOARD.html#aee4e1de800c7deabd26e1d650e455744" title=" " alt="" coords="175,208,358,235"/>
+</map>

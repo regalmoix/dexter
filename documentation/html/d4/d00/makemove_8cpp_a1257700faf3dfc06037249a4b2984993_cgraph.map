@@ -1,0 +1,8 @@
+<map id="MovePiece" name="MovePiece">
+<area shape="rect" id="node1" title=" " alt="" coords="5,31,99,57"/>
+<area shape="rect" id="node2" href="$d4/d00/makemove_8cpp.html#af6b9073683879118b9e47a39b4fc2ccd" title=" " alt="" coords="161,5,243,32"/>
+<area shape="rect" id="node6" href="$d4/d00/makemove_8cpp.html#a8f4d3454e14ccf18672d09203058acc2" title=" " alt="" coords="147,56,257,83"/>
+<area shape="rect" id="node3" href="$db/d82/structS__BOARD.html#a48c663dd36259f82bc5a76f287cab4db" title=" " alt="" coords="309,56,513,83"/>
+<area shape="rect" id="node4" href="$db/d82/structS__BOARD.html#ae71fdcf8a41f0b9bf7fd0f635595533b" title=" " alt="" coords="305,5,516,32"/>
+<area shape="rect" id="node5" href="$db/d82/structS__BOARD.html#a29121db43af4dc2c4fe32b937e184a7c" title=" " alt="" coords="564,56,777,83"/>
+</map>

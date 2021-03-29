@@ -39,16 +39,13 @@ typedef struct S_BOARD          Board;
 #define NAME                    "Dexter 1.0.0"
 #define BOARD_SIZE              (120)
 #define MAX_MOVES               (2048)
-#define FR2SQ(f, r)             (10 + ((r) * 10) + (f))                             // Convert File, Rank to 120 based Square indexing
-// #define SQ2FILE(sq120)          ((sq120 % 10)*(sq120 != Square_Invalid))            // Given square in 120 indexing, find corresponding file
-// #define SQ2RANK(sq120)          ((((sq120) / 10) - 1)*(sq120 != Square_Invalid))    // Given square in 120 indexing, find corresponding rank
-#define SQ120(sq64)             (10 + ((sq64 / 8 + 1) * 10) + (sq64 % 8 + 1))       // Given Square in 64  based indexing convert to 120 based indexing
-#define SQ64(sq120)             (sq120To64[sq120])                                  // Given Square in 120 based indexing convert to 64  based indexing
+#define FR2SQ(f, r)             (10 + ((r) * 10) + (f))                                     // Convert File, Rank to 120 based Square indexing
+#define SQ120(sq64)             (10 + ((sq64 / 8 + 1) * 10) + (sq64 % 8 + 1))               // Given Square in 64  based indexing convert to 120 based indexing
+#define SQ64(sq120)             (sq120To64[sq120])                                          // Given Square in 120 based indexing convert to 64  based indexing
 #define SQLEGAL(sq120)          (sq120To64[sq120] != Square_Invalid)
 #define PIECECOLOR(pce)         ((wP <= pce && pce <= wK) ? WHITE : ((bP <= pce && pce <= bK) ? BLACK : BOTH))
-
-#define SQ2FILE(sq120)          ((sq120 != Square_Invalid) ? (sq120 % 10) : 0)            // Given square in 120 indexing, find corresponding file
-#define SQ2RANK(sq120)          ((sq120 != Square_Invalid) ? (((sq120) / 10) - 1) : 0)    // Given square in 120 indexing, find corresponding rank
+#define SQ2FILE(sq120)          ((sq120 != Square_Invalid) ? (sq120 % 10) : 0)              // Given square in 120 indexing, find corresponding file
+#define SQ2RANK(sq120)          ((sq120 != Square_Invalid) ? (((sq120) / 10) - 1) : 0)      // Given square in 120 indexing, find corresponding rank
 
 
 // Pack info (check, enPassant, pawnDoublePush, CastleType, promotion, promotedPiece) to U8
@@ -136,7 +133,7 @@ typedef struct S_MOVE
 
     /** NOTE
      *
-     *  Bit representation format of moveKind.
+     *  Bit representation format of moveData.
      *
      *  isCheck : 1;
      *  enPassant : 1;
@@ -150,7 +147,7 @@ typedef struct S_MOVE
      *  ((CHK) << 7 | (EP) << 6 | (DP) << 5 | (CA) << 3 | (P) << 2 | (PP))
     **/
 
-    bool isNormalCapture();
+    bool isCapture();
 
     bool isEPCapture();
 
@@ -315,36 +312,17 @@ typedef struct S_HASH
 /** GLOBAL VARIABLES **/
 
 extern char sq120To64[];
-// extern std::vector<S_MOVE> moveList;
 extern S_HASH HASH;
 
 /** FUNCTION DECLARATIONS **/
-extern void PawnMoves   (Board& board, std::vector<S_MOVE>& moveList);
-extern void KnightMoves (Board& board, std::vector<S_MOVE>& moveList);
-extern void BishopMoves (Board& board, std::vector<S_MOVE>& moveList);
-extern void RookMoves   (Board& board, std::vector<S_MOVE>& moveList);
-extern void QueenMoves  (Board& board, std::vector<S_MOVE>& moveList);
-extern void KingMoves   (Board& board, std::vector<S_MOVE>& moveList);
-extern void AllMoves    (Board& board, std::vector<S_MOVE>& moveList);
 
-extern bool isAttacked  (Board& board, U8 sq120, S8 attackingside = (S8)(-1));
-
-extern void RookListGenerator   (Board& board, U8 piece, std::vector<S_MOVE>& moveList);
-extern void BishopListGenerator (Board& board, U8 piece, std::vector<S_MOVE>& moveList);
-
+extern bool isAttacked          (Board& board, U8 sq120, S8 attackingside = (S8)(-1));
+extern void AllMoves            (Board& board, std::vector<S_MOVE>& moveList);
 extern void addQuietMove        (Board& board, Move& move, std::vector<S_MOVE>& moveList);
 extern void addCaptureMove      (Board& board, Move& move, std::vector<S_MOVE>& moveList);
+extern bool MakeMove            (Board& board, Move move);
+extern void UnmakeMove          (Board& board);
+extern int  PerftTest           (int depth, Board& board);
+extern void Perft               (int depth, Board& board);
 
-extern bool isRook      (Board& board, U8 sq120);
-extern bool isBishop    (Board& board, U8 sq120);
-extern bool isQueen     (Board& board, U8 sq120);
-extern bool isKing      (Board& board, U8 sq120);
-extern bool isKnight    (Board& board, U8 sq120);
-extern bool isPawn      (Board& board, U8 sq120);
-
-extern bool MakeMove    (Board& board, Move move);
-extern void UnmakeMove  (Board& board);
-
-extern int  PerftTest   (int depth, Board& board);
-extern void Perft       (int depth, Board& board);
 #endif

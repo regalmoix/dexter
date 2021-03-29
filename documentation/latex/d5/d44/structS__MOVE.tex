@@ -1,0 +1,383 @@
+\hypertarget{structS__MOVE}{}\doxysection{S\+\_\+\+MOVE Struct Reference}
+\label{structS__MOVE}\index{S\_MOVE@{S\_MOVE}}
+
+
+{\ttfamily \#include $<$header.\+h$>$}
+
+
+
+Collaboration diagram for S\+\_\+\+MOVE\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=256pt]{d7/d48/structS__MOVE__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{structS__MOVE_a68703a80c1c6eef6a510dffa8459ca15}{is\+Capture}} ()
+\item 
+bool \mbox{\hyperlink{structS__MOVE_a4a209d5c679a2511f1c816a1f2f76dad}{is\+EPCapture}} ()
+\item 
+bool \mbox{\hyperlink{structS__MOVE_abf0a3db3107e61b18a9fd7d8876d96e2}{is\+Check}} ()
+\item 
+bool \mbox{\hyperlink{structS__MOVE_ac1244bd5e4f64f66e0791742decde9f5}{is\+Pawn\+Double\+Push}} ()
+\item 
+bool \mbox{\hyperlink{structS__MOVE_a7eed870762e832ccdcdf0cd669db5955}{is\+Promotion}} ()
+\item 
+\mbox{\hyperlink{header_8h_a6cf299ea7ef1ad876e1f0751259aa8f2}{E\+\_\+\+PIECE}} \mbox{\hyperlink{structS__MOVE_ad89752f307067591f5e7b3efc52e9d91}{get\+Promoted\+Piece}} ()
+\item 
+void \mbox{\hyperlink{structS__MOVE_aee6e73975a3a05cbc629fd76a45ad41d}{set\+Attributes}} (\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} move\+Info)
+\item 
+void \mbox{\hyperlink{structS__MOVE_aa67f4a960478d27523acbb9e6da63017}{unset\+Attributes}} (\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} move\+Info)
+\item 
+\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} \mbox{\hyperlink{structS__MOVE_a1167af464ff7331f2945e654dafd5bbf}{get\+Moving\+Piece}} ()
+\item 
+\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} \mbox{\hyperlink{structS__MOVE_a4e0ff9008033b9a405fbe0a132965a64}{get\+Captured\+Piece}} ()
+\item 
+\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} \mbox{\hyperlink{structS__MOVE_a3bc394a47c8d7e170bcf1e34406016d4}{get\+Castle}} ()
+\item 
+\mbox{\hyperlink{structS__MOVE_aceb9d159f28614fdd9118a75323e3723}{S\+\_\+\+MOVE}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board, \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} from, \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} to)
+\item 
+\mbox{\hyperlink{structS__MOVE_a2eb047c26cc8aa10ac8fb98fd754447f}{S\+\_\+\+MOVE}} (\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&board, \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} from, \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} to, \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} move\+Info)
+\item 
+\mbox{\hyperlink{structS__MOVE_ae34eb1df971f89bf8d7d6dd9c2115daa}{S\+\_\+\+MOVE}} (\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} from, \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} to, \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} move\+Info, \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} \mbox{\hyperlink{structS__MOVE_a7c2f5bd46c7c342bb6bcbe5e443e949f}{piece\+Info}})
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{header_8h_ad4811e82ab4b22660e453d013a9dcfdb}{S16}} \mbox{\hyperlink{structS__MOVE_a2d752795e603aaa90c856f9d7457006a}{score}}
+\item 
+\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} \mbox{\hyperlink{structS__MOVE_a48873df5b0ed9e567bfe1c5f84b84960}{from\+Square}}
+\item 
+\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} \mbox{\hyperlink{structS__MOVE_a4d5634246742dbe463ab5e02abcd59e4}{to\+Square}}
+\item 
+\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} \mbox{\hyperlink{structS__MOVE_a7c2f5bd46c7c342bb6bcbe5e443e949f}{piece\+Info}}
+\item 
+\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} \mbox{\hyperlink{structS__MOVE_a586b23be4a49b21c40e40df0c725dae7}{move\+Data}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+STRUCTS $\vert$ CLASSES 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structS__MOVE_aceb9d159f28614fdd9118a75323e3723}\label{structS__MOVE_aceb9d159f28614fdd9118a75323e3723}} 
+\index{S\_MOVE@{S\_MOVE}!S\_MOVE@{S\_MOVE}}
+\index{S\_MOVE@{S\_MOVE}!S\_MOVE@{S\_MOVE}}
+\doxysubsubsection{\texorpdfstring{S\_MOVE()}{S\_MOVE()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily S\+\_\+\+MOVE\+::\+S\+\_\+\+MOVE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board,  }\item[{\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}}}]{from,  }\item[{\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}}}]{to }\end{DoxyParamCaption})}
+
+Constructor to make quiet non-\/special move object
+
+
+\begin{DoxyParams}{Parameters}
+{\em board} & The current board \\
+\hline
+{\em from} & The from square \\
+\hline
+{\em to} & The to square \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+None 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/d44/structS__MOVE_aceb9d159f28614fdd9118a75323e3723_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{structS__MOVE_a2eb047c26cc8aa10ac8fb98fd754447f}\label{structS__MOVE_a2eb047c26cc8aa10ac8fb98fd754447f}} 
+\index{S\_MOVE@{S\_MOVE}!S\_MOVE@{S\_MOVE}}
+\index{S\_MOVE@{S\_MOVE}!S\_MOVE@{S\_MOVE}}
+\doxysubsubsection{\texorpdfstring{S\_MOVE()}{S\_MOVE()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily S\+\_\+\+MOVE\+::\+S\+\_\+\+MOVE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a20c4d204abd959973f0ed35b620b9e16}{Board}} \&}]{board,  }\item[{\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}}}]{from,  }\item[{\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}}}]{to,  }\item[{\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}}}]{move\+Info }\end{DoxyParamCaption})}
+
+Constructor to make quiet special move object with supplied move\+Info metadata
+
+
+\begin{DoxyParams}{Parameters}
+{\em board} & The current board \\
+\hline
+{\em from} & The from square \\
+\hline
+{\em to} & The to square \\
+\hline
+{\em move\+Info} & The supplied move metadata for special moves like EP, Promotion, Castle etc. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+None 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/d44/structS__MOVE_a2eb047c26cc8aa10ac8fb98fd754447f_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{structS__MOVE_ae34eb1df971f89bf8d7d6dd9c2115daa}\label{structS__MOVE_ae34eb1df971f89bf8d7d6dd9c2115daa}} 
+\index{S\_MOVE@{S\_MOVE}!S\_MOVE@{S\_MOVE}}
+\index{S\_MOVE@{S\_MOVE}!S\_MOVE@{S\_MOVE}}
+\doxysubsubsection{\texorpdfstring{S\_MOVE()}{S\_MOVE()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily S\+\_\+\+MOVE\+::\+S\+\_\+\+MOVE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}}}]{from,  }\item[{\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}}}]{to,  }\item[{\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}}}]{move\+Info,  }\item[{\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}}}]{piece\+Info }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structS__MOVE_a4e0ff9008033b9a405fbe0a132965a64}\label{structS__MOVE_a4e0ff9008033b9a405fbe0a132965a64}} 
+\index{S\_MOVE@{S\_MOVE}!getCapturedPiece@{getCapturedPiece}}
+\index{getCapturedPiece@{getCapturedPiece}!S\_MOVE@{S\_MOVE}}
+\doxysubsubsection{\texorpdfstring{getCapturedPiece()}{getCapturedPiece()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} S\+\_\+\+MOVE\+::get\+Captured\+Piece (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get the captured piece.
+
+\begin{DoxyReturn}{Returns}
+The Captured Piece 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/d44/structS__MOVE_a4e0ff9008033b9a405fbe0a132965a64_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{structS__MOVE_a3bc394a47c8d7e170bcf1e34406016d4}\label{structS__MOVE_a3bc394a47c8d7e170bcf1e34406016d4}} 
+\index{S\_MOVE@{S\_MOVE}!getCastle@{getCastle}}
+\index{getCastle@{getCastle}!S\_MOVE@{S\_MOVE}}
+\doxysubsubsection{\texorpdfstring{getCastle()}{getCastle()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} S\+\_\+\+MOVE\+::get\+Castle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get the castle type.
+
+\begin{DoxyReturn}{Returns}
+The castle type \mbox{[}0-\/0, 0-\/0-\/0, No Castle\mbox{]} 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/d44/structS__MOVE_a3bc394a47c8d7e170bcf1e34406016d4_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{structS__MOVE_a1167af464ff7331f2945e654dafd5bbf}\label{structS__MOVE_a1167af464ff7331f2945e654dafd5bbf}} 
+\index{S\_MOVE@{S\_MOVE}!getMovingPiece@{getMovingPiece}}
+\index{getMovingPiece@{getMovingPiece}!S\_MOVE@{S\_MOVE}}
+\doxysubsubsection{\texorpdfstring{getMovingPiece()}{getMovingPiece()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} S\+\_\+\+MOVE\+::get\+Moving\+Piece (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get the moving piece.
+
+\begin{DoxyReturn}{Returns}
+The Moving Piece 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/d44/structS__MOVE_a1167af464ff7331f2945e654dafd5bbf_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{structS__MOVE_ad89752f307067591f5e7b3efc52e9d91}\label{structS__MOVE_ad89752f307067591f5e7b3efc52e9d91}} 
+\index{S\_MOVE@{S\_MOVE}!getPromotedPiece@{getPromotedPiece}}
+\index{getPromotedPiece@{getPromotedPiece}!S\_MOVE@{S\_MOVE}}
+\doxysubsubsection{\texorpdfstring{getPromotedPiece()}{getPromotedPiece()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{header_8h_a6cf299ea7ef1ad876e1f0751259aa8f2}{E\+\_\+\+PIECE}} S\+\_\+\+MOVE\+::get\+Promoted\+Piece (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get the promoted piece after the pawn promotion
+
+\begin{DoxyReturn}{Returns}
+Promoted piece if pawn promoted, else EMPTY 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/d44/structS__MOVE_ad89752f307067591f5e7b3efc52e9d91_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/d44/structS__MOVE_ad89752f307067591f5e7b3efc52e9d91_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{structS__MOVE_a68703a80c1c6eef6a510dffa8459ca15}\label{structS__MOVE_a68703a80c1c6eef6a510dffa8459ca15}} 
+\index{S\_MOVE@{S\_MOVE}!isCapture@{isCapture}}
+\index{isCapture@{isCapture}!S\_MOVE@{S\_MOVE}}
+\doxysubsubsection{\texorpdfstring{isCapture()}{isCapture()}}
+{\footnotesize\ttfamily bool S\+\_\+\+MOVE\+::is\+Capture (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+NOTE
+
+Bit representation format of move\+Data.
+
+is\+Check \+: 1; en\+Passant \+: 1; double\+Push \+: 1; castle \+: 2; promotion \+: 1 promoted piece \+: 2;
+
+CHK $\vert$ EP $\vert$ DP $\vert$ CA $\vert$ CA $\vert$ P $\vert$ PP $\vert$ PP
+
+((CHK) $<$$<$ 7 $\vert$ (EP) $<$$<$ 6 $\vert$ (DP) $<$$<$ 5 $\vert$ (CA) $<$$<$ 3 $\vert$ (P) $<$$<$ 2 $\vert$ (PP))
+
+NOTE
+
+Bit representation format of move\+Data.
+
+is\+Check \+: 1; en\+Passant \+: 1; double\+Push \+: 1; castle \+: 2; promotion \+: 1 promoted piece \+: 2;
+
+CHK $\vert$ EP $\vert$ DP $\vert$ CA $\vert$ CA $\vert$ P $\vert$ PP $\vert$ PP
+
+((CHK) $<$$<$ 7 $\vert$ (EP) $<$$<$ 6 $\vert$ (DP) $<$$<$ 5 $\vert$ (CA) $<$$<$ 3 $\vert$ (P) $<$$<$ 2 $\vert$ (PP)) Is the move a Capture (Normal / EP)
+
+\begin{DoxyReturn}{Returns}
+true iff move is a capture 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/d44/structS__MOVE_a68703a80c1c6eef6a510dffa8459ca15_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{structS__MOVE_abf0a3db3107e61b18a9fd7d8876d96e2}\label{structS__MOVE_abf0a3db3107e61b18a9fd7d8876d96e2}} 
+\index{S\_MOVE@{S\_MOVE}!isCheck@{isCheck}}
+\index{isCheck@{isCheck}!S\_MOVE@{S\_MOVE}}
+\doxysubsubsection{\texorpdfstring{isCheck()}{isCheck()}}
+{\footnotesize\ttfamily bool S\+\_\+\+MOVE\+::is\+Check (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Is the move a checking move
+
+\begin{DoxyReturn}{Returns}
+true iff move results in a check 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structS__MOVE_a4a209d5c679a2511f1c816a1f2f76dad}\label{structS__MOVE_a4a209d5c679a2511f1c816a1f2f76dad}} 
+\index{S\_MOVE@{S\_MOVE}!isEPCapture@{isEPCapture}}
+\index{isEPCapture@{isEPCapture}!S\_MOVE@{S\_MOVE}}
+\doxysubsubsection{\texorpdfstring{isEPCapture()}{isEPCapture()}}
+{\footnotesize\ttfamily bool S\+\_\+\+MOVE\+::is\+EPCapture (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Is the move a EP Capture
+
+\begin{DoxyReturn}{Returns}
+true iff move is an EPcapture 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/d44/structS__MOVE_a4a209d5c679a2511f1c816a1f2f76dad_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{structS__MOVE_ac1244bd5e4f64f66e0791742decde9f5}\label{structS__MOVE_ac1244bd5e4f64f66e0791742decde9f5}} 
+\index{S\_MOVE@{S\_MOVE}!isPawnDoublePush@{isPawnDoublePush}}
+\index{isPawnDoublePush@{isPawnDoublePush}!S\_MOVE@{S\_MOVE}}
+\doxysubsubsection{\texorpdfstring{isPawnDoublePush()}{isPawnDoublePush()}}
+{\footnotesize\ttfamily bool S\+\_\+\+MOVE\+::is\+Pawn\+Double\+Push (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Is the move a pawn double push \mbox{[}can be first move for that pawn only\mbox{]}
+
+\begin{DoxyReturn}{Returns}
+true iff move is a pawn double push 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/d44/structS__MOVE_ac1244bd5e4f64f66e0791742decde9f5_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{structS__MOVE_a7eed870762e832ccdcdf0cd669db5955}\label{structS__MOVE_a7eed870762e832ccdcdf0cd669db5955}} 
+\index{S\_MOVE@{S\_MOVE}!isPromotion@{isPromotion}}
+\index{isPromotion@{isPromotion}!S\_MOVE@{S\_MOVE}}
+\doxysubsubsection{\texorpdfstring{isPromotion()}{isPromotion()}}
+{\footnotesize\ttfamily bool S\+\_\+\+MOVE\+::is\+Promotion (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Is the move a Pawn Promotion
+
+\begin{DoxyReturn}{Returns}
+true iff move is a pawn promotion 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/d44/structS__MOVE_a7eed870762e832ccdcdf0cd669db5955_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{structS__MOVE_aee6e73975a3a05cbc629fd76a45ad41d}\label{structS__MOVE_aee6e73975a3a05cbc629fd76a45ad41d}} 
+\index{S\_MOVE@{S\_MOVE}!setAttributes@{setAttributes}}
+\index{setAttributes@{setAttributes}!S\_MOVE@{S\_MOVE}}
+\doxysubsubsection{\texorpdfstring{setAttributes()}{setAttributes()}}
+{\footnotesize\ttfamily void S\+\_\+\+MOVE\+::set\+Attributes (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}}}]{move\+Info }\end{DoxyParamCaption})}
+
+Set additional attributes (like checks) to the move metadata
+
+\begin{DoxyReturn}{Returns}
+None 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structS__MOVE_aa67f4a960478d27523acbb9e6da63017}\label{structS__MOVE_aa67f4a960478d27523acbb9e6da63017}} 
+\index{S\_MOVE@{S\_MOVE}!unsetAttributes@{unsetAttributes}}
+\index{unsetAttributes@{unsetAttributes}!S\_MOVE@{S\_MOVE}}
+\doxysubsubsection{\texorpdfstring{unsetAttributes()}{unsetAttributes()}}
+{\footnotesize\ttfamily void S\+\_\+\+MOVE\+::unset\+Attributes (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}}}]{move\+Info }\end{DoxyParamCaption})}
+
+Un-\/\+Set attributes previously set in the move metadata
+
+\begin{DoxyReturn}{Returns}
+None 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structS__MOVE_a48873df5b0ed9e567bfe1c5f84b84960}\label{structS__MOVE_a48873df5b0ed9e567bfe1c5f84b84960}} 
+\index{S\_MOVE@{S\_MOVE}!fromSquare@{fromSquare}}
+\index{fromSquare@{fromSquare}!S\_MOVE@{S\_MOVE}}
+\doxysubsubsection{\texorpdfstring{fromSquare}{fromSquare}}
+{\footnotesize\ttfamily \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} S\+\_\+\+MOVE\+::from\+Square}
+
+\mbox{\Hypertarget{structS__MOVE_a586b23be4a49b21c40e40df0c725dae7}\label{structS__MOVE_a586b23be4a49b21c40e40df0c725dae7}} 
+\index{S\_MOVE@{S\_MOVE}!moveData@{moveData}}
+\index{moveData@{moveData}!S\_MOVE@{S\_MOVE}}
+\doxysubsubsection{\texorpdfstring{moveData}{moveData}}
+{\footnotesize\ttfamily \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} S\+\_\+\+MOVE\+::move\+Data}
+
+\mbox{\Hypertarget{structS__MOVE_a7c2f5bd46c7c342bb6bcbe5e443e949f}\label{structS__MOVE_a7c2f5bd46c7c342bb6bcbe5e443e949f}} 
+\index{S\_MOVE@{S\_MOVE}!pieceInfo@{pieceInfo}}
+\index{pieceInfo@{pieceInfo}!S\_MOVE@{S\_MOVE}}
+\doxysubsubsection{\texorpdfstring{pieceInfo}{pieceInfo}}
+{\footnotesize\ttfamily \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} S\+\_\+\+MOVE\+::piece\+Info}
+
+\mbox{\Hypertarget{structS__MOVE_a2d752795e603aaa90c856f9d7457006a}\label{structS__MOVE_a2d752795e603aaa90c856f9d7457006a}} 
+\index{S\_MOVE@{S\_MOVE}!score@{score}}
+\index{score@{score}!S\_MOVE@{S\_MOVE}}
+\doxysubsubsection{\texorpdfstring{score}{score}}
+{\footnotesize\ttfamily \mbox{\hyperlink{header_8h_ad4811e82ab4b22660e453d013a9dcfdb}{S16}} S\+\_\+\+MOVE\+::score}
+
+\mbox{\Hypertarget{structS__MOVE_a4d5634246742dbe463ab5e02abcd59e4}\label{structS__MOVE_a4d5634246742dbe463ab5e02abcd59e4}} 
+\index{S\_MOVE@{S\_MOVE}!toSquare@{toSquare}}
+\index{toSquare@{toSquare}!S\_MOVE@{S\_MOVE}}
+\doxysubsubsection{\texorpdfstring{toSquare}{toSquare}}
+{\footnotesize\ttfamily \mbox{\hyperlink{header_8h_a3cb25ca6f51f003950f9625ff05536fc}{U8}} S\+\_\+\+MOVE\+::to\+Square}
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{header_8h}{header.\+h}}\item 
+src/\mbox{\hyperlink{move_8cpp}{move.\+cpp}}\end{DoxyCompactItemize}

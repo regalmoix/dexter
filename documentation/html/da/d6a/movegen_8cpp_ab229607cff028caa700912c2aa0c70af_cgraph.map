@@ -1,0 +1,10 @@
+<map id="QueenMoves" name="QueenMoves">
+<area shape="rect" id="node1" title=" " alt="" coords="5,107,112,133"/>
+<area shape="rect" id="node2" href="$da/d6a/movegen_8cpp.html#a53dc758907f5c34beb956df44cae3394" title=" " alt="" coords="179,107,334,133"/>
+<area shape="rect" id="node7" href="$db/d82/structS__BOARD.html#a7e5f7cb1c01a86574964085d4500674c" title=" " alt="" coords="160,157,353,184"/>
+<area shape="rect" id="node8" href="$da/d6a/movegen_8cpp.html#a774ebf8e0cdc93fc5a340cae9622404a" title=" " alt="" coords="185,56,328,83"/>
+<area shape="rect" id="node3" href="$da/d6a/movegen_8cpp.html#a0b104cc34a428f06f0cccfbf41f793ad" title=" " alt="" coords="441,107,575,133"/>
+<area shape="rect" id="node4" href="$da/d6a/movegen_8cpp.html#a488c7be9776be334275c32aad5e9b7ef" title=" " alt="" coords="449,157,567,184"/>
+<area shape="rect" id="node5" href="$db/d82/structS__BOARD.html#a29121db43af4dc2c4fe32b937e184a7c" title=" " alt="" coords="401,5,615,32"/>
+<area shape="rect" id="node6" href="$db/d82/structS__BOARD.html#aee4e1de800c7deabd26e1d650e455744" title=" " alt="" coords="417,56,599,83"/>
+</map>

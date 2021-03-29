@@ -1,44 +1,92 @@
 #include "header.h"
 
-// std::vector<S_MOVE> moveList;
 
-
-bool isRook(Board& board, U8 sq120)
+/** Is the piece on square a Rook
+ *  @param      board   The board to search on
+ *  @param      sq120   The square to query
+ *
+ *  @return     true iff the piece on the square sq120 is a Rook
+ * 
+**/
+static bool isRook(Board& board, U8 sq120)
 {
     return (board.GetPieceOnSquare(sq120) == E_PIECE::wR) || (board.GetPieceOnSquare(sq120) == E_PIECE::bR);
 }
 
 
-bool isBishop(Board& board, U8 sq120)
+/** Is the piece on square a Bishop
+ *  @param      board   The board to search on
+ *  @param      sq120   The square to query
+ *
+ *  @return     true iff the piece on the square sq120 is a Bishop
+ * 
+**/
+static bool isBishop(Board& board, U8 sq120)
 {
     return (board.GetPieceOnSquare(sq120) == E_PIECE::wB) || (board.GetPieceOnSquare(sq120) == E_PIECE::bB);
 }
 
 
-bool isQueen(Board& board, U8 sq120)
+/** Is the piece on square a Queen
+ *  @param      board   The board to search on
+ *  @param      sq120   The square to query
+ *
+ *  @return     true iff the piece on the square sq120 is a Queen
+ * 
+**/
+static bool isQueen(Board& board, U8 sq120)
 {
     return (board.GetPieceOnSquare(sq120) == E_PIECE::wQ) || (board.GetPieceOnSquare(sq120) == E_PIECE::bQ);
 }
 
 
-bool isKing(Board& board, U8 sq120)
+/** Is the piece on square a King
+ *  @param      board   The board to search on
+ *  @param      sq120   The square to query
+ *
+ *  @return     true iff the piece on the square sq120 is a King
+ * 
+**/
+static bool isKing(Board& board, U8 sq120)
 {
     return (board.GetPieceOnSquare(sq120) == E_PIECE::wK) || (board.GetPieceOnSquare(sq120) == E_PIECE::bK);
 }
 
 
-bool isKnight(Board& board, U8 sq120)
+/** Is the piece on square a Knight
+ *  @param      board   The board to search on
+ *  @param      sq120   The square to query
+ *
+ *  @return     true iff the piece on the square sq120 is a Knight
+ * 
+**/
+static bool isKnight(Board& board, U8 sq120)
 {
     return (board.GetPieceOnSquare(sq120) == E_PIECE::wN) || (board.GetPieceOnSquare(sq120) == E_PIECE::bN);
 }
 
 
-bool isPawn(Board& board, U8 sq120)
+/** Is the piece on square a Pawn
+ *  @param      board   The board to search on
+ *  @param      sq120   The square to query
+ *
+ *  @return     true iff the piece on the square sq120 is a Pawn
+ * 
+**/
+static bool isPawn(Board& board, U8 sq120)
 {
     return (board.GetPieceOnSquare(sq120) == E_PIECE::wP) || (board.GetPieceOnSquare(sq120) == E_PIECE::bP);
 }
 
 
+/** Is the square on the board being attacked
+ *  @param      board   The board to search on
+ *  @param      sq120   The square to query
+ *  @param      attackingside   The side which is  attacking
+ *
+ *  @return     true iff the square is under attack by the attacking side
+ * 
+**/
 bool isAttacked(Board& board, U8 sq120, S8 attackingside)
 {
     assert(SQLEGAL(sq120));
@@ -170,19 +218,34 @@ bool isAttacked(Board& board, U8 sq120, S8 attackingside)
 }
 
 
+/** Adds a non-capture move to the move list
+ *  @param      move        The move object containing the data and metadata of the move
+ *  @param      moveList    List of pseudo-Legal Moves
+ * 
+**/
 void addQuietMove(Move& move, std::vector<S_MOVE>& moveList)       // Here means No Capture
 {
     moveList.push_back(move);
 }
 
 
+/** Adds a capture move to the move list
+ *  @param      move        The move object containing the data and metadata of the move
+ *  @param      moveList    List of pseudo-Legal Moves
+ * 
+**/
 void addCaptureMove(Move& move, std::vector<S_MOVE>& moveList)
 {
     moveList.push_back(move);
 }
 
 
-void PawnMoves(Board& board, std::vector<S_MOVE>& moveList)
+/** Generates all possible Pawn moves for the current side
+ *  @param      board       The current board
+ *  @param      moveList    List of pseudo-Legal Moves
+ * 
+**/
+static void PawnMoves(Board& board, std::vector<S_MOVE>& moveList)
 {
     if (board.GetSideToMove() == E_COLOR::WHITE)
     {
@@ -370,7 +433,12 @@ void PawnMoves(Board& board, std::vector<S_MOVE>& moveList)
 }
 
 
-void KnightMoves(Board& board, std::vector<S_MOVE>& moveList)
+/** Generates all possible Knight moves for the current side
+ *  @param      board       The current board
+ *  @param      moveList    List of pseudo-Legal Moves
+ * 
+**/
+static void KnightMoves(Board& board, std::vector<S_MOVE>& moveList)
 {
     S8 dirx[8] = {-2, -1, 1, 2, 2, 1, -1, -2};
     S8 diry[8] = {1, 2, 2, 1, -1, -2, -2, -1};
@@ -407,7 +475,13 @@ void KnightMoves(Board& board, std::vector<S_MOVE>& moveList)
 }
 
 
-void RookListGenerator(Board& board, U8 piece, std::vector<S_MOVE>& moveList)
+/** Generates all possible rook-like moves for the current side. Used by Rook and Queen Move generator
+ *  @param      board       The current board
+ *  @param      piece       The piece to generate moves for (R or Q)
+ *  @param      moveList    List of pseudo-Legal Moves
+ * 
+**/
+static void RookListGenerator(Board& board, U8 piece, std::vector<S_MOVE>& moveList)
 {
     S8 dir[4] = {-1, 10, 1, -10};
     auto rookList = board.GetSquareList(piece);
@@ -445,7 +519,13 @@ void RookListGenerator(Board& board, U8 piece, std::vector<S_MOVE>& moveList)
 }
 
 
-void BishopListGenerator(Board& board, U8 piece, std::vector<S_MOVE>& moveList)
+/** Generates all possible bishop-like moves for the current side. Used by Bishop and Queen Move generator
+ *  @param      board       The current board
+ *  @param      piece       The piece to generate moves for (B or Q)
+ *  @param      moveList    List of pseudo-Legal Moves
+ * 
+**/
+static void BishopListGenerator(Board& board, U8 piece, std::vector<S_MOVE>& moveList)
 {
     S8 dir[4] = {9, 11, -11, -9};
 
@@ -482,7 +562,12 @@ void BishopListGenerator(Board& board, U8 piece, std::vector<S_MOVE>& moveList)
 }
 
 
-void BishopMoves(Board& board, std::vector<S_MOVE>& moveList)
+/** Generates all possible Bishop moves for the current side
+ *  @param      board       The current board
+ *  @param      moveList    List of pseudo-Legal Moves
+ * 
+**/
+static void BishopMoves(Board& board, std::vector<S_MOVE>& moveList)
 {
     if(board.GetSideToMove() == E_COLOR::WHITE)
     {
@@ -497,7 +582,12 @@ void BishopMoves(Board& board, std::vector<S_MOVE>& moveList)
 }
 
 
-void RookMoves(Board& board, std::vector<S_MOVE>& moveList)
+/** Generates all possible Rook moves for the current side
+ *  @param      board       The current board
+ *  @param      moveList    List of pseudo-Legal Moves
+ * 
+**/
+static void RookMoves(Board& board, std::vector<S_MOVE>& moveList)
 {
     if(board.GetSideToMove() == E_COLOR::WHITE)
     {
@@ -511,7 +601,12 @@ void RookMoves(Board& board, std::vector<S_MOVE>& moveList)
 }
 
 
-void QueenMoves(Board& board, std::vector<S_MOVE>& moveList)
+/** Generates all possible Queen moves for the current side
+ *  @param      board       The current board
+ *  @param      moveList    List of pseudo-Legal Moves
+ * 
+**/
+static void QueenMoves(Board& board, std::vector<S_MOVE>& moveList)
 {
     if(board.GetSideToMove() == E_COLOR::WHITE)
     {
@@ -527,7 +622,12 @@ void QueenMoves(Board& board, std::vector<S_MOVE>& moveList)
 }
 
 
-void KingMoves(Board& board, std::vector<S_MOVE>& moveList)
+/** Generates all possible King moves for the current side
+ *  @param      board       The current board
+ *  @param      moveList    List of pseudo-Legal Moves
+ * 
+**/
+static void KingMoves(Board& board, std::vector<S_MOVE>& moveList)
 {
     S8 dir[8] = {-1, 10, 1, -10, 9, 11, -11, -9};
 
@@ -637,6 +737,11 @@ void KingMoves(Board& board, std::vector<S_MOVE>& moveList)
 }
 
 
+/** Generates all possible psuedo-legal moves for the current side
+ *  @param      board       The current board
+ *  @param      moveList    List of pseudo-Legal Moves
+ * 
+**/
 void AllMoves (Board& board, std::vector<S_MOVE>& moveList)
 {
     PawnMoves(board, moveList);

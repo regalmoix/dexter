@@ -30,4 +30,4 @@ rebuild:
 
 .PHONY: run
 run:
-	make -j8 && ./build/dexter
+	@make -j8 && ./build/dexter

@@ -19,7 +19,7 @@ int main()
     std::string FEN1 =  "r3k2r/p1ppqpb1/bn2pnp1/3PN3/Pp2P3/2N2Q1p/1PPBBPPP/R3K2R b KQkq a3 0 1";    
     std::string f =     "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1";
     // std::string FEN2 = "4k3/8/8/8/8/8/8/R3K3 w Q - 0 1";
-    Board b(FEN);
+    Board b(STARTFEN);
     HASH.GenerateHash(b);
 
     // for (U8 sq120 = 0; sq120 < BOARD_SIZE; ++sq120)
@@ -32,7 +32,7 @@ int main()
     // }
 
     
-    PerftTest(5,b);
+    PerftTest(4,b);
     return 0;
 
     vector<string> fens;
