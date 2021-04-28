@@ -13,6 +13,8 @@
 #include <assert.h>
 #include <unordered_set>
 #include <algorithm>
+#include <numeric>
+#include <chrono>
 
 using std::vector;
 using std::array;
@@ -55,17 +57,6 @@ typedef struct S_BOARD          Board;
 // Pack info of current piece and captured piece to U8 for S_Move
 #define PACKPIECEINFO(myPiece, capPiece) \
                                 (((capPiece) << 4) | (myPiece))
-
-/** ALTERNATE/BUGGY CODE
-    Given Square in 120 based indexing convert to 64  based indexing
-
-    #define SQ64(sq120)             ((sq120 % 10 == 0) || (sq120 % 10 == 9) ||  \
-                                    (sq120 < 20) || (sq120 > 99)) ?  99 :       \
-                                    ((8*((sq120)/10))+((sq120)%10)-17)
-
-
-    #define SQ64(sq120)           ((8*((sq120)/10))+((sq120)%10)-17)
-**/
 
 
 /** ENUMERATIONS **/
@@ -198,12 +189,13 @@ public:
 
 typedef struct S_BOARD
 {
-    /** DESCRIPTION
-     *
-     *  This Data Structure aims to store all properties that uniquely define a board
-     *  Additional properties are stored with aim of improving calculations at cost of memory
-     *  Additionally, member functions to assist with D.S. manipulation are WIP
-    **/
+    
+/** DESCRIPTION
+ *
+ *  This Data Structure aims to store all properties that uniquely define a board
+ *  Additional properties are stored with aim of improving calculations at cost of memory
+ *  Additionally, member functions to assist with D.S. manipulation are WIP
+**/
 
 public :
     U16                     plys;
@@ -222,11 +214,12 @@ public :
     **/
 
     // U8                               kingSq[2];                      // REDUNDANT ?   
-    U8                                  pieceList[12][10];              // pceList[pce] stores array of squares where Pce exists
-    std::array<std::vector<U8>, 12>     alt_pieceList;    
-    std::array<U8, 13>                  countPiece;                     // UNUSED ?
+    // U8                               pieceList[12][10];              // pceList[pce] stores array of squares where Pce exists
+    std::array<std::vector<U8>, 12>     pieceList;    
+    // std::array<U8, 13>               countPiece;                     // UNUSED ?     //ResetBoard, AddPiece, RemovePiece
     std::bitset<480>                    posBitBoard;                    // Color independant. 4bits per square * 120 squares
     U8                                  brd_array[BOARD_SIZE];
+    S16                                 materialScore;
 public :
     U64                                 posHashKey;
 
@@ -309,10 +302,34 @@ typedef struct S_HASH
 
 } S_HASH;  
 
+typedef struct S_SEARCH
+{
+public:
+    U8      depthMax;
+    U8      depth;
+
+    std::chrono::_V2::system_clock::time_point  startTime;
+    std::chrono::_V2::system_clock::time_point  stopTime;
+    std::chrono::duration<double>               timeMax;
+
+    U8      movesTillTimeControl;
+    U8      nodesSearched;                                                      // Could be used to estimate search speed
+
+    bool    quit;                                                               // GUI requested to quit
+    bool    stopped;                                                            // If search is over/stopped 
+
+    void    Search_f      (Board& board);                                         // Iterative Deepening
+    S16     AlphaBeta   (Board& board, S16 alpha, S16 beta, U8 currDepth);      // Alpha Beta Pruning Search till a depth
+    S16     Quiescence  (Board& board, S16 alpha, S16 beta);                    // Search, irrespective of depth, all capture moves till we see a quiet move
+
+} Search;
+
 /** GLOBAL VARIABLES **/
 
 extern char sq120To64[];
 extern S_HASH HASH;
+extern const std::vector<S16> pieceValues;
+
 
 /** FUNCTION DECLARATIONS **/
 
@@ -324,5 +341,6 @@ extern bool MakeMove            (Board& board, Move move);
 extern void UnmakeMove          (Board& board);
 extern int  PerftTest           (int depth, Board& board);
 extern void Perft               (int depth, Board& board);
-
+extern S_MOVE parseMove         (Board& board, std::string& moveInput);
+extern S16 evaluate             (Board& board);
 #endif

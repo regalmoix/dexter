@@ -438,16 +438,18 @@ void S_BOARD::ResetBoard()
     enPassantSquare = E_SQUARE::Square_Invalid;
     plys = 0;
 
+    materialScore = 0;
+
     for (int i = 0; i < 13; i++)
     {
-        countPiece[i] = 0;
+        // countPiece[i] = 0;
     }
 
     for(int i = 0; i < 12; i++)
     {
         for(int j = 0; j < 10; j++)
         {
-            pieceList[i][j] = Square_Invalid;
+            // pieceList[i][j] = Square_Invalid;
         }
     }
 
@@ -465,7 +467,7 @@ void S_BOARD::ResetBoard()
     // ALT PCELIST 
     for (int i = 0; i < 12; i++)
     {
-        alt_pieceList[i].push_back(E_SQUARE::Square_Invalid);
+        pieceList[i].push_back(E_SQUARE::Square_Invalid);
     }
 
     for (int i = 0; i < BOARD_SIZE; i++)
@@ -598,11 +600,11 @@ std::vector<U8> S_BOARD::GetSquareList(U8 piece)
     if (piece == E_PIECE::EMPTY)
         return {};
     
-    else if (alt_pieceList[piece-1].empty())
+    else if (pieceList[piece-1].empty())
         assert(false);
     
     else 
-        return alt_pieceList[piece-1];
+        return pieceList[piece-1];
     
     return {};
 }
@@ -628,12 +630,12 @@ U8 S_BOARD::ModifySquareList(U8 piece, U8 sq120, std::string operation)
 {
     if (operation == "add")
     {
-        alt_pieceList[piece - 1].push_back(sq120);
+        pieceList[piece - 1].push_back(sq120);
     }
 
     else if (operation == "del")
     {
-        alt_pieceList[piece - 1].erase(std::remove(alt_pieceList[piece - 1].begin(), alt_pieceList[piece - 1].end(), sq120), alt_pieceList[piece - 1].end());
+        pieceList[piece - 1].erase(std::remove(pieceList[piece - 1].begin(), pieceList[piece - 1].end(), sq120), pieceList[piece - 1].end());
     }
     return 0;
 }
@@ -650,7 +652,7 @@ void S_BOARD::PrintPieceList()
     {
         printf("Piece[%d] : ", i + 1);
 
-        for (U8 sq : alt_pieceList[i])
+        for (U8 sq : pieceList[i])
         {
              printf("%c%d ",SQ2FILE(sq) + 'A' - 1, SQ2RANK(sq));
         }

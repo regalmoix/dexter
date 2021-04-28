@@ -49,7 +49,9 @@ static U8 RemovePiece (Board& board, U8 sq120)
 
     UNHASHPIECE(board, pce, sq120);
 
-    board.countPiece[pce]--;  
+    // board.countPiece[pce]--;  
+
+    board.materialScore -= pieceValues[pce];    // CHECK THIS
 
     return pce;
 }
@@ -76,7 +78,9 @@ static U8 AddPiece (Board& board, U8 sq120, U8 pce)
 
     HASHPIECE(board, pce, sq120);
 
-    board.countPiece[pce]++;
+    // board.countPiece[pce]++;
+    board.materialScore += pieceValues[pce];    // CHECK THIS
+
    
     return capPiece;
 }

@@ -216,3 +216,68 @@ S_MOVE::S_MOVE (Board& board, U8 from, U8 to, U8 moveInfo)
     pieceInfo       |= t_capPiece << 4;
     pieceInfo       |= t_currPiece;
 }
+
+
+/** Parse Move returns the Move object correspording to a move notation entered in STDIN.
+ *  
+ *  @param      board       The current board
+ *  @param      moveInput   The supplied move string
+ *  @return     Move        The Move object (if invalid move string, return INVALID_MOVE)
+ * 
+**/
+S_MOVE parseMove (Board& board, std::string& moveInput)
+{
+    if (moveInput.length() >= 6 || moveInput.length() <= 3 )
+    {
+        Move move(board, E_SQUARE::Square_Invalid, E_SQUARE::Square_Invalid);
+        return move;
+    }
+
+    U8          fromFile    = moveInput[0] - 'a' + 1;
+    U8          fromRank    = moveInput[1] - '0';
+    U8          toFile      = moveInput[2] - 'a' + 1;
+    U8          toRank      = moveInput[3] - '0';
+    U8          promotion   = moveInput[4];
+
+    U8          t_fromSq    = FR2SQ(fromFile, fromRank);
+    U8          t_toSq      = FR2SQ(toFile, toRank);
+
+    U8          t_prompce   = E_PIECE::OFFBOARD;
+
+    switch (promotion)
+    {
+        case '\0'   :   t_prompce = E_PIECE::EMPTY; break;
+        case '\n'   :   t_prompce = E_PIECE::EMPTY; break;
+        case 'r'    :   t_prompce = E_PIECE::bR;    break;
+        case 'R'    :   t_prompce = E_PIECE::wR;    break;
+        case 'q'    :   t_prompce = E_PIECE::bQ;    break;
+        case 'Q'    :   t_prompce = E_PIECE::wQ;    break;
+        case 'n'    :   t_prompce = E_PIECE::bN;    break;  
+        case 'N'    :   t_prompce = E_PIECE::wN;    break;
+        case 'b'    :   t_prompce = E_PIECE::bB;    break;
+        case 'B'    :   t_prompce = E_PIECE::wB;    break;
+        default     :   t_prompce = E_PIECE::OFFBOARD;  break;
+    }
+
+    // Move move(board, E_SQUARE::Square_Invalid, E_SQUARE::Square_Invalid);
+    // cout << "LEOEL" << (int)t_fromSq << (int)t_toSq << promotion << endl;
+
+    std::vector<Move> moveList;
+    AllMoves(board, moveList);
+
+    for (auto move : moveList)
+    { 
+        if (move.toSquare == t_toSq && move.fromSquare == t_fromSq)
+        {
+            if (move.getPromotedPiece() == t_prompce)
+            {
+                cout << "Yes" << endl;
+                return move;
+            }
+            
+        }
+    }
+
+    Move move(board, E_SQUARE::Square_Invalid, E_SQUARE::Square_Invalid);
+    return move;
+}

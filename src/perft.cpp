@@ -22,6 +22,7 @@ void Perft(int depth, Board& board)
     
     AllMoves(board, moveList);
 
+    // evaluate(board);
     for (auto mv : moveList)
     { 
         if (!MakeMove(board, mv)) 
@@ -32,7 +33,9 @@ void Perft(int depth, Board& board)
         // board.PrintBoard();
         // std::cout << std::endl;
         Perft(depth - 1, board);
+        
         UnmakeMove(board);
+        // assert (e == evaluate(board));
     }
 
     return;
