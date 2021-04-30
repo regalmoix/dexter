@@ -15,6 +15,7 @@
 #include <algorithm>
 #include <numeric>
 #include <chrono>
+#include <fstream>
 
 using std::vector;
 using std::array;
@@ -166,6 +167,17 @@ typedef struct S_MOVE
 
     S_MOVE (U8 from, U8 to, U8 moveInfo, U8 pieceInfo);
 
+
+    // void operator = (S_MOVE& other) 
+    // { 
+    //     std::cout << "Hi" << std::endl;
+    //     this->score         = other.score;
+    //     this->fromSquare    = other.fromSquare;
+    //     this->toSquare      = other.toSquare;
+    //     this->pieceInfo     = other.pieceInfo;
+    //     this->moveData      = other.moveData;
+    // }
+
 } Move;
 
 typedef struct S_HISTORY
@@ -206,51 +218,12 @@ public :
 
     std::vector<History>    moveHistory;
 
-    /** Piece Lists, Bitboards
-     *
-     *  To store pawns in bitboards? Currently removed, saves 24 Bytes. :)
-     *  Piece List ? yes => update functions : no => any disadvantage?
-     *  Using standard arrays for piece lists to save on memory
-    **/
-
-    // U8                               kingSq[2];                      // REDUNDANT ?   
-    // U8                               pieceList[12][10];              // pceList[pce] stores array of squares where Pce exists
     std::array<std::vector<U8>, 12>     pieceList;    
     // std::array<U8, 13>               countPiece;                     // UNUSED ?     //ResetBoard, AddPiece, RemovePiece
     std::bitset<480>                    posBitBoard;                    // Color independant. 4bits per square * 120 squares
     U8                                  brd_array[BOARD_SIZE];
     S16                                 materialScore;
-public :
     U64                                 posHashKey;
-
-    /** NOTE
-     *
-     *  120 * 4 = 480. Bits 0:3 = Sq 0 and Bits 4:7 = Sq 1 and so on...
-     *  Hence Sq i means bits 4*i : 4*i + 3
-    **/
-
-    /** OPEN QUESTIONS
-     *
-     *  Do we store which squares the minor pieces are on?
-     *  Do we store set of legal moves in the position? in a vector or LL?
-     *  Does the generate moves (Set of) function(s) reside as a member function?
-     *  How to modularise
-    **/
-
-    /** TODO
-     *
-     *  Assert in constructor that sideToMove is W or B, not 'Both'
-     *  Set bit of square X on pawn bitboard
-     *  Function Prototypes to retrieve piece at given E_Square sq. [Check if sq is onboard]
-     *  Function Prototypes to remove ''
-     *  Function Prototypes to add    ''
-     *  Much more
-     *  Read and parse FEN
-     *  Write Constructor
-     *  Hashkey to detect 3-fold (player must claim draw) and 5-fold (forced draw) repetition
-     *  Init pieceList while parsing FEN.
-     *  Maintain consistency across member variables
-    **/
 
 public :
     S_BOARD();
@@ -304,23 +277,38 @@ typedef struct S_HASH
 
 typedef struct S_SEARCH
 {
+
 public:
     U8      depthMax;
     U8      depth;
+    U8      movesTillTimeControl;
+    U64     nodesSearched;                                                      // Could be used to estimate search speed
+    bool    quit;                                                               // GUI requested to quit
+    bool    stopped;                                                            // If search is over/stopped 
+    std::vector <std::vector<Move>> principalVariation;
 
     std::chrono::_V2::system_clock::time_point  startTime;
     std::chrono::_V2::system_clock::time_point  stopTime;
     std::chrono::duration<double>               timeMax;
 
-    U8      movesTillTimeControl;
-    U8      nodesSearched;                                                      // Could be used to estimate search speed
+    S_SEARCH(Board board) : depthMax(1), depth(1), movesTillTimeControl(0), nodesSearched(0), quit(false), stopped(false)
+    {
+        Move Invalid_Move (board, E_SQUARE::Square_Invalid, E_SQUARE::Square_Invalid);
 
-    bool    quit;                                                               // GUI requested to quit
-    bool    stopped;                                                            // If search is over/stopped 
+        principalVariation.resize(25);
 
-    void    Search_f      (Board& board);                                         // Iterative Deepening
-    S16     AlphaBeta   (Board& board, S16 alpha, S16 beta, U8 currDepth);      // Alpha Beta Pruning Search till a depth
-    S16     Quiescence  (Board& board, S16 alpha, S16 beta);                    // Search, irrespective of depth, all capture moves till we see a quiet move
+        // for (auto& pv : principalVariation)
+        // {
+        //     for (int i = 0; i < 25; i++)
+        //     {
+        //         pv.push_back(Invalid_Move);
+        //     }
+        // }   
+    }
+
+    void    SearchPosition  (Board& board);                                         // Iterative Deepening
+    S16     AlphaBeta       (Board& board, S16 alpha, S16 beta, U8 currDepth, std::vector<Move>& pv);      // Alpha Beta Pruning Search till a depth
+    S16     Quiescence      (Board& board, S16 alpha, S16 beta);                    // Search, irrespective of depth, all capture moves till we see a quiet move
 
 } Search;
 
@@ -341,6 +329,7 @@ extern bool MakeMove            (Board& board, Move move);
 extern void UnmakeMove          (Board& board);
 extern int  PerftTest           (int depth, Board& board);
 extern void Perft               (int depth, Board& board);
+extern void PerftParser         ();
 extern S_MOVE parseMove         (Board& board, std::string& moveInput);
 extern S16 evaluate             (Board& board);
 #endif
