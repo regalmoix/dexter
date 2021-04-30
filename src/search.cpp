@@ -13,7 +13,7 @@ void S_SEARCH::SearchPosition(Board& board)
     for (currDepth = 1; currDepth <= depthMax; ++currDepth)
     {
         cout << "Curr depth : " << (int)currDepth;
-        score   = AlphaBeta(board, -INF, INF, currDepth, principalVariation[depth]);
+        score   = AlphaBeta(board, -INF, INF, currDepth, principalVariation[currDepth]);
         
         // If time over/stopped, break
 
@@ -21,7 +21,7 @@ void S_SEARCH::SearchPosition(Board& board)
         depth   = currDepth;
         std::cout << "\tScore : " << (int)score << "\tNodes : " << (int) nodesSearched << "\t";
 
-        for (Move m : principalVariation[depth - 1])
+        for (Move m : principalVariation[currDepth])
         {
             if (SQLEGAL(m.fromSquare))
                 std::cout << (char) (SQ2FILE(m.fromSquare) - 1 + 'A')  << SQ2RANK(m.fromSquare) << "->" << char(SQ2FILE(m.toSquare) - 1 + 'A' ) << SQ2RANK(m.toSquare) << " ";

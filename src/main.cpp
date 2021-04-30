@@ -30,7 +30,7 @@ int main()
     Board b (Mate4);
     HASH.GenerateHash(b);
     Search search(b);
-    search.depthMax = 6;
+    search.depthMax = 4;
     // PerftTest(6, b);
     search.SearchPosition(b);
 
