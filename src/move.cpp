@@ -16,6 +16,7 @@
  *  ((CHK) << 7 | (EP) << 6 | (DP) << 5 | (CA) << 3 | (P) << 2 | (PP))
 **/
 
+
 /** Is the move a Capture (Normal / EP)
  *  
  *  @return     true iff move is a capture
@@ -218,6 +219,22 @@ S_MOVE::S_MOVE (Board& board, U8 from, U8 to, U8 moveInfo)
 }
 
 
+/** Private Default Constructor to make Invalid Move static member. 
+ *  
+ *  @param      None
+ *  @return     None
+ * 
+**/
+S_MOVE::S_MOVE ()           // Specifically designed for making Invalid_Move
+{
+    fromSquare  = E_SQUARE::Square_Invalid;
+    toSquare    = E_SQUARE::Square_Invalid;
+    score       = 0;
+    pieceInfo   = 0;
+    moveData    = 0;
+}
+
+
 /** Parse Move returns the Move object correspording to a move notation entered in STDIN.
  *  
  *  @param      board       The current board
@@ -229,8 +246,8 @@ S_MOVE parseMove (Board& board, std::string& moveInput)
 {
     if (moveInput.length() >= 6 || moveInput.length() <= 3 )
     {
-        Move move(board, E_SQUARE::Square_Invalid, E_SQUARE::Square_Invalid);
-        return move;
+        // Move move(board, E_SQUARE::Square_Invalid, E_SQUARE::Square_Invalid);
+        return Move::Invalid_Move;
     }
 
     U8          fromFile    = moveInput[0] - 'a' + 1;
@@ -246,16 +263,16 @@ S_MOVE parseMove (Board& board, std::string& moveInput)
 
     switch (promotion)
     {
-        case '\0'   :   t_prompce = E_PIECE::EMPTY; break;
-        case '\n'   :   t_prompce = E_PIECE::EMPTY; break;
-        case 'r'    :   t_prompce = E_PIECE::bR;    break;
-        case 'R'    :   t_prompce = E_PIECE::wR;    break;
-        case 'q'    :   t_prompce = E_PIECE::bQ;    break;
-        case 'Q'    :   t_prompce = E_PIECE::wQ;    break;
-        case 'n'    :   t_prompce = E_PIECE::bN;    break;  
-        case 'N'    :   t_prompce = E_PIECE::wN;    break;
-        case 'b'    :   t_prompce = E_PIECE::bB;    break;
-        case 'B'    :   t_prompce = E_PIECE::wB;    break;
+        case '\0'   :   t_prompce = E_PIECE::EMPTY;     break;
+        case '\n'   :   t_prompce = E_PIECE::EMPTY;     break;
+        case 'r'    :   t_prompce = E_PIECE::bR;        break;
+        case 'R'    :   t_prompce = E_PIECE::wR;        break;
+        case 'q'    :   t_prompce = E_PIECE::bQ;        break;
+        case 'Q'    :   t_prompce = E_PIECE::wQ;        break;
+        case 'n'    :   t_prompce = E_PIECE::bN;        break;  
+        case 'N'    :   t_prompce = E_PIECE::wN;        break;
+        case 'b'    :   t_prompce = E_PIECE::bB;        break;
+        case 'B'    :   t_prompce = E_PIECE::wB;        break;
         default     :   t_prompce = E_PIECE::OFFBOARD;  break;
     }
 
@@ -271,13 +288,13 @@ S_MOVE parseMove (Board& board, std::string& moveInput)
         {
             if (move.getPromotedPiece() == t_prompce)
             {
-                cout << "Yes" << endl;
+                cout << "[Parsed Input]" << endl;
                 return move;
             }
             
         }
     }
 
-    Move move(board, E_SQUARE::Square_Invalid, E_SQUARE::Square_Invalid);
-    return move;
+    // Move move(board, E_SQUARE::Square_Invalid, E_SQUARE::Square_Invalid);
+    return Move::Invalid_Move;
 }

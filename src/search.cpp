@@ -1,8 +1,18 @@
 #include "header.h"
 
 
-#define INF     ((S16)3e4)
-#define MATE    ((S16)32e3)
+#define INF     ((S16)32e3)
+#define MATE    ((S16)30e3)
+
+// Static Member (like a constant object) to denote Invalid Move. 
+Move Move::Invalid_Move;
+
+
+S_SEARCH::S_SEARCH() : depthMax(1), depth(1), movesTillTimeControl(0), nodesSearched(0), quit(false), stopped(false)
+{
+    principalVariation.resize(25);
+}
+
 
 void S_SEARCH::SearchPosition(Board& board)
 {
@@ -23,22 +33,19 @@ void S_SEARCH::SearchPosition(Board& board)
 
         for (Move m : principalVariation[currDepth])
         {
-            if (SQLEGAL(m.fromSquare))
-                std::cout << (char) (SQ2FILE(m.fromSquare) - 1 + 'A')  << SQ2RANK(m.fromSquare) << "->" << char(SQ2FILE(m.toSquare) - 1 + 'A' ) << SQ2RANK(m.toSquare) << " ";
+            std::cout << (char) (SQ2FILE(m.fromSquare) - 1 + 'A')  << SQ2RANK(m.fromSquare) << "->" << char(SQ2FILE(m.toSquare) - 1 + 'A' ) << SQ2RANK(m.toSquare) << " ";
         }
 
         cout << endl;
-    }
 
+    }
 }
 
 
 S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth, std::vector<Move>& pv)
 {
-    // S16 ogAlpha = alpha;
-
     std::vector<Move> bestLine;
-
+    
     bool isMate     = true;         // Stale Mate or Check Mate either counts as mate
     Move bestMove (board, E_SQUARE::Square_Invalid, E_SQUARE::Square_Invalid);
 
@@ -82,7 +89,6 @@ S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth, std::v
         }
     }
 
-
     if (isMate)
     {
         U8 king                     = ((board.GetSideToMove() == E_COLOR::WHITE) ? E_PIECE::wK : E_PIECE::bK);
@@ -100,19 +106,12 @@ S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth, std::v
                 
         if (isAttacked(board, kingSq))
         {
-            return -MATE;
+            return -(MATE);
         }
 
         else
             return 0;
     }
-
-    // if (alpha != ogAlpha)
-    // {
-    //         principalVariation[currDepth].clear();
-    //         principalVariation[depth].push_back(bestMove);
-    //         principalVariation[depth].insert(std::end(principalVariation[depth]), std::begin(bestLine), std::end(bestLine));
-    // }
 
     return alpha;
 }

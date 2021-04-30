@@ -17,6 +17,8 @@
 #include <chrono>
 #include <fstream>
 
+#include <string.h>
+
 using std::vector;
 using std::array;
 using std::cout;
@@ -122,7 +124,8 @@ typedef struct S_MOVE
     U8                      toSquare;
     U8                      pieceInfo;                      // 4 bits each for moving/curr piece[3..0] and captured piece [7..4]
     U8                      moveData;
-
+    static S_MOVE           Invalid_Move;
+    
     /** NOTE
      *
      *  Bit representation format of moveData.
@@ -167,17 +170,8 @@ typedef struct S_MOVE
 
     S_MOVE (U8 from, U8 to, U8 moveInfo, U8 pieceInfo);
 
-
-    // void operator = (S_MOVE& other) 
-    // { 
-    //     std::cout << "Hi" << std::endl;
-    //     this->score         = other.score;
-    //     this->fromSquare    = other.fromSquare;
-    //     this->toSquare      = other.toSquare;
-    //     this->pieceInfo     = other.pieceInfo;
-    //     this->moveData      = other.moveData;
-    // }
-
+private:
+    S_MOVE ();           // Specifically designed for making Invalid_Move
 } Move;
 
 typedef struct S_HISTORY
@@ -277,7 +271,6 @@ typedef struct S_HASH
 
 typedef struct S_SEARCH
 {
-
 public:
     U8      depthMax;
     U8      depth;
@@ -285,31 +278,20 @@ public:
     U64     nodesSearched;                                                      // Could be used to estimate search speed
     bool    quit;                                                               // GUI requested to quit
     bool    stopped;                                                            // If search is over/stopped 
+
+
+
     std::vector <std::vector<Move>> principalVariation;
 
     std::chrono::_V2::system_clock::time_point  startTime;
     std::chrono::_V2::system_clock::time_point  stopTime;
     std::chrono::duration<double>               timeMax;
 
-    S_SEARCH(Board board) : depthMax(1), depth(1), movesTillTimeControl(0), nodesSearched(0), quit(false), stopped(false)
-    {
-        Move Invalid_Move (board, E_SQUARE::Square_Invalid, E_SQUARE::Square_Invalid);
+    S_SEARCH();
 
-        principalVariation.resize(25);
-
-        // for (auto& pv : principalVariation)
-        // {
-        //     for (int i = 0; i < 25; i++)
-        //     {
-        //         pv.push_back(Invalid_Move);
-        //     }
-        // }   
-    }
-
-    void    SearchPosition  (Board& board);                                         // Iterative Deepening
-    S16     AlphaBeta       (Board& board, S16 alpha, S16 beta, U8 currDepth, std::vector<Move>& pv);      // Alpha Beta Pruning Search till a depth
-    S16     Quiescence      (Board& board, S16 alpha, S16 beta);                    // Search, irrespective of depth, all capture moves till we see a quiet move
-
+    void    SearchPosition  (Board& board);                                                                 // Iterative Deepening
+    S16     AlphaBeta       (Board& board, S16 alpha, S16 beta, U8 currDepth, std::vector<Move>& pv);       // Alpha Beta Pruning Search till a depth
+    S16     Quiescence      (Board& board, S16 alpha, S16 beta);                                            // Search, irrespective of depth, all capture moves till we see a quiet move
 } Search;
 
 /** GLOBAL VARIABLES **/

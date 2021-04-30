@@ -29,11 +29,9 @@ int main()
     // Board b("r4rk1/1qpp2pp/bp6/p2P1P2/P4pP1/5Q2/B1P4R/2K4R w - - 0 1");
     Board b (Mate4);
     HASH.GenerateHash(b);
-    Search search(b);
+    Search search;
     search.depthMax = 4;
-    // PerftTest(6, b);
     search.SearchPosition(b);
-
 
     return 0;
 }
