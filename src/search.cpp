@@ -25,6 +25,10 @@ void S_SEARCH::SearchPosition(Board& board)
 
     startTime = std::chrono::high_resolution_clock::now();
 
+
+    printf("D  |    Score   |    Speed    |   Ord %%   |\tPV\n");
+    printf("---|------------|-------------|-----------|-----------------------------------------\n");
+
     for (currDepth = 1; currDepth <= depthMax; ++currDepth)
     {
         score   = AlphaBeta(board, -INF, INF, currDepth, principalVariation[currDepth]);
@@ -37,7 +41,7 @@ void S_SEARCH::SearchPosition(Board& board)
         std::chrono::duration<double> elapsed   = stopTime - startTime;
         U16 speed   = nodesSearched/(1000*elapsed.count());
 
-        printf("Depth : %2d  |  Score : %8.3f  |  Speed : %6dKN/s  |  Ordering : %5.3f  |  PV : ", depth, (float)score/100, speed, (float)firstMoveFailHigh/(float)failHigh);
+        printf("%-2d |  %8.3f  | %6dKN/s  |   %5.2f   | ", depth, (float)score/100, speed, 100*(float)firstMoveFailHigh/(float)failHigh);
 
         for (Move m : principalVariation[currDepth])
         {
@@ -69,7 +73,8 @@ S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth, std::v
     std::vector<Move> moveList;
     AllMoves(board, moveList);
 
-    std::sort(moveList.rbegin(), moveList.rend());
+    // std::stable_sort(moveList.rbegin(), moveList.rend());
+
 
     U16 legalCount = 0;
     for (Move move : moveList)
@@ -82,7 +87,7 @@ S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth, std::v
         legalCount++;
 
         bestLine.clear();
-        S16 score = -1 * AlphaBeta(board, -1*beta, -1*alpha, currDepth - 1, bestLine);
+        S16 score = -AlphaBeta(board, -beta, -alpha, currDepth - 1, bestLine);
 
         UnmakeMove(board); 
 

@@ -292,6 +292,13 @@ void S_BOARD::ParseFen (std::string fenString)
 
     // fenStringTokens[5] => Num of fullmoves, incremented after Black plays
     plys = 2 * std::stoi(fenStringTokens[5]) + sideToMove - 2;
+
+    // Initialise the material score.
+    for (U8 pce = E_PIECE::wP; pce <= E_PIECE::bK; pce++)
+    {
+        U8 pceCnt       =  GetSquareList(pce).size() - 1;
+        materialScore   += pceCnt * pieceValues[pce];
+    }
 }
 
 

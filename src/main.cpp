@@ -27,10 +27,17 @@ int main()
     std::string FEN2    = "4k3/8/8/8/8/8/8/R3K3 w Q - 0 1";
 
     // Board b("r4rk1/1qpp2pp/bp6/p2P1P2/P4pP1/5Q2/B1P4R/2K4R w - - 0 1");
-    Board b (f);
+    // Board b ("r1b1k2r/ppppnppp/2n2q2/2b5/3NP3/2P1B3/PP3PPP/RN1QKB1R w KQkq - 0 1");
+    //Board b(Mate4);
+    Board b("r4r1k/1R1R2p1/7p/8/8/3Q1Ppq/P7/6K1 w - - 0 1");
+    b.PrintBoard();
+
+    std::cout << "\n\n";
     HASH.GenerateHash(b);
+
+    // cout << "Mat Score " << b.materialScore << endl;
     Search search;
-    search.depthMax = 7;
+    search.depthMax = 12;
     search.SearchPosition(b);
 
     return 0;

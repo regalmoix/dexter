@@ -225,10 +225,12 @@ bool isAttacked(Board& board, U8 sq120, S8 attackingside)
 **/
 void addQuietMove(Move& move, std::vector<S_MOVE>& moveList)       // Here means No Capture
 {
+    move.score = 0;
     moveList.push_back(move);
 }
 
 
+static const int victimscores[13] = {0, 100, 200, 300, 400, 500, 600, 100, 200, 300, 400, 500, 600};
 /** Adds a capture move to the move list
  *  @param      move        The move object containing the data and metadata of the move
  *  @param      moveList    List of pseudo-Legal Moves
@@ -237,7 +239,29 @@ void addQuietMove(Move& move, std::vector<S_MOVE>& moveList)       // Here means
 void addCaptureMove(Move& move, std::vector<S_MOVE>& moveList)
 {
     // PURELY TESTING
-    move.score = 1;
+    U8 mvPce    = pieceValues[move.getMovingPiece()];
+    U8 cpPce    = pieceValues[move.getCapturedPiece()];
+
+    U8 currSide = PIECECOLOR(mvPce);
+
+    if (currSide == E_COLOR::WHITE)
+        move.score = -mvPce - 2*cpPce;
+ 
+    else
+        move.score = mvPce + 2*cpPce;
+
+
+    // To ensure all captures (good or bad) are above Quiet Moves
+    if (move.score < 100)
+    {
+        move.score = 100;
+    }
+
+    // mvPce    = victimscores[move.getMovingPiece()];
+    // cpPce    = victimscores[move.getCapturedPiece()];
+    // move.score += cpPce + 6 - mvPce/100;
+    
+    // move.score = 0;
     moveList.push_back(move);
 }
 

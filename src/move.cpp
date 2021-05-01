@@ -300,7 +300,6 @@ S_MOVE parseMove (Board& board, std::string& moveInput)
 }
 
 
-
 bool S_MOVE::operator <(const Move& other) const
 {
     return score < other.score;
