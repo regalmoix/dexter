@@ -245,10 +245,10 @@ void addCaptureMove(Move& move, std::vector<S_MOVE>& moveList)
     U8 currSide = PIECECOLOR(mvPce);
 
     if (currSide == E_COLOR::WHITE)
-        move.score = -mvPce - 2*cpPce;
+        move.score = -mvPce - 10*cpPce;
  
     else
-        move.score = mvPce + 2*cpPce;
+        move.score = mvPce + 10*cpPce;
 
 
     // To ensure all captures (good or bad) are above Quiet Moves

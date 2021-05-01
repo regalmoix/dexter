@@ -65,7 +65,7 @@ const int Mirror64[64] = {
                                     // E,  P,   N,   B,   R,   Q,    K,     p,    n,    b,    r,    q,     k   
 const std::vector<S16> pieceValues    {0, 100, 290, 310, 550, 950, 10000, -100, -290, -310, -550, -950, -10000};
 
-S16 evaluate(Board& board)
+S16 evaluate1(Board& board)
 {
     U8 t_score = board.materialScore;
     if (board.GetSideToMove() == E_COLOR::BLACK)
@@ -75,7 +75,7 @@ S16 evaluate(Board& board)
 }
 
 
-S16 evaluate1(S_BOARD& board) 
+S16 evaluate(S_BOARD& board) 
 {
 
     U8 t_score = board.materialScore;
