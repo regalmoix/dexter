@@ -28,17 +28,35 @@ int main()
 
     // Board b("r4rk1/1qpp2pp/bp6/p2P1P2/P4pP1/5Q2/B1P4R/2K4R w - - 0 1");
     // Board b ("r1b1k2r/ppppnppp/2n2q2/2b5/3NP3/2P1B3/PP3PPP/RN1QKB1R w KQkq - 0 1");
-    //Board b(Mate4);
-    Board b("6k1/ppp2pp1/1q4b1/5rQp/8/1P6/PBP2PPP/3R2K1 w Q - 0 1");
-    b.PrintBoard();
+    // Board b("1k2r2r/ppp2p1p/3p1np1/1q1p4/3P4/1PQ2Pb1/PBP1P1PP/RN1K3R b - - 1 2");
+    // Board b("6k1/ppp2pp1/1q4b1/5rQp/8/1P6/PBP2PPP/3R2K1 w Q - 0 1");
+
+    Board b(f);
 
     std::cout << "\n\n";
     HASH.GenerateHash(b);
 
     // cout << "Mat Score " << b.materialScore << endl;
     Search search;
-    search.depthMax = 12;
+    search.depthMax = 15;
     search.SearchPosition(b);
+
+    b.PrintBoard();
+    // std::cout << "Eval :" << evaluate(b) << " Mat Score : " << evaluate1(b)  << endl << endl;
+
+    // int n = 6;
+    
+    // while (n--)
+    // {
+    //     string s;
+    //     cin >> s;
+
+    //     MakeMove(b, parseMove(b, s));
+
+    //     b.PrintBoard();
+    //     std::cout << "Eval :" << evaluate(b) << " Mat Score : " << evaluate(b)  << endl << endl;
+
+    // }
 
     return 0;
 }

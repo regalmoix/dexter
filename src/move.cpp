@@ -157,6 +157,7 @@ U8 S_MOVE::getCastle()
 **/
 S_MOVE::S_MOVE(Board& board, U8 from, U8 to)                 // Assume Non Special Move
 {
+    score           = 0;
     fromSquare      = from;
     toSquare        = to;
 
@@ -193,6 +194,7 @@ S_MOVE::S_MOVE(Board& board, U8 from, U8 to)                 // Assume Non Speci
 **/
 S_MOVE::S_MOVE (Board& board, U8 from, U8 to, U8 moveInfo)
 {
+    score           = 0;
     fromSquare      = from;
     toSquare        = to;
     
@@ -227,6 +229,7 @@ S_MOVE::S_MOVE (Board& board, U8 from, U8 to, U8 moveInfo)
 **/
 S_MOVE::S_MOVE ()           // Specifically designed for making Invalid_Move
 {
+    score           = 0;
     fromSquare  = E_SQUARE::Square_Invalid;
     toSquare    = E_SQUARE::Square_Invalid;
     score       = 0;
@@ -303,4 +306,10 @@ S_MOVE parseMove (Board& board, std::string& moveInput)
 bool S_MOVE::operator <(const Move& other) const
 {
     return score < other.score;
+}
+
+
+bool S_MOVE::operator >(const Move& other) const
+{
+    return score > other.score;
 }

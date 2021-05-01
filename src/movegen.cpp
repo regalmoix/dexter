@@ -239,10 +239,10 @@ static const int victimscores[13] = {0, 100, 200, 300, 400, 500, 600, 100, 200, 
 void addCaptureMove(Move& move, std::vector<S_MOVE>& moveList)
 {
     // PURELY TESTING
-    U8 mvPce    = pieceValues[move.getMovingPiece()];
-    U8 cpPce    = pieceValues[move.getCapturedPiece()];
+    S16 mvPce    = pieceValues[move.getMovingPiece()];
+    S16 cpPce    = pieceValues[move.getCapturedPiece()];
 
-    U8 currSide = PIECECOLOR(mvPce);
+    S16 currSide = PIECECOLOR(mvPce);
 
     if (currSide == E_COLOR::WHITE)
         move.score = -mvPce - 10*cpPce;
@@ -257,9 +257,9 @@ void addCaptureMove(Move& move, std::vector<S_MOVE>& moveList)
         move.score = 100;
     }
 
-    // mvPce    = victimscores[move.getMovingPiece()];
-    // cpPce    = victimscores[move.getCapturedPiece()];
-    // move.score += cpPce + 6 - mvPce/100;
+    mvPce    = victimscores[move.getMovingPiece()];
+    cpPce    = victimscores[move.getCapturedPiece()];
+    move.score = cpPce + 6 - mvPce/100;
     
     // move.score = 0;
     moveList.push_back(move);

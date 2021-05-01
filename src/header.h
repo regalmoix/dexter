@@ -172,6 +172,8 @@ typedef struct S_MOVE
 
     bool operator <(const S_MOVE& other) const;
 
+    bool operator >(const S_MOVE& other) const;
+
 private:
     S_MOVE ();           // Specifically designed for making Invalid_Move
 } Move;
@@ -196,15 +198,13 @@ public:
 } History;
 
 typedef struct S_BOARD
-{
-    
+{ 
 /** DESCRIPTION
  *
  *  This Data Structure aims to store all properties that uniquely define a board
  *  Additional properties are stored with aim of improving calculations at cost of memory
  *  Additionally, member functions to assist with D.S. manipulation are WIP
 **/
-
 public :
     U16                     plys;
     U8                      sideToMove;
@@ -216,7 +216,7 @@ public :
 
     std::array<std::vector<U8>, 12>     pieceList;    
     // std::array<U8, 13>               countPiece;                     // UNUSED ?     //ResetBoard, AddPiece, RemovePiece
-    std::bitset<480>                    posBitBoard;                    // Color independant. 4bits per square * 120 squares
+    // std::bitset<480>                    posBitBoard;                    // Color independant. 4bits per square * 120 squares
     U8                                  brd_array[BOARD_SIZE];
     S16                                 materialScore;
     U64                                 posHashKey;
@@ -317,4 +317,6 @@ extern void Perft               (int depth, Board& board);
 extern void PerftParser         ();
 extern S_MOVE parseMove         (Board& board, std::string& moveInput);
 extern S16 evaluate             (Board& board);
+extern S16 evaluate1            (Board& board);
+
 #endif

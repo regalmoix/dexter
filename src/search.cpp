@@ -41,6 +41,9 @@ void S_SEARCH::SearchPosition(Board& board)
         std::chrono::duration<double> elapsed   = stopTime - startTime;
         U16 speed   = nodesSearched/(1000*elapsed.count());
 
+        // if (abs(score) > MATE - 100)
+        // printf("%-2d |  %7.2f  | %6dKN/s  |   %5.2f   | ", depth, (float)score/100, speed, 100*(float)firstMoveFailHigh/(float)failHigh);
+        // else            
         printf("%-2d |  %7.2f  | %6dKN/s  |   %5.2f   | ", depth, (float)score/100, speed, 100*(float)firstMoveFailHigh/(float)failHigh);
 
         for (Move m : principalVariation[currDepth])
@@ -59,7 +62,7 @@ S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth, std::v
     std::vector<Move> bestLine;
     
     bool isMate     = true;         // Stale Mate or Check Mate either counts as mate
-    Move bestMove (board, E_SQUARE::Square_Invalid, E_SQUARE::Square_Invalid);
+    Move bestMove   = Move::Invalid_Move;
 
     if (currDepth == 0)
     {
@@ -73,13 +76,13 @@ S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth, std::v
     std::vector<Move> moveList;
     AllMoves(board, moveList);
 
-    std::stable_sort(moveList.rbegin(), moveList.rend());
+    std::sort(moveList.begin(), moveList.end(), std::greater<Move>());
 
 
     U16 legalCount = 0;
+
     for (Move move : moveList)
     {
-        
         if (!MakeMove(board, move))  
             continue;
 
@@ -131,7 +134,7 @@ S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth, std::v
                 
         if (isAttacked(board, kingSq))
         {
-            return -(MATE);
+            return -(MATE) + depth;
         }
 
         else

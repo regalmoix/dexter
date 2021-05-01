@@ -437,7 +437,7 @@ void S_BOARD::PrintBoard ()
 **/
 void S_BOARD::ResetBoard()
 {
-    posBitBoard = 0;
+    // posBitBoard = 0;
     sideToMove = E_COLOR::BOTH;
     fiftyMoveRuleCount = 0;
     posHashKey = 0;
