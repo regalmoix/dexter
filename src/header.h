@@ -16,8 +16,8 @@
 #include <numeric>
 #include <chrono>
 #include <fstream>
+#include <iomanip>
 
-#include <string.h>
 
 using std::vector;
 using std::array;
@@ -170,6 +170,8 @@ typedef struct S_MOVE
 
     S_MOVE (U8 from, U8 to, U8 moveInfo, U8 pieceInfo);
 
+    bool operator <(const S_MOVE& other) const;
+
 private:
     S_MOVE ();           // Specifically designed for making Invalid_Move
 } Move;
@@ -278,7 +280,8 @@ public:
     U64     nodesSearched;                                                      // Could be used to estimate search speed
     bool    quit;                                                               // GUI requested to quit
     bool    stopped;                                                            // If search is over/stopped 
-
+    U64     failHigh;
+    U64     firstMoveFailHigh;
 
 
     std::vector <std::vector<Move>> principalVariation;

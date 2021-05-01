@@ -236,6 +236,8 @@ void addQuietMove(Move& move, std::vector<S_MOVE>& moveList)       // Here means
 **/
 void addCaptureMove(Move& move, std::vector<S_MOVE>& moveList)
 {
+    // PURELY TESTING
+    move.score = 1;
     moveList.push_back(move);
 }
 

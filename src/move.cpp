@@ -298,3 +298,10 @@ S_MOVE parseMove (Board& board, std::string& moveInput)
     // Move move(board, E_SQUARE::Square_Invalid, E_SQUARE::Square_Invalid);
     return Move::Invalid_Move;
 }
+
+
+
+bool S_MOVE::operator <(const Move& other) const
+{
+    return score < other.score;
+}

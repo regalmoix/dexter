@@ -27,10 +27,10 @@ int main()
     std::string FEN2    = "4k3/8/8/8/8/8/8/R3K3 w Q - 0 1";
 
     // Board b("r4rk1/1qpp2pp/bp6/p2P1P2/P4pP1/5Q2/B1P4R/2K4R w - - 0 1");
-    Board b (Mate4);
+    Board b (f);
     HASH.GenerateHash(b);
     Search search;
-    search.depthMax = 4;
+    search.depthMax = 7;
     search.SearchPosition(b);
 
     return 0;

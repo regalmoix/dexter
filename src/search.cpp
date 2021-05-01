@@ -8,8 +8,11 @@
 Move Move::Invalid_Move;
 
 
-S_SEARCH::S_SEARCH() : depthMax(1), depth(1), movesTillTimeControl(0), nodesSearched(0), quit(false), stopped(false)
+S_SEARCH::S_SEARCH() :  depthMax(1), depth(1), movesTillTimeControl(0), nodesSearched(0), 
+                        quit(false), stopped(false), 
+                        failHigh(1), firstMoveFailHigh(0)
 {
+    // Fail High (Beta Cutoff) set to 1 to prevent divide by zero errors
     principalVariation.resize(25);
 }
 
@@ -20,16 +23,21 @@ void S_SEARCH::SearchPosition(Board& board)
     S16 score       = 0;
     U8  currDepth   = 0;
 
+    startTime = std::chrono::high_resolution_clock::now();
+
     for (currDepth = 1; currDepth <= depthMax; ++currDepth)
     {
-        cout << "Curr depth : " << (int)currDepth;
         score   = AlphaBeta(board, -INF, INF, currDepth, principalVariation[currDepth]);
         
         // If time over/stopped, break
 
         // Iff AB Complete, we can set depth to currDepth [Probably redundant, check later.]
-        depth   = currDepth;
-        std::cout << "\tScore : " << (int)score << "\tNodes : " << (int) nodesSearched << "\t";
+        depth       = currDepth;
+        stopTime    = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> elapsed   = stopTime - startTime;
+        U16 speed   = nodesSearched/(1000*elapsed.count());
+
+        printf("Depth : %2d  |  Score : %8.3f  |  Speed : %6dKN/s  |  Ordering : %5.3f  |  PV : ", depth, (float)score/100, speed, (float)firstMoveFailHigh/(float)failHigh);
 
         for (Move m : principalVariation[currDepth])
         {
@@ -55,15 +63,23 @@ S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth, std::v
         return Quiescence(board, alpha, beta);
     }
 
+    // All Nodes visited by Search includes A-B + Quiescence 
+    nodesSearched++;
+
     std::vector<Move> moveList;
     AllMoves(board, moveList);
 
+    std::sort(moveList.rbegin(), moveList.rend());
+
+    U16 legalCount = 0;
     for (Move move : moveList)
     {
+        
         if (!MakeMove(board, move))  
             continue;
 
         isMate = false;
+        legalCount++;
 
         bestLine.clear();
         S16 score = -1 * AlphaBeta(board, -1*beta, -1*alpha, currDepth - 1, bestLine);
@@ -74,6 +90,10 @@ S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth, std::v
 
         if (score >= beta)
         {
+            if (legalCount == 1)
+                firstMoveFailHigh++;
+            
+            failHigh++;
             return beta;
         }
         
