@@ -26,8 +26,8 @@ void S_SEARCH::SearchPosition(Board& board)
     startTime = std::chrono::high_resolution_clock::now();
 
 
-    printf("D  |   Score   |    Speed    |   Ord %%   |\tPV\n");
-    printf("---|-----------|-------------|-----------|-----------------------------------------\n");
+    printf("D  |   Score   |    Speed    |  Ord %%  |\t\tPV\n");
+    printf("---|-----------|-------------|---------|---------------------------------------------------\n");
 
     for (currDepth = 1; currDepth <= depthMax; ++currDepth)
     {
@@ -44,15 +44,13 @@ void S_SEARCH::SearchPosition(Board& board)
         // if (abs(score) > MATE - 100)
         // printf("%-2d |  %7.2f  | %6dKN/s  |   %5.2f   | ", depth, (float)score/100, speed, 100*(float)firstMoveFailHigh/(float)failHigh);
         // else            
-        printf("%-2d |  %7.2f  | %6dKN/s  |   %5.2f   | ", depth, (float)score/100, speed, 100*(float)firstMoveFailHigh/(float)failHigh);
+        printf("%-2d |  %7.2f  | %6dKN/s  |  %5.2f  |  ", depth, (float)score/100, speed, 100*(float)firstMoveFailHigh/(float)failHigh);
 
         for (Move m : principalVariation[currDepth])
         {
             std::cout << (char) (SQ2FILE(m.fromSquare) - 1 + 'A')  << SQ2RANK(m.fromSquare) << "->" << char(SQ2FILE(m.toSquare) - 1 + 'A' ) << SQ2RANK(m.toSquare) << " ";
         }
-
         cout << endl;
-
     }
 }
 
@@ -67,7 +65,7 @@ S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth, std::v
     if (currDepth == 0)
     {
         pv.clear();
-        return Quiescence(board, alpha, beta);
+        return Quiescence(board, alpha, beta, pv);
     }
 
     // All Nodes visited by Search includes A-B + Quiescence 
@@ -145,9 +143,70 @@ S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth, std::v
 }
 
 
-S16 S_SEARCH::Quiescence (Board& board, S16 alpha, S16 beta)
+S16 S_SEARCH::Quiescence (Board& board, S16 alpha, S16 beta, std::vector<Move>& pv)
 {
-    this->nodesSearched ++;
-    this->nodesSearched += alpha - alpha + beta - beta;
-    return evaluate(board);
+    std::vector<Move> bestLine;
+    // Move bestMove   = Move::Invalid_Move;
+
+    nodesSearched++;
+
+    auto eval = evaluate(board);
+
+    if (eval >= beta)
+        return beta;
+
+    if (eval > alpha)
+        alpha = eval;
+
+
+    std::vector<Move> moveList_all;
+    std::vector<Move> moveList;
+
+    AllMoves(board, moveList_all);
+
+    for (Move& move : moveList_all)
+    {
+        if (move.score != 0)
+        {
+            moveList.push_back(move);
+        }
+    }
+
+    std::sort(moveList.begin(), moveList.end(), std::greater<Move>());
+
+    U16 legalCount = 0;
+    for (Move move : moveList)
+    {
+        if (!MakeMove(board, move))  
+            continue;
+
+        legalCount++;
+
+        bestLine.clear();
+        S16 score = -Quiescence(board, -beta, -alpha, bestLine);
+
+        UnmakeMove(board); 
+
+        // Fail Hard ==> alpha <= score <= beta
+
+        if (score >= beta)
+        {
+            if (legalCount == 1)
+                firstMoveFailHigh++;
+            
+            failHigh++;
+            return beta;
+        }
+        
+        if (score > alpha)
+        {
+            pv.clear();
+            pv.push_back(move);
+            pv.insert(std::end(pv), std::begin(bestLine), std::end(bestLine));
+ 
+            alpha       = score;
+        }
+    }
+
+    return alpha;
 }

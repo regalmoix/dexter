@@ -216,7 +216,7 @@ public :
 
     std::array<std::vector<U8>, 12>     pieceList;    
     // std::array<U8, 13>               countPiece;                     // UNUSED ?     //ResetBoard, AddPiece, RemovePiece
-    // std::bitset<480>                    posBitBoard;                    // Color independant. 4bits per square * 120 squares
+    // std::bitset<480>                 posBitBoard;                    // Color independant. 4bits per square * 120 squares
     U8                                  brd_array[BOARD_SIZE];
     S16                                 materialScore;
     U64                                 posHashKey;
@@ -294,7 +294,7 @@ public:
 
     void    SearchPosition  (Board& board);                                                                 // Iterative Deepening
     S16     AlphaBeta       (Board& board, S16 alpha, S16 beta, U8 currDepth, std::vector<Move>& pv);       // Alpha Beta Pruning Search till a depth
-    S16     Quiescence      (Board& board, S16 alpha, S16 beta);                                            // Search, irrespective of depth, all capture moves till we see a quiet move
+    S16     Quiescence      (Board& board, S16 alpha, S16 beta, std::vector<Move>& pv);                                            // Search, irrespective of depth, all capture moves till we see a quiet move
 } Search;
 
 /** GLOBAL VARIABLES **/

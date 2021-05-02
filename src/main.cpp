@@ -31,14 +31,14 @@ int main()
     // Board b("1k2r2r/ppp2p1p/3p1np1/1q1p4/3P4/1PQ2Pb1/PBP1P1PP/RN1K3R b - - 1 2");
     // Board b("6k1/ppp2pp1/1q4b1/5rQp/8/1P6/PBP2PPP/3R2K1 w Q - 0 1");
 
-    Board b(f);
+    Board b(Mate);
 
     std::cout << "\n\n";
     HASH.GenerateHash(b);
 
     // cout << "Mat Score " << b.materialScore << endl;
     Search search;
-    search.depthMax = 15;
+    search.depthMax = 10;
     search.SearchPosition(b);
 
     b.PrintBoard();

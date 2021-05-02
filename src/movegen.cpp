@@ -257,9 +257,9 @@ void addCaptureMove(Move& move, std::vector<S_MOVE>& moveList)
         move.score = 100;
     }
 
-    mvPce    = victimscores[move.getMovingPiece()];
-    cpPce    = victimscores[move.getCapturedPiece()];
-    move.score = cpPce + 6 - mvPce/100;
+    // mvPce    = victimscores[move.getMovingPiece()];
+    // cpPce    = victimscores[move.getCapturedPiece()];
+    // move.score = cpPce + 6 - mvPce/100;
     
     // move.score = 0;
     moveList.push_back(move);
