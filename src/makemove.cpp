@@ -346,21 +346,24 @@ void UnmakeMove (Board& board)
     U8 to       = move.toSquare;
 
     // if (SQLEGAL(board.enPassantSquare))
-    UNHASHEP(board, board.enPassantSquare);
-    UNHASHCASTLE(board, board.GetCastleRights());
-    UNHASHSIDE(board, board.GetSideToMove());
+    
+    // Commented as We can retrieve hash from history
+    // UNHASHEP(board, board.enPassantSquare);
+    // UNHASHCASTLE(board, board.GetCastleRights());
+    // UNHASHSIDE(board, board.GetSideToMove());
 
     // Restore the data fields from history and flip back the side to move
     board.castleRights          = histData.castlePermissions;
     board.fiftyMoveRuleCount    = histData.fiftyCount;
     board.enPassantSquare       = histData.enPassantSquare;
     board.sideToMove            ^= 1;
-    // board.posHashKey            = histData.posHashKey;   // Possible to directly use the stored Hash Key instead of unhashing like we do now.
 
     // if (SQLEGAL(board.enPassantSquare))
-    HASHEP(board, board.enPassantSquare);
-    HASHCASTLE(board, board.GetCastleRights());
-    HASHSIDE(board, board.GetSideToMove());
+    
+    // Commented as We can retrieve hash from history
+    // HASHEP(board, board.enPassantSquare);
+    // HASHCASTLE(board, board.GetCastleRights());
+    // HASHSIDE(board, board.GetSideToMove());
 
 
     if (move.isEPCapture())
@@ -434,7 +437,8 @@ void UnmakeMove (Board& board)
         AddPiece(board, from, (board.GetSideToMove() == E_COLOR::WHITE) ? E_PIECE::wP : E_PIECE::bP);
     }
     
-
+    board.posHashKey            = histData.posHashKey;   // Possible to directly use the stored Hash Key instead of unhashing like we do now.
+    
     assert (board.posHashKey == histData.posHashKey);
     assert (board.posHashKey == HASH.GenerateHash(board));
 }

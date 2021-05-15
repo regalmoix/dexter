@@ -22,12 +22,13 @@ void S_SEARCH::SearchPosition(Board& board)
     // Iterative Deepening
     S16 score       = 0;
     U8  currDepth   = 0;
+    Move bestMove   = Move::Invalid_Move;
 
     startTime = std::chrono::high_resolution_clock::now();
 
 
-    printf("D  |   Score   |    Speed    |  Ord %%  |\t\tPV\n");
-    printf("---|-----------|-------------|---------|---------------------------------------------------\n");
+    // printf("D  |   Score   |    Speed    |  Ord %%  |\t\tPV\n");
+    // printf("---|-----------|-------------|---------|---------------------------------------------------\n");
 
     for (currDepth = 1; currDepth <= depthMax; ++currDepth)
     {
@@ -39,19 +40,27 @@ void S_SEARCH::SearchPosition(Board& board)
         depth       = currDepth;
         stopTime    = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> elapsed   = stopTime - startTime;
-        U16 speed   = nodesSearched/(1000*elapsed.count());
+        // U16 speed   = nodesSearched/(1000*elapsed.count());
+
+        bestMove    = principalVariation[currDepth][0];
 
         // if (abs(score) > MATE - 100)
         // printf("%-2d |  %7.2f  | %6dKN/s  |   %5.2f   | ", depth, (float)score/100, speed, 100*(float)firstMoveFailHigh/(float)failHigh);
         // else            
-        printf("%-2d |  %7.2f  | %6dKN/s  |  %5.2f  |  ", depth, (float)score/100, speed, 100*(float)firstMoveFailHigh/(float)failHigh);
+        // printf("%-2d |  %7.2f  | %6dKN/s  |  %5.2f  |  ", depth, (float)score/100, speed, 100*(float)firstMoveFailHigh/(float)failHigh);
 
+        printf("\ninfo score cp %d depth %d nodes %ld time %d pv", score, depth, nodesSearched, (int)(1000*elapsed.count()));
         for (Move m : principalVariation[currDepth])
         {
-            std::cout << (char) (SQ2FILE(m.fromSquare) - 1 + 'A')  << SQ2RANK(m.fromSquare) << "->" << char(SQ2FILE(m.toSquare) - 1 + 'A' ) << SQ2RANK(m.toSquare) << " ";
+            if (SQLEGAL(m.fromSquare))
+                std::cout << " " << (char) (SQ2FILE(m.fromSquare) - 1 + 'a')  << SQ2RANK(m.fromSquare) << char(SQ2FILE(m.toSquare) - 1 + 'a' ) << SQ2RANK(m.toSquare);
         }
-        cout << endl;
+
+        fflush(stdout);
     }
+    printf("\nbestmove");
+
+    std::cout << " " << (char) (SQ2FILE(bestMove.fromSquare) - 1 + 'a')  << SQ2RANK(bestMove.fromSquare) << char(SQ2FILE(bestMove.toSquare) - 1 + 'a' ) << SQ2RANK(bestMove.toSquare) << std::endl;
 }
 
 
@@ -79,7 +88,7 @@ S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth, std::v
 
     U16 legalCount = 0;
 
-    for (Move move : moveList)
+    for (Move& move : moveList)
     {
         if (!MakeMove(board, move))  
             continue;
@@ -110,6 +119,8 @@ S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth, std::v
 
             pv.clear();
             pv.push_back(move);
+            //std::fill(pv.begin(), pv.end(), Move::Invalid_Move);
+            // pv.insert(std::begin(pv), move);
             pv.insert(std::end(pv), std::begin(bestLine), std::end(bestLine));
     
         }
@@ -146,7 +157,6 @@ S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth, std::v
 S16 S_SEARCH::Quiescence (Board& board, S16 alpha, S16 beta, std::vector<Move>& pv)
 {
     std::vector<Move> bestLine;
-    // Move bestMove   = Move::Invalid_Move;
 
     nodesSearched++;
 
@@ -175,7 +185,7 @@ S16 S_SEARCH::Quiescence (Board& board, S16 alpha, S16 beta, std::vector<Move>& 
     std::sort(moveList.begin(), moveList.end(), std::greater<Move>());
 
     U16 legalCount = 0;
-    for (Move move : moveList)
+    for (Move& move : moveList)
     {
         if (!MakeMove(board, move))  
             continue;

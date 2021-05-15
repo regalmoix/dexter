@@ -1,6 +1,6 @@
 #ifndef HEADERS_H   
 #define HEADERS_H
-#define NDEBUG
+// #define NDEBUG
 /** INCLUDES **/
 
 #include <iostream>
@@ -42,6 +42,7 @@ typedef struct S_BOARD          Board;
 /** MACRO EXPANSIONS **/
 
 #define NAME                    "Dexter 1.0.0"
+#define AUTHORS                 "Nachiket Agrawal(regalmoix), Tanish Agrawal"
 #define BOARD_SIZE              (120)
 #define MAX_MOVES               (2048)
 #define FR2SQ(f, r)             (10 + ((r) * 10) + (f))                                     // Convert File, Rank to 120 based Square indexing
@@ -173,6 +174,8 @@ typedef struct S_MOVE
     bool operator <(const S_MOVE& other) const;
 
     bool operator >(const S_MOVE& other) const;
+
+    bool operator==(S_MOVE const&) const = default;
 
 private:
     S_MOVE ();           // Specifically designed for making Invalid_Move
@@ -318,5 +321,5 @@ extern void PerftParser         ();
 extern S_MOVE parseMove         (Board& board, std::string& moveInput);
 extern S16 evaluate             (Board& board);
 extern S16 evaluate1            (Board& board);
-
+extern void UCILoop             ();
 #endif

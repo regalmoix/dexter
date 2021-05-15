@@ -420,9 +420,9 @@ void S_BOARD::PrintBoard ()
     printf("\n\n");
 
     printf("Side To Move : %c\n", sideToMove == E_COLOR::WHITE ? 'W' : 'B');
-    // printf("Castle       : %d\n", castleRights);
-    // printf("Plys         : %d\n", plys);
-    // printf("50 move cnt  : %d\n", fiftyMoveRuleCount);
+    printf("Castle       : %d\n", castleRights);
+    printf("Plys         : %d\n", plys);
+    printf("50 move cnt  : %d\n", fiftyMoveRuleCount);
     printf("En Passant   : %c%d\n", SQ2FILE(enPassantSquare) ? (SQ2FILE(enPassantSquare) + 'a' - 1) : '0', SQ2RANK(enPassantSquare));
 }
 

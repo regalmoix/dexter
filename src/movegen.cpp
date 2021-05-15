@@ -239,16 +239,17 @@ static const int victimscores[13] = {0, 100, 200, 300, 400, 500, 600, 100, 200, 
 void addCaptureMove(Move& move, std::vector<S_MOVE>& moveList)
 {
     // PURELY TESTING
-    S16 mvPce    = pieceValues[move.getMovingPiece()];
-    S16 cpPce    = pieceValues[move.getCapturedPiece()];
+    U8  mvPce       = move.getMovingPiece();
+    S16 mvPceVal    = pieceValues[mvPce];
+    S16 cpPceVal    = pieceValues[move.getCapturedPiece()];
 
     S16 currSide = PIECECOLOR(mvPce);
 
     if (currSide == E_COLOR::WHITE)
-        move.score = -mvPce - 10*cpPce;
+        move.score = -mvPceVal - 10*cpPceVal;
  
     else
-        move.score = mvPce + 10*cpPce;
+        move.score = mvPceVal + 10*cpPceVal;
 
 
     // To ensure all captures (good or bad) are above Quiet Moves
@@ -260,7 +261,6 @@ void addCaptureMove(Move& move, std::vector<S_MOVE>& moveList)
     // mvPce    = victimscores[move.getMovingPiece()];
     // cpPce    = victimscores[move.getCapturedPiece()];
     // move.score = cpPce + 6 - mvPce/100;
-    
     // move.score = 0;
     moveList.push_back(move);
 }
