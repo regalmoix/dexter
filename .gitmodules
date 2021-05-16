@@ -1,3 +1,6 @@
 [submodule "book"]
 	path = book
 	url = https://github.com/michaeldv/donna_opening_books
+[submodule "books/donna_books"]
+	path = books/donna_books
+	url = https://github.com/michaeldv/donna_opening_books
