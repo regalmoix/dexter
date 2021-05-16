@@ -291,7 +291,7 @@ S_MOVE parseMove (Board& board, std::string& moveInput)
         {
             if (move.getPromotedPiece() == t_prompce)
             {
-                cout << "[Parsed Input]" << endl;
+                // cout << "[Parsed Input]" << endl;
                 return move;
             }
             

@@ -1,98 +1,138 @@
 #include "header.h"
+#include <fstream>
 
 #define STARTFEN "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
 
+
+// Pass pointer reference, effectively pointer to a pointer
+static void UCIPosition(Board*& board, const std::string& command)
+{
+    // Delete previous board on heap.
+    if (board != nullptr)
+        delete board;
+    
+    std::string fen = STARTFEN;
+
+    // Find the index of moves, if it exists. Everything before this index and after position is the FEN string
+    size_t found = command.find("moves");
+
+
+    if (command.substr(9, 8) != "startpos")
+        fen = STARTFEN;
+    
+    if (command.substr(9, 3) == "fen")
+    {
+        // Only capture the FEN string
+        if (found != std::string::npos)
+        {
+            size_t  fenLength   = (found - 2) - 13 + 1;
+            fen     = command.substr(13, fenLength);
+        }
+
+        // No Moves specified after FEN string
+        else
+        {
+            fen  = command.substr(13);
+        }
+    }
+        
+    board   = new Board(fen);
+    HASH.GenerateHash(*board);
+
+
+    if (found != std::string::npos)
+    {
+        std::stringstream movesPlayed(command.substr(found + 6));
+
+        std::string curr_move;
+        while(getline(movesPlayed, curr_move, ' '))
+        {
+            Move m = parseMove(*board, curr_move);
+
+            if (m == Move::Invalid_Move)
+            {
+                exit(-1);
+            }
+
+            MakeMove(*board, m);
+        }
+    }
+}
+
+
+static void UCIGo(Board*& board, Search*& search, const std::string& command)
+{
+    if (false)
+        cout << command;
+
+    if (board == nullptr)
+        return;
+
+    search              = new Search;
+    search->depthMax    = 7;
+    
+    search->SearchPosition(*board);
+
+    delete search;
+}
+
+
 void UCILoop ()
 {
-    printf ("id name %s\nid author %s\nuciok\n", NAME, AUTHORS);
+    // Log the commands in a file
+    std::ofstream log;
+    log.open("commands.txt", std::ios::out);
 
-    
+
+
+    std::cout.setf(std::ios::unitbuf);
+
+    std::string command = "";
+    Search*     search  = nullptr;
+    Board*      board   = nullptr;
+
+    // Print the UCI Information.
+    printf ("id name %s\nid author %s\nuciok\n", NAME, AUTHORS);
 
     while(true)
     {
-        Search search;
-        search.depthMax = 7;
-        
-        fflush(stdout);
-        std::string str;
-        std::getline(cin, str);
-        
-        std::cout << "\nRecieved : [" << str << "]\n";
+        // Fetch the command from the standard input
+        getline (cin, command);
+        log     << command << std::endl;
 
-        if (str == "isready")
+        if (command == "isready")
         {
-            std::cout << "readyok" << std::endl;
+            printf ("readyok\n");
             continue;
         }
 
-        else if (str == "uci")
+        else if (command == "uci")
         {
             printf ("id name %s\nid author %s\nuciok\n", NAME, AUTHORS);
             continue;
         }
 
-        else if (str == "ucinewgame")
-        {
-            Board b(STARTFEN);
-            HASH.GenerateHash(b);
-            search.SearchPosition(b);
-
-            continue;
-        }
-
-        else if (str == "quit")
+        else if (command == "quit")
         {
             break;
         }
 
-        else if (str.substr(0, 9) == "position ")
+        else if (command.substr(0, 8) == "position")
         {
-            std::string fen = STARTFEN;
+            UCIPosition(board, command);
+        }
 
-            if (str.substr(9, 8) != "startpos")
-                fen = STARTFEN;
-            
-            if (str.substr(9, 4) == "fen ")
-                fen = str.substr(13);
+        else if (command.substr(0,2) == "go")
+        {
+            UCIGo(board, search, command);
+        }
 
-            Board b(fen);
-            HASH.GenerateHash(b);
-
-            size_t found = str.find("moves ");
-
-            if (found != std::string::npos)
-            {
-                std::stringstream ss(str.substr(found+6));
-
-                std::string curr_move;
-                while(getline(ss, curr_move, ' '))
-                {
-                    Move m = parseMove(b, curr_move);
-
-                    if (m == Move::Invalid_Move)
-                    {
-                        cout << "LOL";
-                        exit(-1);
-                    }
-
-                    MakeMove(b, m);
-                }
-            }
-
-            // printf("\n");
-            // b.PrintBoard();
-            // printf("\n");
-
-            std::string go;
-            std::getline(cin, go);
-
-            
-            search.SearchPosition(b);
+        else if (command == "ucinewgame")
+        {
+            UCIPosition(board, "position " STARTFEN);
         }
 
         else
-        {
             continue;
-        }
     }
 }

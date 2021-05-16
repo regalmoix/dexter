@@ -1,0 +1,17 @@
+uci
+isready
+ucinewgame
+position startpos
+position startpos moves e2e4
+isready
+go wtime 600000 btime 600000 movestogo 40
+position startpos moves e2e4 b8c6 g1f3
+isready
+go wtime 589755 btime 591210 movestogo 39
+position startpos moves e2e4 b8c6 g1f3 g8f6 f1c4
+isready
+go wtime 583501 btime 580984 movestogo 38
+position startpos moves e2e4 b8c6 g1f3 g8f6 f1c4 f6e4 e1g1
+isready
+go wtime 575485 btime 573164 movestogo 37
+isready
