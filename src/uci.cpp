@@ -98,7 +98,7 @@ void UCILoop ()
     {
         // Fetch the command from the standard input
         getline (cin, command);
-        log     << command << std::endl;
+        //log     << command << std::endl;
 
         if (command == "isready")
         {
