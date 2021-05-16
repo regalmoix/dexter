@@ -41,7 +41,7 @@ typedef struct S_BOARD          Board;
 
 /** MACRO EXPANSIONS **/
 
-#define NAME                    "Dexter 1.0.0"
+#define NAME                    "Dexter 1.1.1"
 #define AUTHORS                 "Nachiket Agrawal(regalmoix), Tanish Agrawal"
 #define BOARD_SIZE              (120)
 #define MAX_MOVES               (2048)

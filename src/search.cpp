@@ -26,10 +26,6 @@ void S_SEARCH::SearchPosition(Board& board)
 
     startTime = std::chrono::high_resolution_clock::now();
 
-
-    // printf("D  |   Score   |    Speed    |  Ord %%  |\t\tPV\n");
-    // printf("---|-----------|-------------|---------|---------------------------------------------------\n");
-
     for (currDepth = 1; currDepth <= depthMax; ++currDepth)
     {
         score   = AlphaBeta(board, -INF, INF, currDepth, principalVariation[currDepth]);
@@ -40,16 +36,11 @@ void S_SEARCH::SearchPosition(Board& board)
         depth       = currDepth;
         stopTime    = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> elapsed   = stopTime - startTime;
-        // U16 speed   = nodesSearched/(1000*elapsed.count());
 
         bestMove    = principalVariation[currDepth][0];
 
-        // if (abs(score) > MATE - 100)
-        // printf("%-2d |  %7.2f  | %6dKN/s  |   %5.2f   | ", depth, (float)score/100, speed, 100*(float)firstMoveFailHigh/(float)failHigh);
-        // else            
-        // printf("%-2d |  %7.2f  | %6dKN/s  |  %5.2f  |  ", depth, (float)score/100, speed, 100*(float)firstMoveFailHigh/(float)failHigh);
-
         printf("\ninfo score cp %d depth %d nodes %ld time %d pv", score, depth, nodesSearched, (int)(1000*elapsed.count()));
+
         for (Move m : principalVariation[currDepth])
         {
             if (SQLEGAL(m.fromSquare))
@@ -58,9 +49,30 @@ void S_SEARCH::SearchPosition(Board& board)
 
         fflush(stdout);
     }
-    printf("\nbestmove");
 
-    std::cout << " " << (char) (SQ2FILE(bestMove.fromSquare) - 1 + 'a')  << SQ2RANK(bestMove.fromSquare) << char(SQ2FILE(bestMove.toSquare) - 1 + 'a' ) << SQ2RANK(bestMove.toSquare) << std::endl;
+    char    t_prompce = ' ';
+
+    if (bestMove.isPromotion())
+    {
+        switch (bestMove.getPromotedPiece())
+        {
+            case E_PIECE::EMPTY :   t_prompce = ' ';    break;
+            case E_PIECE::bR    :   t_prompce = 'r';    break;
+            case E_PIECE::wR    :   t_prompce = 'r';    break;
+            case E_PIECE::bQ    :   t_prompce = 'q';    break;
+            case E_PIECE::wQ    :   t_prompce = 'q';    break;
+            case E_PIECE::bN    :   t_prompce = 'n';    break;
+            case E_PIECE::wN    :   t_prompce = 'n';    break;
+            case E_PIECE::bB    :   t_prompce = 'b';    break;
+            case E_PIECE::wB    :   t_prompce = 'b';    break;
+            default             :   t_prompce = ' ';    break;
+        }
+    }
+
+    printf("\nbestmove ");
+    std::cout   << (char)(SQ2FILE(bestMove.fromSquare) - 1 + 'a') << SQ2RANK(bestMove.fromSquare) 
+                << (char)(SQ2FILE(bestMove.toSquare)   - 1 + 'a') << SQ2RANK(bestMove.toSquare) 
+                << t_prompce << std::endl;
 }
 
 

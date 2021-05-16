@@ -3,15 +3,31 @@ isready
 ucinewgame
 position startpos
 position startpos moves e2e4
+position startpos moves e2e4 e7e5
+position startpos moves e2e4 e7e5 g1f3
+position startpos moves e2e4 e7e5 g1f3 b8c6
+position startpos moves e2e4 e7e5 g1f3 b8c6 f1b5
+position startpos moves e2e4 e7e5 g1f3 b8c6 f1b5 a7a6
+position startpos moves e2e4 e7e5 g1f3 b8c6 f1b5 a7a6 b5a4
+position startpos moves e2e4 e7e5 g1f3 b8c6 f1b5 a7a6 b5a4 g8f6
+position startpos moves e2e4 e7e5 g1f3 b8c6 f1b5 a7a6 b5a4 g8f6 e1g1
+position startpos moves e2e4 e7e5 g1f3 b8c6 f1b5 a7a6 b5a4 g8f6 e1g1 f8e7
+position startpos moves e2e4 e7e5 g1f3 b8c6 f1b5 a7a6 b5a4 g8f6 e1g1 f8e7 f1e1
+position startpos moves e2e4 e7e5 g1f3 b8c6 f1b5 a7a6 b5a4 g8f6 e1g1 f8e7 f1e1 b7b5
+position startpos moves e2e4 e7e5 g1f3 b8c6 f1b5 a7a6 b5a4 g8f6 e1g1 f8e7 f1e1 b7b5 a4b3
+position startpos moves e2e4 e7e5 g1f3 b8c6 f1b5 a7a6 b5a4 g8f6 e1g1 f8e7 f1e1 b7b5 a4b3 e8g8
+position startpos moves e2e4 e7e5 g1f3 b8c6 f1b5 a7a6 b5a4 g8f6 e1g1 f8e7 f1e1 b7b5 a4b3 e8g8 c2c3
+position startpos moves e2e4 e7e5 g1f3 b8c6 f1b5 a7a6 b5a4 g8f6 e1g1 f8e7 f1e1 b7b5 a4b3 e8g8 c2c3 d7d5
 isready
-go wtime 600000 btime 600000 movestogo 40
-position startpos moves e2e4 b8c6 g1f3
+go movetime 180000
+position startpos moves e2e4 e7e5 g1f3 b8c6 f1b5 a7a6 b5a4 g8f6 e1g1 f8e7 f1e1 b7b5 a4b3 e8g8 c2c3 d7d5 e4d5 f6d5
 isready
-go wtime 589755 btime 591210 movestogo 39
-position startpos moves e2e4 b8c6 g1f3 g8f6 f1c4
+go movetime 180000
+position startpos moves e2e4 e7e5 g1f3 b8c6 f1b5 a7a6 b5a4 g8f6 e1g1 f8e7 f1e1 b7b5 a4b3 e8g8 c2c3 d7d5 e4d5 f6d5 f3e5 c6e5
 isready
-go wtime 583501 btime 580984 movestogo 38
-position startpos moves e2e4 b8c6 g1f3 g8f6 f1c4 f6e4 e1g1
+go movetime 180000
+position startpos moves e2e4 e7e5 g1f3 b8c6 f1b5 a7a6 b5a4 g8f6 e1g1 f8e7 f1e1 b7b5 a4b3 e8g8 c2c3 d7d5 e4d5 f6d5 f3e5 c6e5 e1e5 c7c6
 isready
-go wtime 575485 btime 573164 movestogo 37
+go movetime 180000
 isready
+quit

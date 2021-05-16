@@ -249,7 +249,6 @@ S_MOVE parseMove (Board& board, std::string& moveInput)
 {
     if (moveInput.length() >= 6 || moveInput.length() <= 3 )
     {
-        // Move move(board, E_SQUARE::Square_Invalid, E_SQUARE::Square_Invalid);
         return Move::Invalid_Move;
     }
 
@@ -279,9 +278,6 @@ S_MOVE parseMove (Board& board, std::string& moveInput)
         default     :   t_prompce = E_PIECE::OFFBOARD;  break;
     }
 
-    // Move move(board, E_SQUARE::Square_Invalid, E_SQUARE::Square_Invalid);
-    // cout << "LEOEL" << (int)t_fromSq << (int)t_toSq << promotion << endl;
-
     std::vector<Move> moveList;
     AllMoves(board, moveList);
 
@@ -291,14 +287,11 @@ S_MOVE parseMove (Board& board, std::string& moveInput)
         {
             if (move.getPromotedPiece() == t_prompce)
             {
-                // cout << "[Parsed Input]" << endl;
                 return move;
             }
             
         }
     }
-
-    // Move move(board, E_SQUARE::Square_Invalid, E_SQUARE::Square_Invalid);
     return Move::Invalid_Move;
 }
 
