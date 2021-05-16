@@ -1,5 +1,7 @@
 Dexter
 ====
+![alt text](logo.png)
+====
 
 A Chess Engine written in C++
 
