@@ -69,7 +69,7 @@ static void UCIGo(Board*& board, Search*& search, const std::string& command)
         return;
 
     search              = new Search;
-    search->depthMax    = 7;
+    search->depthMax    = 6;
     
     search->SearchPosition(*board);
 
@@ -80,8 +80,8 @@ static void UCIGo(Board*& board, Search*& search, const std::string& command)
 void UCILoop ()
 {
     // Log the commands in a file
-    std::ofstream log;
-    log.open("commands.txt", std::ios::out);
+    // std::ofstream log;
+    // log.open("commands.txt", std::ios::out);
 
 
 
