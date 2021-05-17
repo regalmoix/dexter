@@ -131,10 +131,7 @@ S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth, std::v
 
             pv.clear();
             pv.push_back(move);
-            //std::fill(pv.begin(), pv.end(), Move::Invalid_Move);
-            // pv.insert(std::begin(pv), move);
             pv.insert(std::end(pv), std::begin(bestLine), std::end(bestLine));
-    
         }
     }
 
@@ -155,7 +152,7 @@ S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth, std::v
                 
         if (isAttacked(board, kingSq))
         {
-            return -(MATE) + depth;
+            return -(MATE) - currDepth;
         }
 
         else
