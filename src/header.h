@@ -310,7 +310,7 @@ extern const std::vector<S16> pieceValues;
 /** FUNCTION DECLARATIONS **/
 
 extern bool isAttacked          (Board& board, U8 sq120, S8 attackingside = (S8)(-1));
-extern void AllMoves            (Board& board, std::vector<S_MOVE>& moveList);
+extern void AllMoves            (Board& board, std::vector<S_MOVE>& moveList, S8 cap = 0);
 extern void addQuietMove        (Board& board, Move& move, std::vector<S_MOVE>& moveList);
 extern void addCaptureMove      (Board& board, Move& move, std::vector<S_MOVE>& moveList);
 extern bool MakeMove            (Board& board, Move move);

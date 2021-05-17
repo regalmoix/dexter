@@ -23,7 +23,6 @@ void S_SEARCH::SearchPosition(Board& board)
     S16 score       = 0;
     U8  currDepth   = 0;
     Move bestMove   = Move::Invalid_Move;
-
     startTime = std::chrono::high_resolution_clock::now();
 
     for (currDepth = 1; currDepth <= depthMax; ++currDepth)
@@ -109,6 +108,9 @@ S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth, std::v
         legalCount++;
 
         bestLine.clear();
+        // std::cout   << (char)(SQ2FILE(move.fromSquare) - 1 + 'a') << SQ2RANK(move.fromSquare) 
+        //         << (char)(SQ2FILE(move.toSquare)   - 1 + 'a') << SQ2RANK(move.toSquare) 
+        //         << std::endl;
         S16 score = -AlphaBeta(board, -beta, -alpha, currDepth - 1, bestLine);
 
         UnmakeMove(board); 
@@ -177,19 +179,9 @@ S16 S_SEARCH::Quiescence (Board& board, S16 alpha, S16 beta, std::vector<Move>& 
     if (eval > alpha)
         alpha = eval;
 
-
-    std::vector<Move> moveList_all;
     std::vector<Move> moveList;
+    AllMoves(board, moveList,1);
 
-    AllMoves(board, moveList_all);
-
-    for (Move& move : moveList_all)
-    {
-        if (move.score != 0)
-        {
-            moveList.push_back(move);
-        }
-    }
 
     std::sort(moveList.begin(), moveList.end(), std::greater<Move>());
 

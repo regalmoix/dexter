@@ -271,7 +271,7 @@ void addCaptureMove(Move& move, std::vector<S_MOVE>& moveList)
  *  @param      moveList    List of pseudo-Legal Moves
  * 
 **/
-static void PawnMoves(Board& board, std::vector<S_MOVE>& moveList)
+static void PawnMoves(Board& board, std::vector<S_MOVE>& moveList, S8 cap)
 {
     if (board.GetSideToMove() == E_COLOR::WHITE)
     {
@@ -289,7 +289,7 @@ static void PawnMoves(Board& board, std::vector<S_MOVE>& moveList)
             if (SQ2RANK(pawnSquare) == E_RANK::Rank_7)  // These can not be quiet moves
             {
                 // Rank 7 -> 8 Quiet Promotion
-                if (board.GetPieceOnSquare(pawnSquare + 10) == E_PIECE::EMPTY)
+                if (board.GetPieceOnSquare(pawnSquare + 10) == E_PIECE::EMPTY && (cap==0))
                 {
                     for (int x = E_PROMPIECE::Prom_N; x <= E_PROMPIECE::Prom_Q; ++x)
                     {
@@ -322,7 +322,7 @@ static void PawnMoves(Board& board, std::vector<S_MOVE>& moveList)
 
             // Pawn not on Ranks 7 or 8, Quiet Move
             // cout << (int)pawnSquare << endl;
-            if (board.GetPieceOnSquare(pawnSquare + 10) == E_PIECE::EMPTY)
+            if (board.GetPieceOnSquare(pawnSquare + 10) == E_PIECE::EMPTY && (cap==0))
             {
                 //cout << "Test";
                 Move move(board, pawnSquare, pawnSquare + 10);
@@ -330,7 +330,7 @@ static void PawnMoves(Board& board, std::vector<S_MOVE>& moveList)
             }
 
             // Pawn not on Ranks 7 or 8, Double Push Move
-            if ((SQ2RANK(pawnSquare) == E_RANK::Rank_2) && (board.GetPieceOnSquare(pawnSquare + 20) == E_PIECE::EMPTY) && (board.GetPieceOnSquare(pawnSquare + 10) == E_PIECE::EMPTY))
+            if ((SQ2RANK(pawnSquare) == E_RANK::Rank_2) && (board.GetPieceOnSquare(pawnSquare + 20) == E_PIECE::EMPTY) && (board.GetPieceOnSquare(pawnSquare + 10) == E_PIECE::EMPTY) && (cap==0))
             {
                 Move move(board, pawnSquare, pawnSquare + 20, PACKMOVE(0,0,1,0,0,0));
                 addQuietMove(move, moveList);
@@ -381,7 +381,7 @@ static void PawnMoves(Board& board, std::vector<S_MOVE>& moveList)
             if (SQ2RANK(pawnSquare) == E_RANK::Rank_2)  // These can not be quiet moves
             {
                 // Rank 2 -> 1 Quiet Promotion
-                if (board.GetPieceOnSquare(pawnSquare - 10) == E_PIECE::EMPTY)
+                if (board.GetPieceOnSquare(pawnSquare - 10) == E_PIECE::EMPTY && (cap==0))
                 {
                     for (int x = E_PROMPIECE::Prom_N; x <= E_PROMPIECE::Prom_Q; ++x)
                     {
@@ -414,7 +414,7 @@ static void PawnMoves(Board& board, std::vector<S_MOVE>& moveList)
 
             // Pawn not on Ranks 7 or 8, Quiet Move
             // cout << (int)pawnSquare << endl;
-            if (board.GetPieceOnSquare(pawnSquare - 10) == E_PIECE::EMPTY)
+            if (board.GetPieceOnSquare(pawnSquare - 10) == E_PIECE::EMPTY && (cap==0))
             {
                 //cout << "Test";
                 Move move(board, pawnSquare, pawnSquare - 10);
@@ -422,7 +422,7 @@ static void PawnMoves(Board& board, std::vector<S_MOVE>& moveList)
             }
 
             // Pawn not on Ranks 7 or 8, Double Push Move
-            if ((SQ2RANK(pawnSquare) == E_RANK::Rank_7) && (board.GetPieceOnSquare(pawnSquare - 20) == E_PIECE::EMPTY) && (board.GetPieceOnSquare(pawnSquare - 10) == E_PIECE::EMPTY))
+            if ((SQ2RANK(pawnSquare) == E_RANK::Rank_7) && (board.GetPieceOnSquare(pawnSquare - 20) == E_PIECE::EMPTY) && (board.GetPieceOnSquare(pawnSquare - 10) == E_PIECE::EMPTY) && (cap==0))
             {
                 Move move(board, pawnSquare, pawnSquare - 20, PACKMOVE(0,0,1,0,0,0));
                 addQuietMove(move, moveList);
@@ -464,7 +464,7 @@ static void PawnMoves(Board& board, std::vector<S_MOVE>& moveList)
  *  @param      moveList    List of pseudo-Legal Moves
  * 
 **/
-static void KnightMoves(Board& board, std::vector<S_MOVE>& moveList)
+static void KnightMoves(Board& board, std::vector<S_MOVE>& moveList, S8 cap)
 {
     S8 dirx[8] = {-2, -1, 1, 2, 2, 1, -1, -2};
     S8 diry[8] = {1, 2, 2, 1, -1, -2, -2, -1};
@@ -475,7 +475,7 @@ static void KnightMoves(Board& board, std::vector<S_MOVE>& moveList)
     {
         knightList = board.GetSquareList(E_PIECE::bN);
     }
-
+    
     for(U8 knightSquare : knightList)
     {
         if(!SQLEGAL(knightSquare))
@@ -485,10 +485,14 @@ static void KnightMoves(Board& board, std::vector<S_MOVE>& moveList)
         {
 
             U8 toSquare = knightSquare + dirx[i] + diry[i] * 10;
-            if(SQLEGAL(toSquare) && board.GetPieceOnSquare(toSquare) == E_PIECE::EMPTY) //silent move
-            {
-                Move move(board,knightSquare,toSquare,PACKMOVE(0,0,0,0,0,0));
-                addQuietMove(move, moveList);
+            if(SQLEGAL(toSquare) && (board.GetPieceOnSquare(toSquare) == E_PIECE::EMPTY)) //silent move
+            {   
+                if(cap == 0)
+                {
+                    Move move(board,knightSquare,toSquare,PACKMOVE(0,0,0,0,0,0));
+                    addQuietMove(move, moveList);
+                }
+                
             }
 
             else if(SQLEGAL(toSquare) && PIECECOLOR(board.GetPieceOnSquare(toSquare)) != board.GetSideToMove()) //capture move
@@ -507,7 +511,7 @@ static void KnightMoves(Board& board, std::vector<S_MOVE>& moveList)
  *  @param      moveList    List of pseudo-Legal Moves
  * 
 **/
-static void RookListGenerator(Board& board, U8 piece, std::vector<S_MOVE>& moveList)
+static void RookListGenerator(Board& board, U8 piece, std::vector<S_MOVE>& moveList, S8 cap)
 {
     S8 dir[4] = {-1, 10, 1, -10};
     auto rookList = board.GetSquareList(piece);
@@ -524,8 +528,11 @@ static void RookListGenerator(Board& board, U8 piece, std::vector<S_MOVE>& moveL
                 U8 toSquare = rookSquare + dir[i]*j;
                 if(SQLEGAL(toSquare) && board.GetPieceOnSquare(toSquare) == E_PIECE::EMPTY)//silent move
                 {
-                    Move move(board,rookSquare,toSquare,PACKMOVE(0,0,0,0,0,0));
-                    addQuietMove(move, moveList);
+                    if(cap == 0)
+                    {
+                        Move move(board,rookSquare,toSquare,PACKMOVE(0,0,0,0,0,0));
+                        addQuietMove(move, moveList);
+                    }
                 }
 
                 else if(SQLEGAL(toSquare) && PIECECOLOR(board.GetPieceOnSquare(toSquare)) != PIECECOLOR(piece))//capture move
@@ -551,7 +558,7 @@ static void RookListGenerator(Board& board, U8 piece, std::vector<S_MOVE>& moveL
  *  @param      moveList    List of pseudo-Legal Moves
  * 
 **/
-static void BishopListGenerator(Board& board, U8 piece, std::vector<S_MOVE>& moveList)
+static void BishopListGenerator(Board& board, U8 piece, std::vector<S_MOVE>& moveList, S8 cap)
 {
     S8 dir[4] = {9, 11, -11, -9};
 
@@ -569,8 +576,11 @@ static void BishopListGenerator(Board& board, U8 piece, std::vector<S_MOVE>& mov
                 U8 toSquare = bishopSquare + dir[i]*j;
                 if(SQLEGAL(toSquare) && board.GetPieceOnSquare(toSquare) == E_PIECE::EMPTY)//silent move
                 {
-                    Move move(board,bishopSquare,toSquare,PACKMOVE(0,0,0,0,0,0));
-                    addQuietMove(move, moveList);
+                    if(cap == 0)
+                    {
+                        Move move(board,bishopSquare,toSquare,PACKMOVE(0,0,0,0,0,0));
+                        addQuietMove(move, moveList);
+                    }
                 }
 
                 else if(SQLEGAL(toSquare) && PIECECOLOR(board.GetPieceOnSquare(toSquare)) != PIECECOLOR(piece))//capture move
@@ -593,16 +603,16 @@ static void BishopListGenerator(Board& board, U8 piece, std::vector<S_MOVE>& mov
  *  @param      moveList    List of pseudo-Legal Moves
  * 
 **/
-static void BishopMoves(Board& board, std::vector<S_MOVE>& moveList)
+static void BishopMoves(Board& board, std::vector<S_MOVE>& moveList, S8 cap)
 {
     if(board.GetSideToMove() == E_COLOR::WHITE)
     {
-        BishopListGenerator(board, E_PIECE::wB, moveList);
+        BishopListGenerator(board, E_PIECE::wB, moveList, cap);
     }
 
     else if(board.GetSideToMove() == E_COLOR::BLACK)
     {
-        BishopListGenerator(board, E_PIECE::bB, moveList);
+        BishopListGenerator(board, E_PIECE::bB, moveList, cap);
     }
 
 }
@@ -613,16 +623,16 @@ static void BishopMoves(Board& board, std::vector<S_MOVE>& moveList)
  *  @param      moveList    List of pseudo-Legal Moves
  * 
 **/
-static void RookMoves(Board& board, std::vector<S_MOVE>& moveList)
+static void RookMoves(Board& board, std::vector<S_MOVE>& moveList, S8 cap)
 {
     if(board.GetSideToMove() == E_COLOR::WHITE)
     {
-        RookListGenerator(board, E_PIECE::wR, moveList);
+        RookListGenerator(board, E_PIECE::wR, moveList, cap);
     }
 
     else if(board.GetSideToMove() == E_COLOR::BLACK)
     {
-        RookListGenerator(board, E_PIECE::bR, moveList);
+        RookListGenerator(board, E_PIECE::bR, moveList, cap);
     }
 }
 
@@ -632,18 +642,18 @@ static void RookMoves(Board& board, std::vector<S_MOVE>& moveList)
  *  @param      moveList    List of pseudo-Legal Moves
  * 
 **/
-static void QueenMoves(Board& board, std::vector<S_MOVE>& moveList)
+static void QueenMoves(Board& board, std::vector<S_MOVE>& moveList, S8 cap)
 {
     if(board.GetSideToMove() == E_COLOR::WHITE)
     {
-        BishopListGenerator(board, E_PIECE::wQ, moveList);
-        RookListGenerator(board, E_PIECE::wQ, moveList);
+        BishopListGenerator(board, E_PIECE::wQ, moveList, cap);
+        RookListGenerator(board, E_PIECE::wQ, moveList, cap);
     }
 
     else if(board.GetSideToMove() == E_COLOR::BLACK)
     {
-        BishopListGenerator(board, E_PIECE::bQ, moveList);
-        RookListGenerator(board, E_PIECE::bQ, moveList);
+        BishopListGenerator(board, E_PIECE::bQ, moveList, cap);
+        RookListGenerator(board, E_PIECE::bQ, moveList, cap);
     }
 }
 
@@ -653,7 +663,7 @@ static void QueenMoves(Board& board, std::vector<S_MOVE>& moveList)
  *  @param      moveList    List of pseudo-Legal Moves
  * 
 **/
-static void KingMoves(Board& board, std::vector<S_MOVE>& moveList)
+static void KingMoves(Board& board, std::vector<S_MOVE>& moveList, S8 cap)
 {
     S8 dir[8] = {-1, 10, 1, -10, 9, 11, -11, -9};
 
@@ -694,8 +704,12 @@ static void KingMoves(Board& board, std::vector<S_MOVE>& moveList)
         U8 toSquare = kingSq + d;
         if (SQLEGAL(toSquare) && board.GetPieceOnSquare(toSquare) == E_PIECE::EMPTY) //silent move
         {
-            Move move(board, kingSq, toSquare, PACKMOVE(0,0,0,0,0,0));
-            addQuietMove(move, moveList);
+            if(cap == 0)
+            {
+                Move move(board, kingSq, toSquare, PACKMOVE(0,0,0,0,0,0));
+                addQuietMove(move, moveList);
+            }
+            
         }
 
         else if(SQLEGAL(toSquare) && PIECECOLOR(board.GetPieceOnSquare(toSquare)) != PIECECOLOR(pce)) //capture move
@@ -710,7 +724,7 @@ static void KingMoves(Board& board, std::vector<S_MOVE>& moveList)
     {
         if (board.GetCastleRights() & E_CASTLE_RIGHTS::wK_castle)
         {
-            if ((board.GetPieceOnSquare(E_SQUARE::F1) == E_PIECE::EMPTY) && (board.GetPieceOnSquare(E_SQUARE::G1) == E_PIECE::EMPTY))
+            if ((board.GetPieceOnSquare(E_SQUARE::F1) == E_PIECE::EMPTY) && (board.GetPieceOnSquare(E_SQUARE::G1) == E_PIECE::EMPTY) && (cap==0))
             {
                 if (!isAttacked(board, E_SQUARE::E1) && !isAttacked(board, E_SQUARE::F1) && !isAttacked(board, E_SQUARE::G1))
                 {
@@ -722,7 +736,7 @@ static void KingMoves(Board& board, std::vector<S_MOVE>& moveList)
 
         if (board.GetCastleRights() & E_CASTLE_RIGHTS::wQ_castle)
         {          
-            if ((board.GetPieceOnSquare(E_SQUARE::D1) == E_PIECE::EMPTY) && (board.GetPieceOnSquare(E_SQUARE::B1) == E_PIECE::EMPTY) && (board.GetPieceOnSquare(E_SQUARE::C1) == E_PIECE::EMPTY))
+            if ((board.GetPieceOnSquare(E_SQUARE::D1) == E_PIECE::EMPTY) && (board.GetPieceOnSquare(E_SQUARE::B1) == E_PIECE::EMPTY) && (board.GetPieceOnSquare(E_SQUARE::C1) == E_PIECE::EMPTY) && (cap==0))
             {
                 if (!isAttacked(board, E_SQUARE::E1) && !isAttacked(board, E_SQUARE::D1) && !isAttacked(board, E_SQUARE::C1))
                 {
@@ -737,7 +751,7 @@ static void KingMoves(Board& board, std::vector<S_MOVE>& moveList)
     {
         if (board.GetCastleRights() & E_CASTLE_RIGHTS::bK_castle)
         {
-            if ((board.GetPieceOnSquare(E_SQUARE::F8) == E_PIECE::EMPTY) && (board.GetPieceOnSquare(E_SQUARE::G8) == E_PIECE::EMPTY))
+            if ((board.GetPieceOnSquare(E_SQUARE::F8) == E_PIECE::EMPTY) && (board.GetPieceOnSquare(E_SQUARE::G8) == E_PIECE::EMPTY) && (cap==0))
             {
                 if (!isAttacked(board, E_SQUARE::E8) && !isAttacked(board, E_SQUARE::F8) && !isAttacked(board, E_SQUARE::G8))
                 {
@@ -749,7 +763,7 @@ static void KingMoves(Board& board, std::vector<S_MOVE>& moveList)
 
         if (board.GetCastleRights() & E_CASTLE_RIGHTS::bQ_castle)
         {
-            if ((board.GetPieceOnSquare(E_SQUARE::D8) == E_PIECE::EMPTY) && (board.GetPieceOnSquare(E_SQUARE::B8) == E_PIECE::EMPTY) && (board.GetPieceOnSquare(E_SQUARE::C8) == E_PIECE::EMPTY))
+            if ((board.GetPieceOnSquare(E_SQUARE::D8) == E_PIECE::EMPTY) && (board.GetPieceOnSquare(E_SQUARE::B8) == E_PIECE::EMPTY) && (board.GetPieceOnSquare(E_SQUARE::C8) == E_PIECE::EMPTY) && (cap==0))
             {
                 if (!isAttacked(board, E_SQUARE::E8) && !isAttacked(board, E_SQUARE::D8) && !isAttacked(board, E_SQUARE::C8))
                 {
@@ -768,29 +782,30 @@ static void KingMoves(Board& board, std::vector<S_MOVE>& moveList)
  *  @param      moveList    List of pseudo-Legal Moves
  * 
 **/
-void AllMoves (Board& board, std::vector<S_MOVE>& moveList)
+void AllMoves (Board& board, std::vector<S_MOVE>& moveList, S8 cap)
 {
-    PawnMoves(board, moveList);
+    
+    PawnMoves(board, moveList, cap);
     // for (auto m : moveList)
     //     assert(SQLEGAL(m.fromSquare) && SQLEGAL(m.fromSquare));
 
-    KnightMoves(board, moveList);
+    KnightMoves(board, moveList, cap);
+    // for (auto m : moveList)
+    //     assert(SQLEGAL(m.fromSquare) && SQLEGAL(m.fromSquare));
+    
+    BishopMoves(board, moveList, cap);
     // for (auto m : moveList)
     //     assert(SQLEGAL(m.fromSquare) && SQLEGAL(m.fromSquare));
        
-    BishopMoves(board, moveList);
+    RookMoves(board, moveList, cap);
     // for (auto m : moveList)
     //     assert(SQLEGAL(m.fromSquare) && SQLEGAL(m.fromSquare));
        
-    RookMoves(board, moveList);
+    QueenMoves(board, moveList, cap);
     // for (auto m : moveList)
     //     assert(SQLEGAL(m.fromSquare) && SQLEGAL(m.fromSquare));
        
-    QueenMoves(board, moveList);
-    // for (auto m : moveList)
-    //     assert(SQLEGAL(m.fromSquare) && SQLEGAL(m.fromSquare));
-       
-    KingMoves(board, moveList);
+    KingMoves(board, moveList, cap);
     // for (auto m : moveList)
     //     assert(SQLEGAL(m.fromSquare) && SQLEGAL(m.fromSquare));
        
