@@ -90,10 +90,6 @@ static bool isPawn(Board& board, U8 sq120)
 bool isAttacked(Board& board, U8 sq120, S8 attackingside)
 {
     assert(SQLEGAL(sq120));
-    // 
-    // printf("Entered  here  \n");
-    // printf("%d\n",sq120);
-    // fflush(stdout);
 
     S8 side;
 
@@ -120,7 +116,6 @@ bool isAttacked(Board& board, U8 sq120, S8 attackingside)
                 if (SQLEGAL(checkSquare) && PIECECOLOR(board.GetPieceOnSquare(checkSquare)) != side && 
                    (isRook(board,checkSquare) || isQueen(board,checkSquare) || isKing(board,checkSquare)))
                 {
-                    // printf("yo1\n");
                     return true;
                 }
             }
@@ -128,7 +123,6 @@ bool isAttacked(Board& board, U8 sq120, S8 attackingside)
             if (SQLEGAL(checkSquare) && PIECECOLOR(board.GetPieceOnSquare(checkSquare)) != side && 
                (isRook(board,checkSquare) || isQueen(board,checkSquare)))
             {
-                // printf("yo2\n");
                 return true;
             }
 
@@ -155,15 +149,13 @@ bool isAttacked(Board& board, U8 sq120, S8 attackingside)
                 if(SQLEGAL(checkSquare) && PIECECOLOR(board.GetPieceOnSquare(checkSquare)) != side && 
                   (isBishop(board,checkSquare) || isQueen(board,checkSquare) || isKing(board,checkSquare)))
                 {
-                    // printf("yo3\n");
                     return true;
                 }
             }
 
-            if(SQLEGAL(checkSquare) && PIECECOLOR(board.GetPieceOnSquare(checkSquare)) != side
-            && (isBishop(board,checkSquare) || isQueen(board,checkSquare)))
+            if(SQLEGAL(checkSquare) && PIECECOLOR(board.GetPieceOnSquare(checkSquare)) != side && 
+              (isBishop(board,checkSquare) || isQueen(board,checkSquare)))
             {
-                // printf("yo4\n");
                 return true;
             }
 
@@ -182,7 +174,6 @@ bool isAttacked(Board& board, U8 sq120, S8 attackingside)
 
         if(SQLEGAL(checkSquare) && PIECECOLOR(board.GetPieceOnSquare(checkSquare)) != side && isKnight(board,checkSquare))
         {
-            // printf("yo5\n");
             return true;
         }
     }
@@ -202,17 +193,8 @@ bool isAttacked(Board& board, U8 sq120, S8 attackingside)
 
         if(SQLEGAL(checkSquare) && PIECECOLOR(board.GetPieceOnSquare(checkSquare)) != side && isPawn(board,checkSquare))
         {
-            // printf("yo6\n");
             return true;
         }
-
-        // checkSquare = sq120 + i * 9;
-
-        // if(SQLEGAL(checkSquare) && PIECECOLOR(board.GetPieceOnSquare(checkSquare)) != side && isPawn(board,checkSquare))
-        // {
-        //     printf("yo7\n");
-        //     return true;
-        // }
     }
     return false;
 }
@@ -231,6 +213,7 @@ void addQuietMove(Move& move, std::vector<S_MOVE>& moveList)       // Here means
 
 
 static const int victimscores[13] = {0, 100, 200, 300, 400, 500, 600, 100, 200, 300, 400, 500, 600};
+
 /** Adds a capture move to the move list
  *  @param      move        The move object containing the data and metadata of the move
  *  @param      moveList    List of pseudo-Legal Moves
@@ -269,6 +252,7 @@ void addCaptureMove(Move& move, std::vector<S_MOVE>& moveList)
 /** Generates all possible Pawn moves for the current side
  *  @param      board       The current board
  *  @param      moveList    List of pseudo-Legal Moves
+ *  @param      cap         Flag, which when 1 generates only capture moves
  * 
 **/
 static void PawnMoves(Board& board, std::vector<S_MOVE>& moveList, S8 cap)
@@ -279,8 +263,6 @@ static void PawnMoves(Board& board, std::vector<S_MOVE>& moveList, S8 cap)
 
         for (U8 pawnSquare : pawnSqList)
         {
-            // cout << (int)pawnSquare  << endl;
-            //assert (pawnSquare != E_SQUARE::Square_Invalid);
             if (pawnSquare == E_SQUARE::Square_Invalid)
                 continue;
 
@@ -321,10 +303,8 @@ static void PawnMoves(Board& board, std::vector<S_MOVE>& moveList, S8 cap)
             }
 
             // Pawn not on Ranks 7 or 8, Quiet Move
-            // cout << (int)pawnSquare << endl;
             if (board.GetPieceOnSquare(pawnSquare + 10) == E_PIECE::EMPTY && (cap==0))
             {
-                //cout << "Test";
                 Move move(board, pawnSquare, pawnSquare + 10);
                 addQuietMove(move, moveList);
             }
@@ -371,8 +351,6 @@ static void PawnMoves(Board& board, std::vector<S_MOVE>& moveList, S8 cap)
 
         for (U8 pawnSquare : pawnSqList)
         {
-            // cout << (int)pawnSquare  << endl;
-            //assert (pawnSquare != E_SQUARE::Square_Invalid);
             if (pawnSquare == E_SQUARE::Square_Invalid)
                 continue;
 
@@ -413,10 +391,8 @@ static void PawnMoves(Board& board, std::vector<S_MOVE>& moveList, S8 cap)
             }
 
             // Pawn not on Ranks 7 or 8, Quiet Move
-            // cout << (int)pawnSquare << endl;
             if (board.GetPieceOnSquare(pawnSquare - 10) == E_PIECE::EMPTY && (cap==0))
             {
-                //cout << "Test";
                 Move move(board, pawnSquare, pawnSquare - 10);
                 addQuietMove(move, moveList);
             }
@@ -462,6 +438,7 @@ static void PawnMoves(Board& board, std::vector<S_MOVE>& moveList, S8 cap)
 /** Generates all possible Knight moves for the current side
  *  @param      board       The current board
  *  @param      moveList    List of pseudo-Legal Moves
+ *  @param      cap         Flag, which when 1 generates only capture moves
  * 
 **/
 static void KnightMoves(Board& board, std::vector<S_MOVE>& moveList, S8 cap)
@@ -509,6 +486,7 @@ static void KnightMoves(Board& board, std::vector<S_MOVE>& moveList, S8 cap)
  *  @param      board       The current board
  *  @param      piece       The piece to generate moves for (R or Q)
  *  @param      moveList    List of pseudo-Legal Moves
+ *  @param      cap         Flag, which when 1 generates only capture moves
  * 
 **/
 static void RookListGenerator(Board& board, U8 piece, std::vector<S_MOVE>& moveList, S8 cap)
@@ -556,6 +534,7 @@ static void RookListGenerator(Board& board, U8 piece, std::vector<S_MOVE>& moveL
  *  @param      board       The current board
  *  @param      piece       The piece to generate moves for (B or Q)
  *  @param      moveList    List of pseudo-Legal Moves
+ *  @param      cap         Flag, which when 1 generates only capture moves
  * 
 **/
 static void BishopListGenerator(Board& board, U8 piece, std::vector<S_MOVE>& moveList, S8 cap)
@@ -601,6 +580,7 @@ static void BishopListGenerator(Board& board, U8 piece, std::vector<S_MOVE>& mov
 /** Generates all possible Bishop moves for the current side
  *  @param      board       The current board
  *  @param      moveList    List of pseudo-Legal Moves
+ *  @param      cap         Flag, which when 1 generates only capture moves
  * 
 **/
 static void BishopMoves(Board& board, std::vector<S_MOVE>& moveList, S8 cap)
@@ -614,13 +594,13 @@ static void BishopMoves(Board& board, std::vector<S_MOVE>& moveList, S8 cap)
     {
         BishopListGenerator(board, E_PIECE::bB, moveList, cap);
     }
-
 }
 
 
 /** Generates all possible Rook moves for the current side
  *  @param      board       The current board
  *  @param      moveList    List of pseudo-Legal Moves
+ *  @param      cap         Flag, which when 1 generates only capture moves
  * 
 **/
 static void RookMoves(Board& board, std::vector<S_MOVE>& moveList, S8 cap)
@@ -640,6 +620,7 @@ static void RookMoves(Board& board, std::vector<S_MOVE>& moveList, S8 cap)
 /** Generates all possible Queen moves for the current side
  *  @param      board       The current board
  *  @param      moveList    List of pseudo-Legal Moves
+ *  @param      cap         Flag, which when 1 generates only capture moves
  * 
 **/
 static void QueenMoves(Board& board, std::vector<S_MOVE>& moveList, S8 cap)
@@ -661,6 +642,7 @@ static void QueenMoves(Board& board, std::vector<S_MOVE>& moveList, S8 cap)
 /** Generates all possible King moves for the current side
  *  @param      board       The current board
  *  @param      moveList    List of pseudo-Legal Moves
+ *  @param      cap         Flag, which when 1 generates only capture moves
  * 
 **/
 static void KingMoves(Board& board, std::vector<S_MOVE>& moveList, S8 cap)
@@ -685,19 +667,8 @@ static void KingMoves(Board& board, std::vector<S_MOVE>& moveList, S8 cap)
             break;
         }
     }
-    
-    // for (int i = 0; i < 120; i++)
-    // {
-    //     if (board.GetPieceOnSquare(i) == pce)
-    //     {
-    //         kingSq = i;
-    //         break;
-    //     }
-    // }
 
     assert(SQLEGAL(kingSq));
-
-
 
     for (S8 d : dir)
     {
@@ -772,41 +743,27 @@ static void KingMoves(Board& board, std::vector<S_MOVE>& moveList, S8 cap)
                 }
             }
         }
-    }
-    
+    }   
 }
 
 
 /** Generates all possible psuedo-legal moves for the current side
  *  @param      board       The current board
  *  @param      moveList    List of pseudo-Legal Moves
+ *  @param      cap         Flag, which when 1 generates only capture moves
  * 
 **/
 void AllMoves (Board& board, std::vector<S_MOVE>& moveList, S8 cap)
-{
-    
-    PawnMoves(board, moveList, cap);
-    // for (auto m : moveList)
-    //     assert(SQLEGAL(m.fromSquare) && SQLEGAL(m.fromSquare));
+{   
+    PawnMoves   (board, moveList, cap);
 
-    KnightMoves(board, moveList, cap);
-    // for (auto m : moveList)
-    //     assert(SQLEGAL(m.fromSquare) && SQLEGAL(m.fromSquare));
-    
-    BishopMoves(board, moveList, cap);
-    // for (auto m : moveList)
-    //     assert(SQLEGAL(m.fromSquare) && SQLEGAL(m.fromSquare));
-       
-    RookMoves(board, moveList, cap);
-    // for (auto m : moveList)
-    //     assert(SQLEGAL(m.fromSquare) && SQLEGAL(m.fromSquare));
-       
-    QueenMoves(board, moveList, cap);
-    // for (auto m : moveList)
-    //     assert(SQLEGAL(m.fromSquare) && SQLEGAL(m.fromSquare));
-       
-    KingMoves(board, moveList, cap);
-    // for (auto m : moveList)
-    //     assert(SQLEGAL(m.fromSquare) && SQLEGAL(m.fromSquare));
-       
+    KnightMoves (board, moveList, cap);
+   
+    BishopMoves (board, moveList, cap);
+      
+    RookMoves   (board, moveList, cap);
+     
+    QueenMoves  (board, moveList, cap);
+      
+    KingMoves   (board, moveList, cap);     
 }

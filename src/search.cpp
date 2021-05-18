@@ -5,8 +5,8 @@
 #define MATE    ((S16)30e3)
 
 // Static Member (like a constant object) to denote Invalid Move. 
-Move Move::Invalid_Move;
-
+Move                Move::Invalid_Move;
+TranspositionTable  S_SEARCH::transposTable;
 
 S_SEARCH::S_SEARCH() :  depthMax(1), depth(1), movesTillTimeControl(0), nodesSearched(0), 
                         quit(false), stopped(false), 
@@ -79,8 +79,17 @@ S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth, std::v
 {
     std::vector<Move> bestLine;
     
-    bool isMate     = true;         // Stale Mate or Check Mate either counts as mate
-    Move bestMove   = Move::Invalid_Move;
+    S16     oldAlpha    = alpha;
+    bool    isMate      = true;         // Stale Mate or Check Mate either counts as mate
+    Move    bestMove    = Move::Invalid_Move;
+    U16     legalCount  = 0;
+    S16     bestScore   = -INF;
+
+    if (transposTable.ProbeEntry(board, bestMove, bestScore, alpha, beta, currDepth))
+    {
+        pv.push_back(bestMove);
+        return bestScore;
+    }
 
     if (currDepth == 0)
     {
@@ -92,12 +101,8 @@ S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth, std::v
     nodesSearched++;
 
     std::vector<Move> moveList;
-    AllMoves(board, moveList);
-
-    std::sort(moveList.begin(), moveList.end(), std::greater<Move>());
-
-
-    U16 legalCount = 0;
+    AllMoves  (board, moveList);
+    std::sort (moveList.begin(), moveList.end(), std::greater<Move>());
 
     for (Move& move : moveList)
     {
@@ -108,32 +113,36 @@ S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth, std::v
         legalCount++;
 
         bestLine.clear();
-        // std::cout   << (char)(SQ2FILE(move.fromSquare) - 1 + 'a') << SQ2RANK(move.fromSquare) 
-        //         << (char)(SQ2FILE(move.toSquare)   - 1 + 'a') << SQ2RANK(move.toSquare) 
-        //         << std::endl;
         S16 score = -AlphaBeta(board, -beta, -alpha, currDepth - 1, bestLine);
 
         UnmakeMove(board); 
 
         // Fail Hard ==> alpha <= score <= beta
 
-        if (score >= beta)
+        if (score > bestScore)
         {
-            if (legalCount == 1)
-                firstMoveFailHigh++;
-            
-            failHigh++;
-            return beta;
-        }
-        
-        if (score > alpha)
-        {
-            bestMove    = move; 
-            alpha       = score;
+            bestScore   = score;
+            bestMove    = move ;
+            if (score >= beta)
+            {
+                if (legalCount == 1)
+                    firstMoveFailHigh++;
+                
+                transposTable.StoreEntry(board, bestMove, beta, currDepth, TranspositionTable::FLAG_BETA);
 
-            pv.clear();
-            pv.push_back(move);
-            pv.insert(std::end(pv), std::begin(bestLine), std::end(bestLine));
+                failHigh++;
+                return beta;
+            }
+            
+            if (score > alpha)
+            {
+                bestMove    = move; 
+                alpha       = score;
+
+                pv.clear();
+                pv.push_back(move);
+                pv.insert(std::end(pv), std::begin(bestLine), std::end(bestLine));
+            }
         }
     }
 
@@ -161,6 +170,16 @@ S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth, std::v
             return 0;
     }
 
+
+    if (alpha != oldAlpha)
+    {
+        transposTable.StoreEntry(board, bestMove, bestScore, currDepth, TranspositionTable::FLAG_EXACT);
+    }
+    else
+    {
+        transposTable.StoreEntry(board, bestMove, alpha, currDepth, TranspositionTable::FLAG_ALPHA);
+    }
+
     return alpha;
 }
 
@@ -180,7 +199,10 @@ S16 S_SEARCH::Quiescence (Board& board, S16 alpha, S16 beta, std::vector<Move>& 
         alpha = eval;
 
     std::vector<Move> moveList;
-    AllMoves(board, moveList,1);
+
+    #define CAP_MOVES_ONLY 1
+
+    AllMoves(board, moveList, CAP_MOVES_ONLY);
 
 
     std::sort(moveList.begin(), moveList.end(), std::greater<Move>());

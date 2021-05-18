@@ -36,6 +36,7 @@ typedef std::unordered_set<U8>  U8set;
 typedef short int               S16;
 typedef char                    S8;
 typedef struct S_BOARD          Board;
+typedef struct S_TP_TABLE       TranspositionTable;
 
 
 
@@ -274,6 +275,52 @@ typedef struct S_HASH
 
 } S_HASH;  
 
+typedef struct S_TP_TABLE
+{
+    // https://github.com/crybot/Napoleon/blob/master/transpositiontable.cpp
+    // https://en.wikipedia.org/wiki/Negamax#Negamax_with_alpha_beta_pruning_and_transposition_tables
+public:
+    // https://planetmath.org/goodhashtableprimes
+    #define TP_SIZE             3145739
+
+    static const U8 FLAG_EXACT          = 0;
+    static const U8 FLAG_ALPHA          = 1;
+    static const U8 FLAG_BETA           = 2;
+    static const U8 FLAG_INVALID_ENTRY  = 3;
+
+    typedef struct S_TT_Entry
+    {
+        // To eliminate collisions
+        U64     hashKey;
+        // The Score
+        S16     score;
+        // Depth to which this position was searched
+        U8      depth;
+        // Type of score (Exact or Alpha or Beta)
+        U8      flag;
+        // If the entry is old / not recently used we mark it true 
+        bool    ancient;
+        // The best move corresponding to the score
+        Move    move;
+
+        S_TT_Entry();
+
+        S_TT_Entry (U64 hashKey, Move move, S16 score, U8 depth, U8 flag);
+
+    } TT_Entry;
+
+    std::array<TT_Entry, TP_SIZE>   tp_table;
+    U64                             hashHits;
+
+public:
+    S_TP_TABLE();
+
+    void StoreEntry (Board& board, Move& bestMove, S16 score,  U8 depth, U8 flag);
+
+    bool ProbeEntry (Board& board, Move& pvMove, S16& score, S16 alpha, S16 beta, U8 currDepth);
+
+} TranspositionTable;
+
 typedef struct S_SEARCH
 {
 public:
@@ -292,6 +339,8 @@ public:
     std::chrono::_V2::system_clock::time_point  startTime;
     std::chrono::_V2::system_clock::time_point  stopTime;
     std::chrono::duration<double>               timeMax;
+
+    static TranspositionTable transposTable;
 
     S_SEARCH();
 

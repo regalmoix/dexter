@@ -1,6 +1,6 @@
 CXX = g++
-CXXFLAGS += -march=native -Wall -Werror -Wno-char-subscripts -Wextra -pedantic -std=c++2a -O3 -DNDEBUG
-LDFLAGS += -O3 -march=native -DNDEBUG
+CXXFLAGS += -march=native -Wall -Werror -Wno-char-subscripts -Wextra -pedantic -std=c++2a -O3 -DNDEBUG -g
+LDFLAGS += -O3 -march=native -DNDEBUG -g
 
 SRCDIR = ./src
 SRC = $(wildcard $(SRCDIR)/*.cpp)
