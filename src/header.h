@@ -315,9 +315,9 @@ public:
 public:
     S_TP_TABLE();
 
-    void StoreEntry (Board& board, Move& bestMove, S16 score,  U8 depth, U8 flag);
+    void    StoreEntry (Board& board, Move& bestMove, S16 score,  U8 depth, U8 flag);
 
-    bool ProbeEntry (Board& board, Move& pvMove, S16& score, S16 alpha, S16 beta, U8 currDepth);
+    S_MOVE  ProbeEntry (Board& board, S16& score, S16 alpha, S16 beta, U8 currDepth);
 
 } TranspositionTable;
 

@@ -85,7 +85,9 @@ S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth, std::v
     U16     legalCount  = 0;
     S16     bestScore   = -INF;
 
-    if (transposTable.ProbeEntry(board, bestMove, bestScore, alpha, beta, currDepth))
+    bestMove            = transposTable.ProbeEntry(board, bestScore, alpha, beta, currDepth);
+
+    if (bestMove != Move::Invalid_Move)
     {
         pv.push_back(bestMove);
         return bestScore;
@@ -104,6 +106,7 @@ S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth, std::v
     AllMoves  (board, moveList);
     std::sort (moveList.begin(), moveList.end(), std::greater<Move>());
 
+    bestScore   = -INF;
     for (Move& move : moveList)
     {
         if (!MakeMove(board, move))  

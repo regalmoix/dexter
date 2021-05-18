@@ -69,7 +69,7 @@ static void UCIGo(Board*& board, Search*& search, const std::string& command)
         return;
 
     search              = new Search;
-    search->depthMax    = 11;
+    search->depthMax    = 9;
     
     search->SearchPosition(*board);
 

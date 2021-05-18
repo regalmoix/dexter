@@ -31,7 +31,7 @@ void S_TP_TABLE::StoreEntry (Board& board, Move& bestMove, S16 score,  U8 depth,
 }
 
 
-bool S_TP_TABLE::ProbeEntry (Board& board, Move& pvMove, S16& score, S16 alpha, S16 beta, U8 currDepth)
+S_MOVE S_TP_TABLE::ProbeEntry (Board& board, S16& score, S16 alpha, S16 beta, U8 currDepth)
 {
     U32 idx         = board.posHashKey % TP_SIZE; 
 
@@ -39,7 +39,7 @@ bool S_TP_TABLE::ProbeEntry (Board& board, Move& pvMove, S16& score, S16 alpha, 
     if (board.posHashKey == tp_table[idx].hashKey)
     {
         //  Best Move in this position according to a previous Search
-        pvMove = tp_table[idx].move;
+        S_MOVE pvMove = tp_table[idx].move;
 
         // If we are currently searching this position for shallower depth than we did before
         if (currDepth <= tp_table[idx].depth)
@@ -54,7 +54,7 @@ bool S_TP_TABLE::ProbeEntry (Board& board, Move& pvMove, S16& score, S16 alpha, 
                     if (score <= alpha) 
                     {
                         score = alpha; 
-                        return true;
+                        return pvMove;
                     }
                     
                     break;
@@ -65,7 +65,7 @@ bool S_TP_TABLE::ProbeEntry (Board& board, Move& pvMove, S16& score, S16 alpha, 
                     if (score >= beta) 
                     {
                         score = beta; 
-                        return true;
+                        return pvMove;
                     }
                     
                     break;
@@ -73,13 +73,13 @@ bool S_TP_TABLE::ProbeEntry (Board& board, Move& pvMove, S16& score, S16 alpha, 
                 
                 case FLAG_EXACT : // No Change, we set score above
                 {
-                    return true;
+                    return pvMove;
                     break;
                 }
 
                 default :
                 {
-                    return false;
+                    return Move::Invalid_Move;
                     break;
                 }
             }
@@ -87,5 +87,5 @@ bool S_TP_TABLE::ProbeEntry (Board& board, Move& pvMove, S16& score, S16 alpha, 
 
     }
 
-    return false;
+    return Move::Invalid_Move;
 }
