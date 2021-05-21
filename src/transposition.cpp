@@ -14,7 +14,7 @@ S_TP_TABLE::S_TT_Entry::S_TT_Entry (U64 hashKey, Move move, S16 score, U8 depth,
 } 
 
 
-S_TP_TABLE::S_TP_TABLE()
+S_TP_TABLE::S_TP_TABLE ()
 {
     hashHits                    = 0;
 }
@@ -88,4 +88,29 @@ S_MOVE S_TP_TABLE::ProbeEntry (Board& board, S16& score, S16 alpha, S16 beta, U8
     }
 
     return Move::Invalid_Move;
+}
+
+
+std::vector<Move> S_TP_TABLE::GetPrincipalVariation (Board board, U8 currDepth)
+{
+    vector<Move>    pv;
+
+    while (currDepth--)
+    {
+        U64 hash    = board.posHashKey;
+        U32 idx     = board.posHashKey % TP_SIZE; 
+
+        
+        if (tp_table[idx].hashKey == hash)
+        {
+            pv.push_back(tp_table[idx].move);
+            MakeMove(board, tp_table[idx].move);
+        }
+        else
+        {
+            break;
+        }
+    }
+
+    return pv;
 }

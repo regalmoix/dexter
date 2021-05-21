@@ -27,7 +27,7 @@ void S_SEARCH::SearchPosition(Board& board)
 
     for (currDepth = 1; currDepth <= depthMax; ++currDepth)
     {
-        score   = AlphaBeta(board, -INF, INF, currDepth, principalVariation[currDepth]);
+        score   = AlphaBeta(board, -INF, INF, currDepth/*, principalVariation[currDepth]*/);
         
         // If time over/stopped, break
 
@@ -36,15 +36,25 @@ void S_SEARCH::SearchPosition(Board& board)
         stopTime    = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> elapsed   = stopTime - startTime;
 
-        bestMove    = principalVariation[currDepth][0];
+        // bestMove    = principalVariation[currDepth][0];
 
         printf("\ninfo score cp %d depth %d nodes %ld time %d pv", score, depth, nodesSearched, (int)(1000*elapsed.count()));
 
-        for (Move m : principalVariation[currDepth])
+        // for (Move m : principalVariation[currDepth])
+        // {
+        //     if (SQLEGAL(m.fromSquare))
+        //         std::cout << " " << (char) (SQ2FILE(m.fromSquare) - 1 + 'a')  << SQ2RANK(m.fromSquare) << char(SQ2FILE(m.toSquare) - 1 + 'a' ) << SQ2RANK(m.toSquare);
+        // }
+
+        std::cout << " ||| ";
+        auto pv = transposTable.GetPrincipalVariation(board, currDepth);
+        bestMove = pv[0];
+        for (Move m : pv)
         {
             if (SQLEGAL(m.fromSquare))
                 std::cout << " " << (char) (SQ2FILE(m.fromSquare) - 1 + 'a')  << SQ2RANK(m.fromSquare) << char(SQ2FILE(m.toSquare) - 1 + 'a' ) << SQ2RANK(m.toSquare);
         }
+
 
         fflush(stdout);
     }
@@ -75,9 +85,9 @@ void S_SEARCH::SearchPosition(Board& board)
 }
 
 
-S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth, std::vector<Move>& pv)
+S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth/*, std::vector<Move>& pv*/)
 {
-    std::vector<Move> bestLine;
+    // std::vector<Move> bestLine;
     
     S16     oldAlpha    = alpha;
     bool    isMate      = true;         // Stale Mate or Check Mate either counts as mate
@@ -89,14 +99,14 @@ S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth, std::v
 
     if (bestMove != Move::Invalid_Move)
     {
-        pv.push_back(bestMove);
+        // pv.push_back(bestMove);
         return bestScore;
     }
 
     if (currDepth == 0)
     {
-        pv.clear();
-        return Quiescence(board, alpha, beta, pv);
+        // pv.clear();
+        return Quiescence(board, alpha, beta/*, pv*/);
     }
 
     // All Nodes visited by Search includes A-B + Quiescence 
@@ -115,8 +125,8 @@ S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth, std::v
         isMate = false;
         legalCount++;
 
-        bestLine.clear();
-        S16 score = -AlphaBeta(board, -beta, -alpha, currDepth - 1, bestLine);
+        // bestLine.clear();
+        S16 score = -AlphaBeta(board, -beta, -alpha, currDepth - 1/*, bestLine*/);
 
         UnmakeMove(board); 
 
@@ -142,9 +152,9 @@ S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth, std::v
                 bestMove    = move; 
                 alpha       = score;
 
-                pv.clear();
-                pv.push_back(move);
-                pv.insert(std::end(pv), std::begin(bestLine), std::end(bestLine));
+                // pv.clear();
+                // pv.push_back(move);
+                // pv.insert(std::end(pv), std::begin(bestLine), std::end(bestLine));
             }
         }
     }
@@ -187,9 +197,9 @@ S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth, std::v
 }
 
 
-S16 S_SEARCH::Quiescence (Board& board, S16 alpha, S16 beta, std::vector<Move>& pv)
+S16 S_SEARCH::Quiescence (Board& board, S16 alpha, S16 beta/*, std::vector<Move>& pv*/)
 {
-    std::vector<Move> bestLine;
+    // std::vector<Move> bestLine;
 
     nodesSearched++;
 
@@ -218,8 +228,8 @@ S16 S_SEARCH::Quiescence (Board& board, S16 alpha, S16 beta, std::vector<Move>& 
 
         legalCount++;
 
-        bestLine.clear();
-        S16 score = -Quiescence(board, -beta, -alpha, bestLine);
+        // bestLine.clear();
+        S16 score = -Quiescence(board, -beta, -alpha/*, bestLine*/);
 
         UnmakeMove(board); 
 
@@ -236,9 +246,9 @@ S16 S_SEARCH::Quiescence (Board& board, S16 alpha, S16 beta, std::vector<Move>& 
         
         if (score > alpha)
         {
-            pv.clear();
-            pv.push_back(move);
-            pv.insert(std::end(pv), std::begin(bestLine), std::end(bestLine));
+            // pv.clear();
+            // pv.push_back(move);
+            // pv.insert(std::end(pv), std::begin(bestLine), std::end(bestLine));
  
             alpha       = score;
         }

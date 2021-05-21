@@ -319,6 +319,8 @@ public:
 
     S_MOVE  ProbeEntry (Board& board, S16& score, S16 alpha, S16 beta, U8 currDepth);
 
+    std::vector<Move>   GetPrincipalVariation   (Board board, U8 currDepth);
+
 } TranspositionTable;
 
 typedef struct S_SEARCH
@@ -345,8 +347,11 @@ public:
     S_SEARCH();
 
     void    SearchPosition  (Board& board);                                                                 // Iterative Deepening
-    S16     AlphaBeta       (Board& board, S16 alpha, S16 beta, U8 currDepth, std::vector<Move>& pv);       // Alpha Beta Pruning Search till a depth
-    S16     Quiescence      (Board& board, S16 alpha, S16 beta, std::vector<Move>& pv);                                            // Search, irrespective of depth, all capture moves till we see a quiet move
+    // S16     AlphaBeta       (Board& board, S16 alpha, S16 beta, U8 currDepth, std::vector<Move>& pv);       // Alpha Beta Pruning Search till a depth
+    // S16     Quiescence      (Board& board, S16 alpha, S16 beta, std::vector<Move>& pv);                                            // Search, irrespective of depth, all capture moves till we see a quiet move
+    S16     AlphaBeta       (Board& board, S16 alpha, S16 beta, U8 currDepth);       // Alpha Beta Pruning Search till a depth
+    S16     Quiescence      (Board& board, S16 alpha, S16 beta);                                            // Search, irrespective of depth, all capture moves till we see a quiet move
+
 } Search;
 
 /** GLOBAL VARIABLES **/
