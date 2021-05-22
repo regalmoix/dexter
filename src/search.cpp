@@ -23,20 +23,29 @@ void S_SEARCH::SearchPosition(Board& board)
     S16 score       = 0;
     U8  currDepth   = 0;
     Move bestMove   = Move::Invalid_Move;
-    startTime = std::chrono::high_resolution_clock::now();
 
     for (currDepth = 1; currDepth <= depthMax; ++currDepth)
-    {
-        score   = AlphaBeta(board, -INF, INF, currDepth/*, principalVariation[currDepth]*/);
-        
+    {        
         // If time over/stopped, break
+        auto currTime                           = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> elapsed   = currTime - startTime;
+
+        if (1000 * elapsed.count() > timeMax/4)
+        {
+            break;
+        }
+
+        // Else evaluate 
+        score   = AlphaBeta(board, -INF, INF, currDepth/*, principalVariation[currDepth]*/);
+
 
         // Iff AB Complete, we can set depth to currDepth [Probably redundant, check later.]
-        depth       = currDepth;
-        stopTime    = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<double> elapsed   = stopTime - startTime;
+        depth                                   = currDepth;
+        
 
         // bestMove    = principalVariation[currDepth][0];
+        currTime    = std::chrono::high_resolution_clock::now();
+        elapsed     = currTime - startTime;
 
         printf("\ninfo score cp %d depth %d nodes %ld time %d pv", score, depth, nodesSearched, (int)(1000*elapsed.count()));
 
@@ -46,7 +55,6 @@ void S_SEARCH::SearchPosition(Board& board)
         //         std::cout << " " << (char) (SQ2FILE(m.fromSquare) - 1 + 'a')  << SQ2RANK(m.fromSquare) << char(SQ2FILE(m.toSquare) - 1 + 'a' ) << SQ2RANK(m.toSquare);
         // }
 
-        std::cout << " ||| ";
         auto pv = transposTable.GetPrincipalVariation(board, currDepth);
         bestMove = pv[0];
         for (Move m : pv)

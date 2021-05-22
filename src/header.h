@@ -281,7 +281,8 @@ typedef struct S_TP_TABLE
     // https://en.wikipedia.org/wiki/Negamax#Negamax_with_alpha_beta_pruning_and_transposition_tables
 public:
     // https://planetmath.org/goodhashtableprimes
-    #define TP_SIZE             3145739
+    // #define TP_SIZE             3145739
+    #define TP_SIZE             25165843
 
     static const U8 FLAG_EXACT          = 0;
     static const U8 FLAG_ALPHA          = 1;
@@ -339,8 +340,7 @@ public:
     std::vector <std::vector<Move>> principalVariation;
 
     std::chrono::_V2::system_clock::time_point  startTime;
-    std::chrono::_V2::system_clock::time_point  stopTime;
-    std::chrono::duration<double>               timeMax;
+    double                                      timeMax;
 
     static TranspositionTable transposTable;
 

@@ -69,8 +69,33 @@ static void UCIGo(Board*& board, Search*& search, const std::string& command)
         return;
 
     search              = new Search;
-    search->depthMax    = 10;
-    
+    search->timeMax     = 75000;
+
+
+    size_t found = (board->GetSideToMove() == E_COLOR::WHITE) ? command.find("wtime") : command.find("btime") ;
+
+    if (found != std::string::npos)
+    {
+        std::stringstream commandStream (command.substr(found + 6));
+        
+        std::string timeAlloted;
+        getline(commandStream, timeAlloted, ' ');
+
+        search->timeMax = std::stod(timeAlloted);
+
+        found = command.find("movestogo");
+
+        if (found != std::string::npos)
+        {
+            std::string movesToGo;
+            std::stringstream commandStream (command.substr(found + 10));
+            getline(commandStream, movesToGo, ' ');
+            search->timeMax /= std::stod(movesToGo);
+        }          
+    }
+
+    search->depthMax    = 18;
+    search->startTime   = std::chrono::high_resolution_clock::now();
     search->SearchPosition(*board);
 
     delete search;
