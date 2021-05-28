@@ -3,6 +3,7 @@
 
 #define INF     ((S16)32e3)
 #define MATE    ((S16)30e3)
+#define TIMEOUT ((S16)32500)
 
 // Static Member (like a constant object) to denote Invalid Move. 
 Move                Move::Invalid_Move;
@@ -26,45 +27,40 @@ void S_SEARCH::SearchPosition(Board& board)
 
     for (currDepth = 1; currDepth <= depthMax; ++currDepth)
     {        
+        // Else evaluate 
+        score   = AlphaBeta(board, -INF, INF, currDepth/*, principalVariation[currDepth]*/);
+
         // If time over/stopped, break
         auto currTime                           = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> elapsed   = currTime - startTime;
 
-        if (1000 * elapsed.count() > timeMax/4)
+        if (score != TIMEOUT && 1000 * elapsed.count() < timeMax)
+        {   
+            // Iff AB Complete, we can set depth to currDepth [Probably redundant, check later.]
+            depth                                   = currDepth; 
+
+            currTime    = std::chrono::high_resolution_clock::now();
+            elapsed     = currTime - startTime;
+
+            printf("\ninfo score cp %d depth %d nodes %ld time %d pv", score, depth, nodesSearched, (int)(1000*elapsed.count()));
+
+            auto pv = transposTable.GetPrincipalVariation(board, currDepth);
+            bestMove = pv[0];
+            for (Move m : pv)
+            {
+                if (SQLEGAL(m.fromSquare))
+                    std::cout << " " << (char) (SQ2FILE(m.fromSquare) - 1 + 'a')  << SQ2RANK(m.fromSquare) << char(SQ2FILE(m.toSquare) - 1 + 'a' ) << SQ2RANK(m.toSquare);
+            }
+        }
+        else
         {
             break;
         }
-
-        // Else evaluate 
-        score   = AlphaBeta(board, -INF, INF, currDepth/*, principalVariation[currDepth]*/);
-
-
-        // Iff AB Complete, we can set depth to currDepth [Probably redundant, check later.]
-        depth                                   = currDepth;
         
-
-        // bestMove    = principalVariation[currDepth][0];
-        currTime    = std::chrono::high_resolution_clock::now();
-        elapsed     = currTime - startTime;
-
-        printf("\ninfo score cp %d depth %d nodes %ld time %d pv", score, depth, nodesSearched, (int)(1000*elapsed.count()));
-
-        // for (Move m : principalVariation[currDepth])
-        // {
-        //     if (SQLEGAL(m.fromSquare))
-        //         std::cout << " " << (char) (SQ2FILE(m.fromSquare) - 1 + 'a')  << SQ2RANK(m.fromSquare) << char(SQ2FILE(m.toSquare) - 1 + 'a' ) << SQ2RANK(m.toSquare);
-        // }
-
-        auto pv = transposTable.GetPrincipalVariation(board, currDepth);
-        bestMove = pv[0];
-        for (Move m : pv)
-        {
-            if (SQLEGAL(m.fromSquare))
-                std::cout << " " << (char) (SQ2FILE(m.fromSquare) - 1 + 'a')  << SQ2RANK(m.fromSquare) << char(SQ2FILE(m.toSquare) - 1 + 'a' ) << SQ2RANK(m.toSquare);
-        }
-
-
         fflush(stdout);
+
+        if (1000 * elapsed.count() > 0.7 * timeMax)
+            break;
     }
 
     char    t_prompce = ' ';
@@ -96,7 +92,15 @@ void S_SEARCH::SearchPosition(Board& board)
 S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth/*, std::vector<Move>& pv*/)
 {
     // std::vector<Move> bestLine;
-    
+    if (!(nodesSearched & 32767))
+    {
+        auto currTime                           = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> elapsed   = currTime - startTime;
+
+        if (1000 * elapsed.count() > timeMax)
+            return TIMEOUT;
+    }
+
     S16     oldAlpha    = alpha;
     bool    isMate      = true;         // Stale Mate or Check Mate either counts as mate
     Move    bestMove    = Move::Invalid_Move;
@@ -139,6 +143,9 @@ S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth/*, std:
         UnmakeMove(board); 
 
         // Fail Hard ==> alpha <= score <= beta
+
+        if (score == TIMEOUT)
+            return TIMEOUT;
 
         if (score > bestScore)
         {
@@ -208,6 +215,15 @@ S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth/*, std:
 S16 S_SEARCH::Quiescence (Board& board, S16 alpha, S16 beta/*, std::vector<Move>& pv*/)
 {
     // std::vector<Move> bestLine;
+
+    if (!(nodesSearched & 32767))
+    {
+        auto currTime                           = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> elapsed   = currTime - startTime;
+
+        if (1000 * elapsed.count() > timeMax)
+            return TIMEOUT;
+    }
 
     nodesSearched++;
 
