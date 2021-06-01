@@ -90,7 +90,7 @@ static void UCIGo(Board*& board, Search*& search, const std::string& command)
             std::string movesToGo;
             std::stringstream commandStream (command.substr(found + 10));
             getline(commandStream, movesToGo, ' ');
-            search->timeMax /= std::stod(movesToGo);
+            search->timeMax /= 1.05 * std::stod(movesToGo);
         }          
     }
 

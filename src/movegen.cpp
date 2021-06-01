@@ -207,12 +207,18 @@ bool isAttacked(Board& board, U8 sq120, S8 attackingside)
 **/
 void addQuietMove(Move& move, std::vector<S_MOVE>& moveList)       // Here means No Capture
 {
-    move.score = 0;
+    // Hacky : We passed board ply inside move score since we did not pass Board& or a ply param to this function
+    // Since we didnt want to change the entire implementation, we passed ply in move.score since it was unused till now.   
+    U16 ply     = move.score;
+    move.score  = 0;
+
+    if (move == Search::killerMoves[ply].first/* || move == Search::killerMoves[ply].second*/)
+    {
+        move.score = 90;
+    }
     moveList.push_back(move);
 }
 
-
-static const int victimscores[13] = {0, 100, 200, 300, 400, 500, 600, 100, 200, 300, 400, 500, 600};
 
 /** Adds a capture move to the move list
  *  @param      move        The move object containing the data and metadata of the move
@@ -241,10 +247,6 @@ void addCaptureMove(Move& move, std::vector<S_MOVE>& moveList)
         move.score = 100;
     }
 
-    // mvPce    = victimscores[move.getMovingPiece()];
-    // cpPce    = victimscores[move.getCapturedPiece()];
-    // move.score = cpPce + 6 - mvPce/100;
-    // move.score = 0;
     moveList.push_back(move);
 }
 
@@ -276,6 +278,7 @@ static void PawnMoves(Board& board, std::vector<S_MOVE>& moveList, S8 cap)
                     for (int x = E_PROMPIECE::Prom_N; x <= E_PROMPIECE::Prom_Q; ++x)
                     {
                         Move move(board, pawnSquare, pawnSquare + 10, PACKMOVE(0, 0, 0, 0, 1, x));
+                        move.score = board.plys;
                         addQuietMove(move, moveList);
                     }
                 }
@@ -306,6 +309,7 @@ static void PawnMoves(Board& board, std::vector<S_MOVE>& moveList, S8 cap)
             if (board.GetPieceOnSquare(pawnSquare + 10) == E_PIECE::EMPTY && (cap==0))
             {
                 Move move(board, pawnSquare, pawnSquare + 10);
+                move.score = board.plys;
                 addQuietMove(move, moveList);
             }
 
@@ -313,6 +317,7 @@ static void PawnMoves(Board& board, std::vector<S_MOVE>& moveList, S8 cap)
             if ((SQ2RANK(pawnSquare) == E_RANK::Rank_2) && (board.GetPieceOnSquare(pawnSquare + 20) == E_PIECE::EMPTY) && (board.GetPieceOnSquare(pawnSquare + 10) == E_PIECE::EMPTY) && (cap==0))
             {
                 Move move(board, pawnSquare, pawnSquare + 20, PACKMOVE(0,0,1,0,0,0));
+                move.score = board.plys;
                 addQuietMove(move, moveList);
             }
 
@@ -364,6 +369,7 @@ static void PawnMoves(Board& board, std::vector<S_MOVE>& moveList, S8 cap)
                     for (int x = E_PROMPIECE::Prom_N; x <= E_PROMPIECE::Prom_Q; ++x)
                     {
                         Move move(board, pawnSquare, pawnSquare - 10, PACKMOVE(0, 0, 0, 0, 1, x));
+                        move.score = board.plys;
                         addQuietMove(move, moveList);
                     }
                 }
@@ -394,6 +400,7 @@ static void PawnMoves(Board& board, std::vector<S_MOVE>& moveList, S8 cap)
             if (board.GetPieceOnSquare(pawnSquare - 10) == E_PIECE::EMPTY && (cap==0))
             {
                 Move move(board, pawnSquare, pawnSquare - 10);
+                move.score = board.plys;
                 addQuietMove(move, moveList);
             }
 
@@ -401,6 +408,7 @@ static void PawnMoves(Board& board, std::vector<S_MOVE>& moveList, S8 cap)
             if ((SQ2RANK(pawnSquare) == E_RANK::Rank_7) && (board.GetPieceOnSquare(pawnSquare - 20) == E_PIECE::EMPTY) && (board.GetPieceOnSquare(pawnSquare - 10) == E_PIECE::EMPTY) && (cap==0))
             {
                 Move move(board, pawnSquare, pawnSquare - 20, PACKMOVE(0,0,1,0,0,0));
+                move.score = board.plys;
                 addQuietMove(move, moveList);
             }
 
@@ -467,6 +475,7 @@ static void KnightMoves(Board& board, std::vector<S_MOVE>& moveList, S8 cap)
                 if(cap == 0)
                 {
                     Move move(board,knightSquare,toSquare,PACKMOVE(0,0,0,0,0,0));
+                    move.score = board.plys;
                     addQuietMove(move, moveList);
                 }
                 
@@ -509,6 +518,7 @@ static void RookListGenerator(Board& board, U8 piece, std::vector<S_MOVE>& moveL
                     if(cap == 0)
                     {
                         Move move(board,rookSquare,toSquare,PACKMOVE(0,0,0,0,0,0));
+                        move.score = board.plys;
                         addQuietMove(move, moveList);
                     }
                 }
@@ -558,6 +568,7 @@ static void BishopListGenerator(Board& board, U8 piece, std::vector<S_MOVE>& mov
                     if(cap == 0)
                     {
                         Move move(board,bishopSquare,toSquare,PACKMOVE(0,0,0,0,0,0));
+                        move.score = board.plys;
                         addQuietMove(move, moveList);
                     }
                 }
@@ -678,6 +689,7 @@ static void KingMoves(Board& board, std::vector<S_MOVE>& moveList, S8 cap)
             if(cap == 0)
             {
                 Move move(board, kingSq, toSquare, PACKMOVE(0,0,0,0,0,0));
+                move.score = board.plys;
                 addQuietMove(move, moveList);
             }
             
@@ -700,6 +712,7 @@ static void KingMoves(Board& board, std::vector<S_MOVE>& moveList, S8 cap)
                 if (!isAttacked(board, E_SQUARE::E1) && !isAttacked(board, E_SQUARE::F1) && !isAttacked(board, E_SQUARE::G1))
                 {
                     Move move(board, E_SQUARE::E1, E_SQUARE::G1, PACKMOVE(0,0,0,2,0,0));
+                    move.score = board.plys;
                     addQuietMove(move, moveList);
                 }
             }
@@ -712,6 +725,7 @@ static void KingMoves(Board& board, std::vector<S_MOVE>& moveList, S8 cap)
                 if (!isAttacked(board, E_SQUARE::E1) && !isAttacked(board, E_SQUARE::D1) && !isAttacked(board, E_SQUARE::C1))
                 {
                     Move move(board, E_SQUARE::E1, E_SQUARE::C1, PACKMOVE(0,0,0,3,0,0));
+                    move.score = board.plys;
                     addQuietMove(move, moveList);
                 }
             }
@@ -727,6 +741,7 @@ static void KingMoves(Board& board, std::vector<S_MOVE>& moveList, S8 cap)
                 if (!isAttacked(board, E_SQUARE::E8) && !isAttacked(board, E_SQUARE::F8) && !isAttacked(board, E_SQUARE::G8))
                 {
                     Move move(board, E_SQUARE::E8, E_SQUARE::G8, PACKMOVE(0,0,0,2,0,0));
+                    move.score = board.plys;
                     addQuietMove(move, moveList);
                 }
             }           
@@ -739,6 +754,7 @@ static void KingMoves(Board& board, std::vector<S_MOVE>& moveList, S8 cap)
                 if (!isAttacked(board, E_SQUARE::E8) && !isAttacked(board, E_SQUARE::D8) && !isAttacked(board, E_SQUARE::C8))
                 {
                     Move move(board, E_SQUARE::E8, E_SQUARE::C8, PACKMOVE(0,0,0,3,0,0));
+                    move.score = board.plys;
                     addQuietMove(move, moveList);
                 }
             }
@@ -754,7 +770,9 @@ static void KingMoves(Board& board, std::vector<S_MOVE>& moveList, S8 cap)
  * 
 **/
 void AllMoves (Board& board, std::vector<S_MOVE>& moveList, S8 cap)
-{   
+{
+    KingMoves   (board, moveList, cap);     
+       
     PawnMoves   (board, moveList, cap);
 
     KnightMoves (board, moveList, cap);
@@ -764,6 +782,4 @@ void AllMoves (Board& board, std::vector<S_MOVE>& moveList, S8 cap)
     RookMoves   (board, moveList, cap);
      
     QueenMoves  (board, moveList, cap);
-      
-    KingMoves   (board, moveList, cap);     
 }

@@ -34,31 +34,5 @@ int main()
 
     UCILoop();
 
-    // Board b("rb3K2/p1p5/P1Pp4/3N2k1/3N2nr/6n1/8/7Q w - - 0 1");
- 
-
-    // search.SearchPosition(b);
-
-    // cout << "\n\n\n";
-    // search.SearchPosition(c);
-    // cout << "\n\n\n";
-    // search.SearchPosition(d);
-    // cout << "\n\n\n";
-    // search.SearchPosition(e);
-    // cout << "\n\n\n";
-    // search.SearchPosition(f1);
-    // cout << "\n\n\n";
-    // b.PrintBoard();
-    // std::cout << "Eval :" << evaluate(b) << " Mat Score : " << evaluate1(b)  << endl << endl;
-    // int n = 6;
-    // while (n--)
-    // {
-    //     string s;
-    //     cin >> s;
-    //     MakeMove(b, parseMove(b, s));
-    //     b.PrintBoard();
-    //     std::cout << "Eval :" << evaluate(b) << " Mat Score : " << evaluate(b)  << endl << endl;
-    // }
-
     return 0;
 }

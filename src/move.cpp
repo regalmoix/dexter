@@ -263,18 +263,16 @@ S_MOVE parseMove (Board& board, std::string& moveInput)
 
     U8          t_prompce   = E_PIECE::OFFBOARD;
 
+    U8          side        = board.GetSideToMove();
+
     switch (promotion)
     {
         case '\0'   :   t_prompce = E_PIECE::EMPTY;     break;
         case '\n'   :   t_prompce = E_PIECE::EMPTY;     break;
-        case 'r'    :   t_prompce = E_PIECE::bR;        break;
-        case 'R'    :   t_prompce = E_PIECE::wR;        break;
-        case 'q'    :   t_prompce = E_PIECE::bQ;        break;
-        case 'Q'    :   t_prompce = E_PIECE::wQ;        break;
-        case 'n'    :   t_prompce = E_PIECE::bN;        break;  
-        case 'N'    :   t_prompce = E_PIECE::wN;        break;
-        case 'b'    :   t_prompce = E_PIECE::bB;        break;
-        case 'B'    :   t_prompce = E_PIECE::wB;        break;
+        case 'r'    :   t_prompce = (side == E_COLOR::WHITE ? E_PIECE::wR : E_PIECE::bR);   break;
+        case 'q'    :   t_prompce = (side == E_COLOR::WHITE ? E_PIECE::wQ : E_PIECE::bQ);   break;
+        case 'n'    :   t_prompce = (side == E_COLOR::WHITE ? E_PIECE::wN : E_PIECE::bN);   break; 
+        case 'b'    :   t_prompce = (side == E_COLOR::WHITE ? E_PIECE::wB : E_PIECE::bB);   break;
         default     :   t_prompce = E_PIECE::OFFBOARD;  break;
     }
 
@@ -288,8 +286,7 @@ S_MOVE parseMove (Board& board, std::string& moveInput)
             if (move.getPromotedPiece() == t_prompce)
             {
                 return move;
-            }
-            
+            }  
         }
     }
     return Move::Invalid_Move;
@@ -305,4 +302,32 @@ bool S_MOVE::operator <(const Move& other) const
 bool S_MOVE::operator >(const Move& other) const
 {
     return score > other.score;
+}
+
+void S_MOVE::PrintMove()
+{
+    char    t_prompce = ' ';
+
+    if (this->isPromotion())
+    {
+        switch (this->getPromotedPiece())
+        {
+            case E_PIECE::EMPTY :   t_prompce = ' ';    break;
+            case E_PIECE::bR    :   t_prompce = 'r';    break;
+            case E_PIECE::wR    :   t_prompce = 'r';    break;
+            case E_PIECE::bQ    :   t_prompce = 'q';    break;
+            case E_PIECE::wQ    :   t_prompce = 'q';    break;
+            case E_PIECE::bN    :   t_prompce = 'n';    break;
+            case E_PIECE::wN    :   t_prompce = 'n';    break;
+            case E_PIECE::bB    :   t_prompce = 'b';    break;
+            case E_PIECE::wB    :   t_prompce = 'b';    break;
+            default             :   t_prompce = ' ';    break;
+        }
+    }
+
+    std::cout   << (char)(SQ2FILE(this->fromSquare) - 1 + 'a') << SQ2RANK(this->fromSquare) 
+                << (char)(SQ2FILE(this->toSquare)   - 1 + 'a') << SQ2RANK(this->toSquare);
+
+    if (t_prompce != ' ')
+        std::cout << t_prompce;
 }

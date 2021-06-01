@@ -144,41 +144,32 @@ typedef struct S_MOVE
      *  ((CHK) << 7 | (EP) << 6 | (DP) << 5 | (CA) << 3 | (P) << 2 | (PP))
     **/
 
-    bool isCapture();
-
-    bool isEPCapture();
-
-    bool isCheck();
-
-    bool isPawnDoublePush();
-
-    bool isPromotion();
+    bool    isCapture();
+    bool    isEPCapture();
+    bool    isCheck();
+    bool    isPawnDoublePush();
+    bool    isPromotion();
 
     E_PIECE getPromotedPiece();
 
-    void setAttributes (U8 moveInfo);
+    void    setAttributes (U8 moveInfo);
+    void    unsetAttributes (U8 moveInfo);
 
-    void unsetAttributes (U8 moveInfo);
+    U8      getMovingPiece();
+    U8      getCapturedPiece();
+    U8      getCastle();
 
-    U8 getMovingPiece();
-
-    U8 getCapturedPiece();
-
-    U8 getCastle();
+    void    PrintMove();
 
     S_MOVE (Board& board, U8 from, U8 to);                                            // Assume QUIET Move
-
     S_MOVE (Board& board, U8 from, U8 to, U8 moveInfo);
-
     S_MOVE (U8 from, U8 to, U8 moveInfo, U8 pieceInfo);
 
     bool operator <(const S_MOVE& other) const;
-
     bool operator >(const S_MOVE& other) const;
+    bool operator ==(S_MOVE const&) const = default;
 
-    bool operator==(S_MOVE const&) const = default;
-
-private:
+public:
     S_MOVE ();           // Specifically designed for making Invalid_Move
 } Move;
 
@@ -281,8 +272,11 @@ typedef struct S_TP_TABLE
     // https://en.wikipedia.org/wiki/Negamax#Negamax_with_alpha_beta_pruning_and_transposition_tables
 public:
     // https://planetmath.org/goodhashtableprimes
-    // #define TP_SIZE             3145739
-    #define TP_SIZE             25165843
+    /*
+        // #define TP_SIZE             3145739
+        // #define TP_SIZE             25165843
+    */
+    #define TP_SIZE             12582917
 
     static const U8 FLAG_EXACT          = 0;
     static const U8 FLAG_ALPHA          = 1;
@@ -343,6 +337,8 @@ public:
     double                                      timeMax;
 
     static TranspositionTable transposTable;
+    static std::array <std::pair <Move, Move>, MAX_MOVES>   killerMoves;
+
 
     S_SEARCH();
 
@@ -356,10 +352,9 @@ public:
 
 /** GLOBAL VARIABLES **/
 
-extern char sq120To64[];
-extern S_HASH HASH;
-extern const std::vector<S16> pieceValues;
-
+extern  char sq120To64[];
+extern  S_HASH HASH;
+extern  const std::vector<S16>  pieceValues;
 
 /** FUNCTION DECLARATIONS **/
 
@@ -373,7 +368,7 @@ extern int  PerftTest           (int depth, Board& board);
 extern void Perft               (int depth, Board& board);
 extern void PerftParser         ();
 extern S_MOVE parseMove         (Board& board, std::string& moveInput);
-extern S16 evaluate             (Board& board);
-extern S16 evaluate1            (Board& board);
+extern S16  evaluate             (Board& board);
+extern S16  evaluate1            (Board& board);
 extern void UCILoop             ();
 #endif

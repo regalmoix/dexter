@@ -1,13 +1,14 @@
 #include "header.h"
 
-
 #define INF     ((S16)32e3)
 #define MATE    ((S16)30e3)
 #define TIMEOUT ((S16)32500)
 
 // Static Member (like a constant object) to denote Invalid Move. 
-Move                Move::Invalid_Move;
-TranspositionTable  S_SEARCH::transposTable;
+Move                    Move::Invalid_Move;
+TranspositionTable      S_SEARCH::transposTable;
+std::array <std::pair <Move, Move>, MAX_MOVES>   S_SEARCH::killerMoves;
+
 
 S_SEARCH::S_SEARCH() :  depthMax(1), depth(1), movesTillTimeControl(0), nodesSearched(0), 
                         quit(false), stopped(false), 
@@ -20,6 +21,12 @@ S_SEARCH::S_SEARCH() :  depthMax(1), depth(1), movesTillTimeControl(0), nodesSea
 
 void S_SEARCH::SearchPosition(Board& board)
 {
+    for (std::pair <Move, Move>& killers : killerMoves)
+    {
+        killers.first   = Move::Invalid_Move;
+        killers.second  = Move::Invalid_Move;
+    }
+
     // Iterative Deepening
     S16 score       = 0;
     U8  currDepth   = 0;
@@ -28,7 +35,25 @@ void S_SEARCH::SearchPosition(Board& board)
     for (currDepth = 1; currDepth <= depthMax; ++currDepth)
     {        
         // Else evaluate 
-        score   = AlphaBeta(board, -INF, INF, currDepth/*, principalVariation[currDepth]*/);
+        S16 aspiration_alpha    = -INF;
+        S16 aspiration_beta     = +INF;
+
+        if (currDepth >= 3)
+        {
+            aspiration_alpha    = score - 16;
+            aspiration_beta     = score + 16;
+        }
+
+        depth   = currDepth; 
+        score   = AlphaBeta(board, aspiration_alpha, aspiration_beta, currDepth);
+
+        // Evaluated outside the aspiration window so research at same depth
+        if (score <= aspiration_alpha || score >= aspiration_beta)
+        {
+            aspiration_alpha    = -INF;
+            aspiration_beta     = +INF;
+            score   = AlphaBeta(board, aspiration_alpha, aspiration_beta, currDepth);
+        }
 
         // If time over/stopped, break
         auto currTime                           = std::chrono::high_resolution_clock::now();
@@ -37,19 +62,23 @@ void S_SEARCH::SearchPosition(Board& board)
         if (score != TIMEOUT && 1000 * elapsed.count() < timeMax)
         {   
             // Iff AB Complete, we can set depth to currDepth [Probably redundant, check later.]
-            depth                                   = currDepth; 
-
             currTime    = std::chrono::high_resolution_clock::now();
             elapsed     = currTime - startTime;
 
             printf("\ninfo score cp %d depth %d nodes %ld time %d pv", score, depth, nodesSearched, (int)(1000*elapsed.count()));
+            // printf("\ninfo score cp %d depth %d nodes %ld ord %f time %d pv", score, depth, nodesSearched, (float)firstMoveFailHigh/(float)failHigh, (int)(1000*elapsed.count()));
 
             auto pv = transposTable.GetPrincipalVariation(board, currDepth);
             bestMove = pv[0];
             for (Move m : pv)
             {
                 if (SQLEGAL(m.fromSquare))
-                    std::cout << " " << (char) (SQ2FILE(m.fromSquare) - 1 + 'a')  << SQ2RANK(m.fromSquare) << char(SQ2FILE(m.toSquare) - 1 + 'a' ) << SQ2RANK(m.toSquare);
+                {
+                    printf(" ");
+                    m.PrintMove();
+                }
+                else
+                    break;
             }
         }
         else
@@ -59,39 +88,20 @@ void S_SEARCH::SearchPosition(Board& board)
         
         fflush(stdout);
 
+        // With 30% time on the clock it is almost certain that the next iteration will not finish
+        // So we refrain from using this 30% time right now.
         if (1000 * elapsed.count() > 0.7 * timeMax)
             break;
     }
 
-    char    t_prompce = ' ';
-
-    if (bestMove.isPromotion())
-    {
-        switch (bestMove.getPromotedPiece())
-        {
-            case E_PIECE::EMPTY :   t_prompce = ' ';    break;
-            case E_PIECE::bR    :   t_prompce = 'r';    break;
-            case E_PIECE::wR    :   t_prompce = 'r';    break;
-            case E_PIECE::bQ    :   t_prompce = 'q';    break;
-            case E_PIECE::wQ    :   t_prompce = 'q';    break;
-            case E_PIECE::bN    :   t_prompce = 'n';    break;
-            case E_PIECE::wN    :   t_prompce = 'n';    break;
-            case E_PIECE::bB    :   t_prompce = 'b';    break;
-            case E_PIECE::wB    :   t_prompce = 'b';    break;
-            default             :   t_prompce = ' ';    break;
-        }
-    }
-
     printf("\nbestmove ");
-    std::cout   << (char)(SQ2FILE(bestMove.fromSquare) - 1 + 'a') << SQ2RANK(bestMove.fromSquare) 
-                << (char)(SQ2FILE(bestMove.toSquare)   - 1 + 'a') << SQ2RANK(bestMove.toSquare) 
-                << t_prompce << std::endl;
+    bestMove.PrintMove();
+    std::cout << std::endl;
 }
 
 
-S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth/*, std::vector<Move>& pv*/)
+S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth)
 {
-    // std::vector<Move> bestLine;
     if (!(nodesSearched & 32767))
     {
         auto currTime                           = std::chrono::high_resolution_clock::now();
@@ -111,14 +121,12 @@ S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth/*, std:
 
     if (bestMove != Move::Invalid_Move)
     {
-        // pv.push_back(bestMove);
         return bestScore;
     }
 
     if (currDepth == 0)
     {
-        // pv.clear();
-        return Quiescence(board, alpha, beta/*, pv*/);
+        return Quiescence(board, alpha, beta);
     }
 
     // All Nodes visited by Search includes A-B + Quiescence 
@@ -126,6 +134,7 @@ S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth/*, std:
 
     std::vector<Move> moveList;
     AllMoves  (board, moveList);
+    
     std::sort (moveList.begin(), moveList.end(), std::greater<Move>());
 
     bestScore   = -INF;
@@ -137,13 +146,11 @@ S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth/*, std:
         isMate = false;
         legalCount++;
 
-        // bestLine.clear();
-        S16 score = -AlphaBeta(board, -beta, -alpha, currDepth - 1/*, bestLine*/);
+        S16 score = -AlphaBeta(board, -beta, -alpha, currDepth - 1);
 
         UnmakeMove(board); 
 
         // Fail Hard ==> alpha <= score <= beta
-
         if (score == TIMEOUT)
             return TIMEOUT;
 
@@ -158,6 +165,12 @@ S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth/*, std:
                 
                 transposTable.StoreEntry(board, bestMove, beta, currDepth, TranspositionTable::FLAG_BETA);
 
+                if (move.score == 0)
+                {
+                    killerMoves[board.plys].first    = killerMoves[board.plys].second;
+                    killerMoves[board.plys].second   = move;
+                }
+
                 failHigh++;
                 return beta;
             }
@@ -166,10 +179,6 @@ S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth/*, std:
             {
                 bestMove    = move; 
                 alpha       = score;
-
-                // pv.clear();
-                // pv.push_back(move);
-                // pv.insert(std::end(pv), std::begin(bestLine), std::end(bestLine));
             }
         }
     }
@@ -212,10 +221,8 @@ S16 S_SEARCH::AlphaBeta (Board& board, S16 alpha, S16 beta, U8 currDepth/*, std:
 }
 
 
-S16 S_SEARCH::Quiescence (Board& board, S16 alpha, S16 beta/*, std::vector<Move>& pv*/)
+S16 S_SEARCH::Quiescence (Board& board, S16 alpha, S16 beta)
 {
-    // std::vector<Move> bestLine;
-
     if (!(nodesSearched & 32767))
     {
         auto currTime                           = std::chrono::high_resolution_clock::now();
@@ -241,7 +248,6 @@ S16 S_SEARCH::Quiescence (Board& board, S16 alpha, S16 beta/*, std::vector<Move>
 
     AllMoves(board, moveList, CAP_MOVES_ONLY);
 
-
     std::sort(moveList.begin(), moveList.end(), std::greater<Move>());
 
     U16 legalCount = 0;
@@ -251,9 +257,7 @@ S16 S_SEARCH::Quiescence (Board& board, S16 alpha, S16 beta/*, std::vector<Move>
             continue;
 
         legalCount++;
-
-        // bestLine.clear();
-        S16 score = -Quiescence(board, -beta, -alpha/*, bestLine*/);
+        S16 score = -Quiescence(board, -beta, -alpha);
 
         UnmakeMove(board); 
 
@@ -270,10 +274,6 @@ S16 S_SEARCH::Quiescence (Board& board, S16 alpha, S16 beta/*, std::vector<Move>
         
         if (score > alpha)
         {
-            // pv.clear();
-            // pv.push_back(move);
-            // pv.insert(std::end(pv), std::begin(bestLine), std::end(bestLine));
- 
             alpha       = score;
         }
     }
