@@ -10,7 +10,7 @@ S_TP_TABLE::S_TT_Entry::S_TT_Entry() :
 S_TP_TABLE::S_TT_Entry::S_TT_Entry (U64 hashKey, Move move, S16 score, U8 depth, U8 flag) : 
                     hashKey(hashKey), score(score), depth(depth), flag(flag), ancient(false), move(move)
 {
-    // TODO : if score is near a Mate Score, i.e. |score| > MATE then set score to Mate and while probing, subtract depth accordingly
+    // TODO : if   score is near a Mate Score, i.e. |score| > MATE then set score to Mate and while probing, subtract depth accordingly
 } 
 
 
@@ -27,7 +27,8 @@ void S_TP_TABLE::StoreEntry (Board& board, Move& bestMove, S16 score,  U8 depth,
 
     // Directly Overwrite the entry. Later we can use ancient flag or replace by depth
     // http://mediocrechess.blogspot.com/2007/01/guide-transposition-tables.html
-    tp_table[idx]   = entry;
+    if (entry.depth > tp_table[idx].depth)
+        tp_table[idx]   = entry;
 }
 
 

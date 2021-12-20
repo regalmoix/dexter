@@ -212,7 +212,7 @@ void addQuietMove(Move& move, std::vector<S_MOVE>& moveList)       // Here means
     U16 ply     = move.score;
     move.score  = 0;
 
-    if (move == Search::killerMoves[ply].first/* || move == Search::killerMoves[ply].second*/)
+    if (move == Search::killerMoves[ply].first || move == Search::killerMoves[ply].second)
     {
         move.score = 90;
     }
